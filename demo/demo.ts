@@ -27,7 +27,15 @@ const hassFor = (dark: boolean): Hass => ({
       if (to !== null) set({ state: to > Number(entity.attributes.current_position ?? 0) ? 'opening' : 'closing' });
       if (service === 'set_cover_tilt_position') set({}, { current_tilt_position: Number(data.tilt_position) });
     }
-    (window as unknown as { setState: unknown }).setState = set;
+    if (service === 'toggle') set({ state: entity.state === 'on' ? 'off' : 'on' });
+    if (domain === 'light' && service === 'turn_off') set({ state: 'off' });
+    if (domain === 'light' && service === 'turn_on') {
+      const a: Record<string, unknown> = {};
+      if (data.brightness_pct !== undefined) a.brightness = Math.round((Number(data.brightness_pct) / 100) * 255);
+      if (data.hs_color) Object.assign(a, { hs_color: data.hs_color, color_mode: 'hs' });
+      if (data.color_temp_kelvin) Object.assign(a, { color_temp_kelvin: data.color_temp_kelvin, color_mode: 'color_temp' });
+      set({ state: 'on' }, a);
+    }
   },
 });
 
@@ -48,3 +56,8 @@ for (const dark of [false, true]) {
   }
 }
 push();
+// Each card as wide as it asks for, like in a sections view (12 columns)
+for (const { el } of cards) {
+  const opts = (el as unknown as { getGridOptions: () => { columns: number } }).getGridOptions();
+  el.style.setProperty('--cols', String(opts.columns));
+}

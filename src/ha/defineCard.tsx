@@ -37,8 +37,9 @@ export interface CardDefinition<C extends BaseConfig> {
   // Which entities the card shows: it renders again only when one of them
   // changes, not on every state change in the house
   entitiesOf?: (config: C) => string[];
-  // Columns in a sections view (12 is a full row)
-  columns?: number;
+  // Columns in a sections view (12 is a full section), fixed or by the
+  // entity (a color light is wider than a switch)
+  columns?: number | ((config: C, hass: Hass) => number);
   // The visual editor: HA draws it from this schema (ha-form)
   schema?: Record<string, unknown>[];
   // Further YAML the preview in the card picker gets
@@ -98,7 +99,8 @@ export const defineCard = <C extends BaseConfig>(definition: CardDefinition<C>) 
     }
 
     getGridOptions() {
-      const columns = definition.columns ?? 6;
+      const { columns: of = 6 } = definition;
+      const columns = typeof of === 'function' && this.config && this.current ? of(this.config, this.current) : typeof of === 'number' ? of : 6;
       return { columns, min_columns: Math.min(columns, 6), rows: 'auto' };
     }
 

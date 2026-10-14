@@ -15,7 +15,8 @@ die sich anfühlen wie eine App.
 | Karte | Für | Stand |
 | --- | --- | --- |
 | `custom:kachelwerk-shutter` | Rollläden, Raffstores, Markisen (`cover`) | ✅ |
-| Licht, Thermostat, Fenster, Tür, Sensoren … | | in Arbeit |
+| `custom:kachelwerk-light` | Lampen, Dimmer, Farblicht (`light`), Schalter und Steckdosen (`switch`, `input_boolean`) | ✅ |
+| Thermostat, Fenster, Tür, Sensoren … | | in Arbeit |
 
 ### Rollladen
 
@@ -32,6 +33,20 @@ effects: subtle         # optional: off, subtle oder strong (Leuchten und Bewegu
 ```
 
 Ein Tipp auf den Namen öffnet den Dialog der Entität. Alle Optionen lassen sich auch im visuellen Editor setzen.
+
+### Licht
+
+Eine Pendelleuchte hängt in die Kachel und wirft eingeschaltet einen Lichtkegel, in der Farbe des Lichts und so
+hell wie gedimmt. Welche Kachel eine Entität bekommt, richtet sich nach dem, was sie kann: an/aus, Dimmer
+(Helligkeitsbalken) oder Farblicht (Farbe, Weißtöne, Schnellauswahl; doppelt so breit). Schalter werden zur
+Lampe, wenn ihr Name nach Licht klingt, sonst zur Steckdose mit Stecker. Tippen schaltet, gedrückt halten öffnet
+den Dialog der Entität.
+
+```yaml
+type: custom:kachelwerk-light
+entity: switch.kaffeemaschine
+tile: socket            # optional: light, socket, dimmer oder color
+```
 
 ## Installation
 

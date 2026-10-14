@@ -20,6 +20,14 @@ const de = {
   BLIND_POSITION: fill('Position {name}'),
   SLATS: 'Lamellen',
   SLATS_OF: fill('Lamellen {name}'),
+  ON: 'An',
+  OFF: 'Aus',
+  AT_DEVICE: fill('{state} · am Gerät'),
+  DIMMED_TO: fill('An · {percent} %'),
+  BRIGHTNESS_OF: fill('Helligkeit {name}'),
+  COLOR_OF: fill('Farbe {name}'),
+  QUICK_COLORS: 'Schnellauswahl Farben',
+  COLOR: 'Farbe',
 } satisfies Record<string, Text>;
 
 type Key = keyof typeof de;
@@ -37,6 +45,14 @@ const en: Record<Key, Text> = {
   BLIND_POSITION: fill('Position {name}'),
   SLATS: 'Slats',
   SLATS_OF: fill('Slats {name}'),
+  ON: 'On',
+  OFF: 'Off',
+  AT_DEVICE: fill('{state} · at the device'),
+  DIMMED_TO: fill('On · {percent} %'),
+  BRIGHTNESS_OF: fill('Brightness {name}'),
+  COLOR_OF: fill('Color {name}'),
+  QUICK_COLORS: 'Quick colors',
+  COLOR: 'Color',
 };
 
 const tables: Record<string, Record<Key, Text>> = { de, en };

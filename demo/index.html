@@ -7,7 +7,8 @@
     <style>
       /* HA's default theme variables, light and dark */
       body { margin: 0; font-family: Roboto, system-ui, sans-serif; }
-      .theme { padding: 16px; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+      .theme { padding: 16px; display: grid; gap: 8px; grid-template-columns: repeat(12, 1fr); max-width: 760px; }
+      .theme > * { grid-column: span var(--cols, 12); }
       .light {
         --primary-background-color: #fafafa; --card-background-color: #fff; --primary-text-color: #212121;
         --secondary-text-color: #727272; --divider-color: rgba(0,0,0,.12); --primary-color: #03a9f4;

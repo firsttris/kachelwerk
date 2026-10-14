@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kachelwerk Demo</title>
+    <style>
+      /* HA's default theme variables, light and dark */
+      body { margin: 0; font-family: Roboto, system-ui, sans-serif; }
+      .theme { padding: 16px; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+      .light {
+        --primary-background-color: #fafafa; --card-background-color: #fff; --primary-text-color: #212121;
+        --secondary-text-color: #727272; --divider-color: rgba(0,0,0,.12); --primary-color: #03a9f4;
+        --secondary-background-color: #e5e5e5; --ha-card-border-radius: 12px; background: #fafafa;
+      }
+      .dark {
+        --primary-background-color: #111111; --card-background-color: #1c1c1c; --primary-text-color: #e1e1e1;
+        --secondary-text-color: #9b9b9b; --divider-color: rgba(225,225,225,.12); --primary-color: #03a9f4;
+        --secondary-background-color: #282828; --ha-card-border-radius: 12px; background: #111111;
+      }
+      h2 { grid-column: 1 / -1; margin: 0; font: 500 14px Roboto, sans-serif; color: var(--secondary-text-color); }
+    </style>
+  </head>
+  <body>
+    <div id="light" class="theme light"><h2>Hell</h2></div>
+    <div id="dark" class="theme dark"><h2>Dunkel</h2></div>
+    <script type="module" src="./demo.ts"></script>
+  </body>
+</html>

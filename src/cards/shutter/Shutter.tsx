@@ -1,0 +1,219 @@
+import type { JSX } from 'preact';
+import ChevronUpIcon from '~icons/lucide/chevron-up';
+import ChevronDownIcon from '~icons/lucide/chevron-down';
+import SquareIcon from '~icons/lucide/square';
+import { Tile, type TileStatus } from '../../components/Tile';
+import { LevelBar } from '../../components/light/LevelBar';
+import { useEffects } from '../../contexts/EffectsContext';
+import { snap, useSliderDrag } from '../../hooks/useSliderDrag';
+import { m } from '../../i18n/messages';
+import { cn } from '../../lib/utils';
+import type { BlindReport } from './blindsModel';
+import { useBlindMove } from './useBlindMove';
+
+export interface ShutterProps {
+  name: string;
+  report: BlindReport;
+  // Slats of venetian blinds in percent, null for roller shutters
+  slats: number | null;
+  status?: TileStatus;
+  // Bottom to top in ms, for the travel estimate
+  fullTravel?: number;
+  onLevel: (percent: number) => void;
+  onStop: () => void;
+  onSlats: (percent: number) => void;
+  // A tap on the name (HA: the more-info dialog)
+  onName?: () => void;
+}
+
+const STEP = 5;
+
+const button =
+  'press flex h-11 items-center justify-center rounded-xl border bg-background/60 hover:bg-accent [&_svg]:size-5';
+
+// MUI's BlindsControl without the CCU: the window is a vertical slider, tap
+// or drag anywhere in it to set the height. The shutter follows the
+// pointer; the new level is sent once on release. On a touch screen a tap
+// sets the height and a swipe scrolls the page. After a command the shutter
+// travels to the target (useBlindMove) instead of jumping back to the old
+// position the actuator reports while it moves.
+export const Shutter = ({
+  name,
+  report,
+  slats,
+  status,
+  fullTravel,
+  onLevel,
+  onStop,
+  onSlats,
+  onName,
+}: ShutterProps) => {
+  const effects = useEffects();
+  const travel = useBlindMove(report, fullTravel);
+  const send = (percent: number) => {
+    travel.start(percent);
+    onLevel(percent);
+  };
+  const { ref, shown, dragging, handlers, nudge } = useSliderDrag<HTMLDivElement>({
+    // The target while travelling: what was set, also for the keys
+    value: travel.target ?? travel.level,
+    axis: 'y',
+    valueAt: (fraction) => snap((1 - fraction) * 100, STEP),
+    onCommit: send,
+    tapOnTouch: true,
+  });
+
+  const onKeyDown = (event: JSX.TargetedKeyboardEvent<HTMLDivElement>) => {
+    const next =
+      event.key === 'ArrowUp' || event.key === 'ArrowRight'
+        ? Math.min(100, shown + STEP)
+        : event.key === 'ArrowDown' || event.key === 'ArrowLeft'
+          ? Math.max(0, shown - STEP)
+          : event.key === 'Home'
+            ? 100
+            : event.key === 'End'
+              ? 0
+              : null;
+    if (next === null) return;
+    event.preventDefault();
+    nudge(next);
+  };
+
+  // Where the shutter is drawn: under the pointer, else where it travels
+  const height = dragging ? shown : travel.level;
+  const travelling = travel.target !== null && !dragging;
+  const open = height / 100;
+  const label = travelling
+    ? m.BLIND_MOVING_TO({ percent: shown })
+    : shown === 0
+      ? m.BLIND_CLOSED()
+      : shown === 100
+        ? m.BLIND_FULLY_OPEN()
+        : m.BLIND_PERCENT_OPEN({ percent: shown });
+  const a = (alpha: number) => Math.min(1, alpha * effects.k);
+
+  return (
+    <Tile status={status}>
+      <div className="flex gap-4 p-4">
+        <div
+          ref={ref}
+          role="slider"
+          tabIndex={0}
+          aria-label={m.BLIND_POSITION({ name })}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={shown}
+          aria-valuetext={label}
+          {...handlers}
+          onPointerDown={(event) => {
+            if (event.pointerType !== 'touch') event.preventDefault();
+            handlers.onPointerDown(event);
+          }}
+          onKeyDown={onKeyDown}
+          className="relative min-h-[168px] w-32 shrink-0 self-stretch cursor-ns-resize touch-pan-y overflow-hidden rounded-[10px] border-[3px] border-zinc-400 bg-[linear-gradient(180deg,#bfe3fb_0%,#9fd2f5_55%,#86c3ee_100%)] transition-shadow duration-500 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:border-zinc-700 dark:bg-[linear-gradient(180deg,#2a4a6b_0%,#1a3350_55%,#142a40_100%)]"
+          style={
+            effects.on && height > 0
+              ? { boxShadow: `0 0 ${28 * effects.k}px -4px rgba(125,211,252,${a(0.35 * open)})` }
+              : undefined
+          }
+        >
+          {/* Daylight falling in, brighter the further open */}
+          <div
+            aria-hidden
+            className="absolute inset-0 transition-opacity duration-500"
+            style={{
+              background: 'radial-gradient(120px 90px at 50% 100%, rgba(224,242,254,0.9), transparent 70%)',
+              opacity: effects.on ? Math.min(1, 0.5 * open * effects.k) : 0.25 * open,
+            }}
+          />
+          <div aria-hidden className="absolute inset-y-0 left-1/2 -ml-[1.5px] w-[3px] bg-zinc-400 dark:bg-zinc-700" />
+          <div
+            aria-hidden
+            className={cn(
+              'absolute inset-x-0 top-0 bg-[repeating-linear-gradient(180deg,#a1a1aa_0_2px,#8f8f98_2px_11px,#71717a_11px_13px)] dark:bg-[repeating-linear-gradient(180deg,#52525b_0_2px,#3f3f46_2px_11px,#27272a_11px_13px)]',
+              // Travelling: from one estimate to the next, at an even pace
+              travelling
+                ? 'transition-[height] duration-[250ms] ease-linear' // the tick of useBlindMove
+                : !dragging && 'transition-[height] duration-700 ease-[cubic-bezier(.4,0,.2,1)]',
+            )}
+            style={{ height: `${100 - height}%` }}
+          >
+            <div
+              className="absolute inset-x-0 bottom-0 h-1 bg-zinc-500"
+              style={
+                effects.on && height > 0 && height < 100
+                  ? { boxShadow: `0 4px ${14 * effects.k}px rgba(186,230,253,${a(0.45)})` }
+                  : undefined
+              }
+            />
+          </div>
+          <div aria-hidden className="absolute inset-x-0 top-0 h-2 bg-zinc-400 dark:bg-zinc-700" />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-2.5 left-1/2 rounded-full bg-black/70 px-2.5 py-0.5 text-[13px] font-semibold whitespace-nowrap text-white tabular-nums transition-transform duration-200"
+            style={{ transform: `translateX(-50%) scale(${dragging ? 1.25 : 1})` }}
+          >
+            {travelling &&
+              (shown > travel.level ? (
+                <ChevronUpIcon className="-ml-1 inline size-3.5 align-[-2px]" />
+              ) : (
+                <ChevronDownIcon className="-ml-1 inline size-3.5 align-[-2px]" />
+              ))}
+            {shown} %
+          </div>
+        </div>
+        <div className="flex min-w-0 flex-1 flex-col justify-between gap-3">
+          <div className="min-w-0">
+            {/* A button centers its content, so the clamp sits in a span */}
+            <button type="button" onClick={onName} className="block w-full text-left" title={name}>
+              <span className="line-clamp-2 min-h-[42px] text-[15px] leading-snug font-medium">{name}</span>
+            </button>
+            <div className="mt-0.5 text-[13px] text-muted-foreground">{label}</div>
+            {slats !== null && (
+              <details className="group mt-2">
+                <summary className="w-fit cursor-pointer list-none rounded-full border px-2.5 py-0.5 text-xs text-muted-foreground hover:bg-accent [&::-webkit-details-marker]:hidden">
+                  {m.SLATS()} · {slats} %
+                </summary>
+                <div className="mt-2">
+                  <LevelBar label={m.SLATS_OF({ name })} value={slats} color={[148, 163, 184]} onChange={onSlats} />
+                </div>
+              </details>
+            )}
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <button
+              type="button"
+              className={button}
+              onClick={() => send(100)}
+              aria-label={m.BLIND_UP()}
+              title={m.BLIND_UP()}
+            >
+              <ChevronUpIcon />
+            </button>
+            <button
+              type="button"
+              className={button}
+              onClick={() => {
+                travel.stop();
+                onStop();
+              }}
+              aria-label={m.BLIND_STOP()}
+              title={m.BLIND_STOP()}
+            >
+              <SquareIcon className="!size-4 fill-current" />
+            </button>
+            <button
+              type="button"
+              className={button}
+              onClick={() => send(0)}
+              aria-label={m.BLIND_DOWN()}
+              title={m.BLIND_DOWN()}
+            >
+              <ChevronDownIcon />
+            </button>
+          </div>
+        </div>
+      </div>
+    </Tile>
+  );
+};

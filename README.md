@@ -25,7 +25,8 @@ die sich anfühlen wie eine App.
 | `custom:kachelwerk-detector` | Rauch-, Bewegungs-, Präsenz-, Wassermelder (`binary_sensor`), Sirenen (`siren`) | ✅ |
 | `custom:kachelwerk-floor` | Fußbodenheizungs-Kreise (`number`/`sensor` in %), Pumpe und Ausgang (`switch`, `binary_sensor`) | ✅ |
 | `custom:kachelwerk-sensor` | Messwerte (`sensor`): CO₂, Feinstaub, Bodenfeuchte bewertet, alles andere schlicht groß | ✅ |
-| Wasser, Ventile, Taster … | | in Arbeit |
+| `custom:kachelwerk-valve` | Ventile (`valve`), Bewässerung (`switch`), Fensterantriebe (`cover`) | ✅ |
+| `custom:kachelwerk-buttons` | Tastenfeld aus `button`, `script`, `scene`, `automation`, `event` | ✅ |
 
 ### Rollladen
 
@@ -102,6 +103,19 @@ entity: lock.haustuer
 - **Melder:** nach `device_class` Rauch (mit Rauchtest über `test_entity`, gedrückt halten), Bewegung oder Präsenz
   (Radarwellen, „zuletzt vor … Min.“, optional `illuminance_entity` und `detection_entity`), Wasser, Netzausfall
   (`power`), Sirene; Regen mit `kind: rain`.
+
+- **Taster:** mehrere Tasten in einer Kachel. Tippen drückt die Taste (`button.press`, `script`/`scene` an),
+  gedrückt halten löst die `hold`-Entität aus; eine `event`-Entität leuchtet auf, wenn am Gerät gedrückt wurde.
+  Der Titel ist der gemeinsame Anfang der Namen.
+
+```yaml
+type: custom:kachelwerk-buttons
+entity: script.gute_nacht
+entities:
+  - entity: script.guten_morgen
+    hold: script.alles_aus
+  - scene.filmabend
+```
 
 ```yaml
 type: custom:kachelwerk-meter

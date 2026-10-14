@@ -217,4 +217,33 @@ export const examples: { config: Record<string, unknown> & { type: string; entit
     config: { type: 'custom:kachelwerk-detector', entity: 'binary_sensor.netz' },
     entities: [entity('binary_sensor.netz', 'off', { friendly_name: 'Stromnetz', device_class: 'power' })],
   },
+  {
+    config: { type: 'custom:kachelwerk-valve', entity: 'switch.beet' },
+    entities: [entity('switch.beet', 'on', { friendly_name: 'Bewässerung Beet' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-valve', entity: 'valve.haupthahn' },
+    entities: [entity('valve.haupthahn', 'closed', { friendly_name: 'Haupthahn', supported_features: 11 })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-valve', entity: 'cover.oberlicht' },
+    entities: [entity('cover.oberlicht', 'open', { friendly_name: 'Oberlicht', device_class: 'window', current_position: 40, supported_features: 15 })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-buttons', entity: 'event.flur_oben', entities: ['event.flur_unten'] },
+    entities: [
+      entity('event.flur_oben', '2026-10-14T12:00:00Z', { friendly_name: 'Wandtaster Flur oben' }),
+      entity('event.flur_unten', '2026-10-14T12:00:00Z', { friendly_name: 'Wandtaster Flur unten' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-buttons', entity: 'script.gute_nacht', name: 'Szenen', entities: [{ entity: 'script.morgen', hold: 'script.alles_aus' }, 'scene.film', 'button.klingel'] },
+    entities: [
+      entity('script.gute_nacht', 'off', { friendly_name: 'Gute Nacht' }),
+      entity('script.morgen', 'off', { friendly_name: 'Guten Morgen' }),
+      entity('script.alles_aus', 'off', { friendly_name: 'Alles aus' }),
+      entity('scene.film', 'unknown', { friendly_name: 'Filmabend' }),
+      entity('button.klingel', 'unknown', { friendly_name: 'Klingel testen' }),
+    ],
+  },
 ];

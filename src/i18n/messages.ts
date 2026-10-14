@@ -144,6 +144,15 @@ const de = {
   PARTICLE_SIZE: 'Partikelgröße',
   POWER_FAILURE: 'Stromausfall',
   POWER_OK: 'Netzspannung vorhanden',
+  WATER_RUNNING: 'Wasser läuft',
+  WATER_CLOSED: 'Geschlossen',
+  OPEN: 'Öffnen',
+  CLOSE: 'Schließen',
+  DRIVE_OPEN: 'Offen',
+  DRIVE_CLOSED: 'Geschlossen',
+  DRIVE_PARTLY: fill('{percent} % offen'),
+  PRESS_HINT: 'tippen für kurz, halten für lang',
+  HOLD_FOR_LONG: 'Halten = lang',
 } satisfies Record<string, Text>;
 
 type Key = keyof typeof de;
@@ -285,6 +294,15 @@ const en: Record<Key, Text> = {
   PARTICLE_SIZE: 'Particle size',
   POWER_FAILURE: 'Power failure',
   POWER_OK: 'Mains power present',
+  WATER_RUNNING: 'Water running',
+  WATER_CLOSED: 'Closed',
+  OPEN: 'Open',
+  CLOSE: 'Close',
+  DRIVE_OPEN: 'Open',
+  DRIVE_CLOSED: 'Closed',
+  DRIVE_PARTLY: fill('{percent} % open'),
+  PRESS_HINT: 'tap for short, hold for long',
+  HOLD_FOR_LONG: 'Hold = long',
 };
 
 const tables: Record<string, Record<Key, Text>> = { de, en };

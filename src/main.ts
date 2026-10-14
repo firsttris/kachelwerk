@@ -23,6 +23,8 @@ import { MeterCard, type MeterConfig, meterEntities, meterSchema } from './cards
 import { DetectorCard, type DetectorConfig, detectorEntities, detectorSchema } from './cards/detector/DetectorCard';
 import { FloorCard, type FloorConfig, floorEntities, floorSchema } from './cards/floor/FloorCard';
 import { SensorCard, type SensorConfig, sensorEntities, sensorSchema } from './cards/sensor/SensorCard';
+import { ValveCard, valveSchema } from './cards/valve/ValveCard';
+import { ButtonsCard, type ButtonsConfig, buttonsEntities, buttonsSchema } from './cards/buttons/ButtonsCard';
 import type { BaseConfig } from './ha/types';
 
 // Every card of Kachelwerk, registered with HA's card picker
@@ -141,6 +143,27 @@ defineCard<SensorConfig>({
   entitiesOf: sensorEntities,
   columns: 6,
   schema: sensorSchema,
+});
+
+defineCard<BaseConfig>({
+  type: 'kachelwerk-valve',
+  name: 'Kachelwerk Ventil',
+  description: 'Ventile (valve), Bewässerung (switch) und Fensterantriebe (cover)',
+  component: ValveCard,
+  domains: ['valve', 'switch', 'input_boolean', 'cover'],
+  columns: 6,
+  schema: valveSchema,
+});
+
+defineCard<ButtonsConfig>({
+  type: 'kachelwerk-buttons',
+  name: 'Kachelwerk Taster',
+  description: 'Tastenfeld: kurz und lang drücken, Druck am Gerät leuchtet auf',
+  component: ButtonsCard,
+  domains: ['button', 'input_button', 'script', 'scene', 'automation', 'event'],
+  entitiesOf: buttonsEntities,
+  columns: 6,
+  schema: buttonsSchema,
 });
 
 console.info(`%c KACHELWERK %c ${__VERSION__} `, 'background:#0f766e;color:#fff;padding:2px 4px', 'padding:2px 4px');

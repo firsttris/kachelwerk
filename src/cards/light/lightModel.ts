@@ -42,7 +42,10 @@ export const kindOf = (entity: HassEntity | undefined, name: string, tile?: stri
   if (tile === 'socket' || tile === 'switch' || tile === 'dimmer' || tile === 'color') return tile;
   if (tile === 'light') return 'switch';
   const domain = entity?.entity_id.split('.')[0];
-  if (domain !== 'light') return LIGHT_NAME.test(name) ? 'switch' : 'socket';
+  // The name shown may be shortened ("Wohnzimmer" for "Licht Wohnzimmer"):
+  // the entity's own name and id count too
+  const names = [name, entity?.attributes.friendly_name ?? '', entity?.entity_id.replaceAll('_', ' ') ?? ''];
+  if (domain !== 'light') return names.some((n) => LIGHT_NAME.test(n)) ? 'switch' : 'socket';
   const modes = modesOf(entity);
   const caps = capsOf(entity);
   if (caps.hasHue || caps.hasWhite) return 'color';

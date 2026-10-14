@@ -24,6 +24,11 @@ describe('kindOf', () => {
     expect(kindOf(entity('switch.a', 'on'), 'Kaffeemaschine')).toBe('socket');
   });
 
+  it('knows a lamp by its entity when the card shortens the name', () => {
+    expect(kindOf(entity('switch.a', 'on', { friendly_name: 'Licht Wohnzimmer' }), 'Wohnzimmer')).toBe('switch');
+    expect(kindOf(entity('switch.lichtschaltaktor_eg_licht_eg_kuche', 'on'), 'Küche')).toBe('switch');
+  });
+
   it('follows tile: in the YAML', () => {
     expect(kindOf(entity('switch.a', 'on'), 'Kaffeemaschine', 'light')).toBe('switch');
     expect(kindOf(entity('switch.a', 'on'), 'Licht', 'socket')).toBe('socket');

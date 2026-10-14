@@ -1,0 +1,22 @@
+name: Update animations
+
+# The moving pictures of the cards (docs/animations/*.webp), by hand only: an animation never comes
+# out twice the same, so every run changes all of them. ffmpeg joins the frames into WebP.
+on:
+  workflow_dispatch:
+    inputs:
+      cards:
+        description: Only these scenes, comma-separated (e.g. shutter,light); empty takes all
+        type: string
+        default: ""
+
+jobs:
+  animations:
+    uses: firsttris/workflows/.github/workflows/screenshots.yml@v1
+    with:
+      install: apt-get update && apt-get install -y --no-install-recommends ffmpeg && npm ci
+      command: ANIMATIONS="${{ inputs.cards }}" npm run animations
+      paths: docs/animations
+      commit-message: Update animations
+    permissions:
+      contents: write

@@ -7,7 +7,7 @@ meter whose disc turns with your power: thirteen cards for the everyday controls
 ![Kachelwerk cards: lights, thermostats, shutters and a color light](screenshots/hero.png#only-light)
 ![Kachelwerk cards: lights, thermostats, shutters and a color light](screenshots/hero-dark.png#only-dark)
 
-The cards are the tiles of [MUI](https://github.com/firsttris/ccu-addon-mui), a modern web UI for the
+The cards are the tiles of [ccu-addon-mui](https://github.com/firsttris/ccu-addon-mui), a modern web UI for the
 Homematic CCU, brought to Home Assistant. They work with any integration: what a card shows comes from
 Home Assistant's entities, what it does are Home Assistant's services.
 

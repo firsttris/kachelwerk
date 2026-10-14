@@ -13,9 +13,9 @@ The cards take their colors from your Home Assistant theme:
 | `--ha-card-border-radius`, `--ha-card-border-width`, `--ha-card-box-shadow` | corners, border and shadow |
 
 Dark mode follows Home Assistant's own dark mode, not only the browser's. In the dark, tiles get a fine
-light edge at the top, as in MUI.
+light edge at the top, as in ccu-addon-mui.
 
-The font is [Geist](https://vercel.com/font), MUI's font, built into `kachelwerk.js` (latin with
+The font is [Geist](https://vercel.com/font), ccu-addon-mui's font, built into `kachelwerk.js` (latin with
 umlauts); characters it lacks come from your theme's font.
 
 ## Effects

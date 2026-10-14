@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-window` · for `binary_sensor`, `sensor`
 
-![Window cards](../screenshots/window.png#only-light)
-![Window cards](../screenshots/window-dark.png#only-dark)
+![Window: window in motion](../animations/window.webp){ width="480" }
 
 Window and door contacts and window handles as a picture: the sash tilts in at the top or swings open, fresh air drifts in.
 
@@ -31,3 +30,8 @@ entity: binary_sensor.bathroom_window
 ## What it calls
 
 None, the card only shows.
+
+## Light and dark
+
+![Window cards](../screenshots/window.png#only-light)
+![Window cards](../screenshots/window-dark.png#only-dark)

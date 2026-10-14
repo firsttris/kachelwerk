@@ -71,13 +71,39 @@ const hassFor = (dark: boolean): Hass => ({
 const push = () => cards.forEach((c) => (c.el.hass = hassFor(c.dark)));
 
 (window as unknown as { calls: unknown[] }).calls = [];
+
+// A state change as Home Assistant reports it (a wall switch, an automation): the animations in
+// tests/animations.spec.ts play their scenes with it
+(window as unknown as { kachelwerk: unknown }).kachelwerk = {
+  set: (entityId: string, state?: string, attributes: Record<string, unknown> = {}) => {
+    const entity = states[entityId];
+    if (!entity) throw new Error(`no ${entityId} in the demo`);
+    const changed = state !== undefined && state !== entity.state;
+    const at = new Date().toISOString();
+    states = {
+      ...states,
+      [entityId]: {
+        ...entity,
+        state: state ?? entity.state,
+        attributes: { ...entity.attributes, ...attributes },
+        last_changed: changed ? at : entity.last_changed,
+        last_updated: at,
+      },
+    };
+    push();
+  },
+};
 for (const dark of [false, true]) {
   const parent = document.getElementById(dark ? 'dark' : 'light')!;
   if (theme && theme !== (dark ? 'dark' : 'light')) {
     parent.remove();
     continue;
   }
-  if (theme) parent.classList.add('bare');
+  if (theme) {
+    parent.classList.add('bare');
+    // The page around it in the theme's color too (the animations crop with a margin)
+    document.body.style.background = dark ? '#111111' : '#fafafa';
+  }
   for (const { config } of shown) {
     const el = document.createElement(config.type.replace('custom:', '')) as HTMLElement & {
       setConfig: (c: unknown) => void;

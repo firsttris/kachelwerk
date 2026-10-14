@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-climate-sensor` · for `sensor`, `weather`
 
-![Climate sensor cards](../screenshots/climate-sensor.png#only-light)
-![Climate sensor cards](../screenshots/climate-sensor-dark.png#only-dark)
+![Climate sensor: climate sensor in motion](../animations/climate-sensor.webp){ width="480" }
 
 The temperature large with a glow in its color, the humidity as a ring with "dry", "comfortable" or "humid" and the dew point, and what a weather station adds.
 
@@ -37,3 +36,8 @@ humidity_entity: sensor.living_room_humidity
 ## What it calls
 
 None, the card only shows.
+
+## Light and dark
+
+![Climate sensor cards](../screenshots/climate-sensor.png#only-light)
+![Climate sensor cards](../screenshots/climate-sensor-dark.png#only-dark)

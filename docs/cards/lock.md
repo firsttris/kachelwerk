@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-lock` · for `lock`
 
-![Lock cards](../screenshots/lock.png#only-light)
-![Lock cards](../screenshots/lock-dark.png#only-dark)
+![Lock: lock in motion](../animations/lock.webp){ width="480" }
 
 A door with its bolt: green when locked, amber when unlocked. "Open" swings the door and warm light falls through it.
 
@@ -32,3 +31,8 @@ entity: lock.front_door
 ## What it calls
 
 `lock.lock`, `lock.unlock`, `lock.open`.
+
+## Light and dark
+
+![Lock cards](../screenshots/lock.png#only-light)
+![Lock cards](../screenshots/lock-dark.png#only-dark)

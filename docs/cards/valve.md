@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-valve` · for `valve`, `switch`, `input_boolean`, `cover`
 
-![Valve cards](../screenshots/valve.png#only-light)
-![Valve cards](../screenshots/valve-dark.png#only-dark)
+![Valve: valve in motion](../animations/valve.webp){ width="480" }
 
 Things that open and close: a name, a status line and buttons below.
 
@@ -31,3 +30,8 @@ entity: valve.main_water
 ## What it calls
 
 `valve.open_valve`, `valve.close_valve`, `valve.stop_valve`; `homeassistant.turn_on` / `turn_off`; `cover.open_cover`, `cover.close_cover`, `cover.stop_cover`.
+
+## Light and dark
+
+![Valve cards](../screenshots/valve.png#only-light)
+![Valve cards](../screenshots/valve-dark.png#only-dark)

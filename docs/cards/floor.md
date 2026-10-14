@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-floor` · for `number`, `sensor`, `input_number`, `switch`, `binary_sensor`
 
-![Floor heating cards](../screenshots/floor.png#only-light)
-![Floor heating cards](../screenshots/floor-dark.png#only-dark)
+![Floor heating: floor in motion](../animations/floor.webp){ width="480" }
 
 One floor heating circuit: the heating loop in the screed fills with warm water as far as its valve is open, warmer and faster the further open, and heat rises off the floor.
 
@@ -33,3 +32,8 @@ name: Living room 1
 ## What it calls
 
 `switch.turn_on` / `switch.turn_off` for the pump.
+
+## Light and dark
+
+![Floor heating cards](../screenshots/floor.png#only-light)
+![Floor heating cards](../screenshots/floor-dark.png#only-dark)

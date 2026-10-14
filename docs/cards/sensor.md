@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-sensor` · for `sensor`, `number`, `input_number`
 
-![Sensor cards](../screenshots/sensor.png#only-light)
-![Sensor cards](../screenshots/sensor-dark.png#only-dark)
+![Sensor: sensor in motion](../animations/sensor.webp){ width="480" }
 
 One value large with its unit, rated where there is a rating that means something.
 
@@ -36,3 +35,8 @@ entity: sensor.office_co2
 ## What it calls
 
 None, the card only shows.
+
+## Light and dark
+
+![Sensor cards](../screenshots/sensor.png#only-light)
+![Sensor cards](../screenshots/sensor-dark.png#only-dark)

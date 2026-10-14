@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-buttons` · for `button`, `input_button`, `script`, `scene`, `automation`, `event`
 
-![Buttons cards](../screenshots/buttons.png#only-light)
-![Buttons cards](../screenshots/buttons-dark.png#only-dark)
+![Buttons: buttons in motion](../animations/buttons.webp){ width="480" }
 
 Several keys in one tile, like a wall switch or a remote: tap for a short press, hold for a long one.
 
@@ -37,3 +36,8 @@ entities:
 ## What it calls
 
 `button.press`, `input_button.press`, `script.turn_on`, `scene.turn_on`, `automation.trigger`.
+
+## Light and dark
+
+![Buttons cards](../screenshots/buttons.png#only-light)
+![Buttons cards](../screenshots/buttons-dark.png#only-dark)

@@ -2,8 +2,11 @@
 
 `custom:kachelwerk-light` · for `light`, `switch`, `input_boolean`
 
-![Light cards](../screenshots/light.png#only-light)
-![Light cards](../screenshots/light-dark.png#only-dark)
+![Light: light in motion](../animations/light.webp){ width="480" }
+
+![Light: dimmer in motion](../animations/dimmer.webp){ width="480" }
+
+![Light: color light in motion](../animations/color-light.webp){ width="480" }
 
 A pendant lamp hangs into the tile and, switched on, casts a cone of light in the light's color, as bright as it is dimmed. Which tile an entity gets follows what it can do.
 
@@ -35,3 +38,8 @@ tile: socket
 ## What it calls
 
 `light.toggle` / `homeassistant.toggle`, `light.turn_on` with `brightness_pct`, `hs_color` or `color_temp_kelvin`, `light.turn_off`.
+
+## Light and dark
+
+![Light cards](../screenshots/light.png#only-light)
+![Light cards](../screenshots/light-dark.png#only-dark)

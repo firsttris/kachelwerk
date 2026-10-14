@@ -7,7 +7,7 @@
 **Shutters you drag like a window, lamps that cast their light into the tile, a thermostat dial, a Ferraris
 meter whose disc turns with your power.**<br>
 Thirteen Lovelace cards for the everyday controls of a home, from the tiles of
-[MUI](https://github.com/firsttris/ccu-addon-mui). Light and dark with your theme, German and English, one file.
+[ccu-addon-mui](https://github.com/firsttris/ccu-addon-mui). Light and dark with your theme, German and English, one file.
 
 [![CI](https://github.com/firsttris/kachelwerk/actions/workflows/ci.yml/badge.svg)](https://github.com/firsttris/kachelwerk/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/firsttris/kachelwerk?logo=github&label=release)](https://github.com/firsttris/kachelwerk/releases/latest)
@@ -72,21 +72,21 @@ Then **Add card** → search for **Kachelwerk**. More in the [installation guide
 
 | | |
 | --- | --- |
-| **[Shutter](https://firsttris.github.io/kachelwerk/cards/shutter.html)** `cover`<br>A window to drag; travels to its target, slats for venetian blinds.<br><img src="docs/screenshots/shutter.png" width="400" alt="Shutter cards"> | **[Light](https://firsttris.github.io/kachelwerk/cards/light.html)** `light` `switch`<br>A pendant lamp with its cone of light; dimmer, color light or socket.<br><img src="docs/screenshots/light.png" width="400" alt="Light cards"> |
-| **[Thermostat](https://firsttris.github.io/kachelwerk/cards/thermostat.html)** `climate`<br>A dial; boost, automatic/manual, comfort and eco, window open.<br><img src="docs/screenshots/thermostat.png" width="400" alt="Thermostat cards"> | **[Floor heating](https://firsttris.github.io/kachelwerk/cards/floor.html)** `number` `switch`<br>The heating loop fills with warm water; the pump.<br><img src="docs/screenshots/floor.png" width="400" alt="Floor heating cards"> |
-| **[Window](https://firsttris.github.io/kachelwerk/cards/window.html)** `binary_sensor` `sensor`<br>Tilted or open as a picture; window handles turn their knob.<br><img src="docs/screenshots/window.png" width="400" alt="Window cards"> | **[Detector](https://firsttris.github.io/kachelwerk/cards/detector.html)** `binary_sensor` `siren`<br>Smoke, motion, presence, water, rain, mains failure, sirens.<br><img src="docs/screenshots/detector.png" width="400" alt="Detector cards"> |
-| **[Lock](https://firsttris.github.io/kachelwerk/cards/lock.html)** `lock`<br>Lock with a tap, unlock by holding, open by sliding.<br><img src="docs/screenshots/lock.png" width="400" alt="Lock cards"> | **[Garage door](https://firsttris.github.io/kachelwerk/cards/garage.html)** `cover`<br>A sectional door; opening has to be held.<br><img src="docs/screenshots/garage.png" width="400" alt="Garage door card"> |
-| **[Meter](https://firsttris.github.io/kachelwerk/cards/meter.html)** `sensor`<br>A Ferraris meter whose disc turns with the power, a gas meter.<br><img src="docs/screenshots/meter.png" width="400" alt="Meter cards"> | **[Climate sensor](https://firsttris.github.io/kachelwerk/cards/climate-sensor.html)** `sensor` `weather`<br>Temperature, a humidity ring, dew point, wind and rain.<br><img src="docs/screenshots/climate-sensor.png" width="400" alt="Climate sensor cards"> |
-| **[Sensor](https://firsttris.github.io/kachelwerk/cards/sensor.html)** `sensor`<br>One value large; CO₂, particulate matter and soil moisture rated.<br><img src="docs/screenshots/sensor.png" width="400" alt="Sensor cards"> | **[Valve](https://firsttris.github.io/kachelwerk/cards/valve.html)** `valve` `switch` `cover`<br>Valves, irrigation, window drives.<br><img src="docs/screenshots/valve.png" width="400" alt="Valve cards"> |
-| **[Buttons](https://firsttris.github.io/kachelwerk/cards/buttons.html)** `button` `script` `event`<br>A keypad: short and long press, presses at the device light up.<br><img src="docs/screenshots/buttons.png" width="400" alt="Button cards"> | |
+| **[Shutter](https://firsttris.github.io/kachelwerk/cards/shutter.html)** `cover`<br>A window to drag; travels to its target, slats for venetian blinds.<br><img src="docs/animations/shutter.webp" width="400" alt="Shutter cards"> | **[Light](https://firsttris.github.io/kachelwerk/cards/light.html)** `light` `switch`<br>A pendant lamp with its cone of light; dimmer, color light or socket.<br><img src="docs/animations/light.webp" width="400" alt="Light cards"> |
+| **[Thermostat](https://firsttris.github.io/kachelwerk/cards/thermostat.html)** `climate`<br>A dial; boost, automatic/manual, comfort and eco, window open.<br><img src="docs/animations/thermostat.webp" width="400" alt="Thermostat cards"> | **[Floor heating](https://firsttris.github.io/kachelwerk/cards/floor.html)** `number` `switch`<br>The heating loop fills with warm water; the pump.<br><img src="docs/animations/floor.webp" width="400" alt="Floor heating cards"> |
+| **[Window](https://firsttris.github.io/kachelwerk/cards/window.html)** `binary_sensor` `sensor`<br>Tilted or open as a picture; window handles turn their knob.<br><img src="docs/animations/window.webp" width="400" alt="Window cards"> | **[Detector](https://firsttris.github.io/kachelwerk/cards/detector.html)** `binary_sensor` `siren`<br>Smoke, motion, presence, water, rain, mains failure, sirens.<br><img src="docs/animations/detector.webp" width="400" alt="Detector cards"> |
+| **[Lock](https://firsttris.github.io/kachelwerk/cards/lock.html)** `lock`<br>Lock with a tap, unlock by holding, open by sliding.<br><img src="docs/animations/lock.webp" width="400" alt="Lock cards"> | **[Garage door](https://firsttris.github.io/kachelwerk/cards/garage.html)** `cover`<br>A sectional door; opening has to be held.<br><img src="docs/animations/garage.webp" width="400" alt="Garage door card"> |
+| **[Meter](https://firsttris.github.io/kachelwerk/cards/meter.html)** `sensor`<br>A Ferraris meter whose disc turns with the power, a gas meter.<br><img src="docs/animations/meter.webp" width="400" alt="Meter cards"> | **[Climate sensor](https://firsttris.github.io/kachelwerk/cards/climate-sensor.html)** `sensor` `weather`<br>Temperature, a humidity ring, dew point, wind and rain.<br><img src="docs/animations/climate-sensor.webp" width="400" alt="Climate sensor cards"> |
+| **[Sensor](https://firsttris.github.io/kachelwerk/cards/sensor.html)** `sensor`<br>One value large; CO₂, particulate matter and soil moisture rated.<br><img src="docs/animations/sensor.webp" width="400" alt="Sensor cards"> | **[Valve](https://firsttris.github.io/kachelwerk/cards/valve.html)** `valve` `switch` `cover`<br>Valves, irrigation, window drives.<br><img src="docs/animations/valve.webp" width="400" alt="Valve cards"> |
+| **[Buttons](https://firsttris.github.io/kachelwerk/cards/buttons.html)** `button` `script` `event`<br>A keypad: short and long press, presses at the device light up.<br><img src="docs/animations/buttons.webp" width="400" alt="Button cards"> | |
 
-Every picture in light and dark is in the [documentation](https://firsttris.github.io/kachelwerk/).
+Every card in light and dark, with its options, is in the [documentation](https://firsttris.github.io/kachelwerk/).
 
 ## ❓ FAQ
 
 ### Do I need a Homematic CCU?
 
-No. The cards come from MUI, a web UI for the Homematic CCU, but in Home Assistant they work with entities
+No. The cards come from ccu-addon-mui, a web UI for the Homematic CCU, but in Home Assistant they work with entities
 and services only, from any integration.
 
 ### Why is my switch shown as a socket?
@@ -129,9 +129,9 @@ How the cards are built: [CLAUDE.md](CLAUDE.md) and the [development page](https
 
 ## 🤝 Contributing
 
-Issues and pull requests are welcome. A change to a card that comes from MUI is best made in
-[MUI](https://github.com/firsttris/ccu-addon-mui) too, so both stay alike.
+Issues and pull requests are welcome. A change to a card that comes from ccu-addon-mui is best made in
+[ccu-addon-mui](https://github.com/firsttris/ccu-addon-mui) too, so both stay alike.
 
 ## 📄 License
 
-[AGPL-3.0](LICENSE), like MUI.
+[AGPL-3.0](LICENSE), like ccu-addon-mui.

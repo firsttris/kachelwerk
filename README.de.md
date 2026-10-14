@@ -7,7 +7,7 @@
 **Rollläden zum Ziehen wie ein Fenster, Lampen, die ihr Licht in die Kachel werfen, ein Thermostat zum Drehen,
 ein Ferraris-Zähler, dessen Scheibe sich mit deiner Leistung dreht.**<br>
 Dreizehn Lovelace-Karten für die tägliche Bedienung im Haus, aus den Kacheln von
-[MUI](https://github.com/firsttris/ccu-addon-mui). Hell und dunkel nach deinem Theme, deutsch und englisch, eine Datei.
+[ccu-addon-mui](https://github.com/firsttris/ccu-addon-mui). Hell und dunkel nach deinem Theme, deutsch und englisch, eine Datei.
 
 [![CI](https://github.com/firsttris/kachelwerk/actions/workflows/ci.yml/badge.svg)](https://github.com/firsttris/kachelwerk/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/firsttris/kachelwerk?logo=github&label=release)](https://github.com/firsttris/kachelwerk/releases/latest)
@@ -80,7 +80,7 @@ Optionen, Beispiele und Bilder jeder Karte stehen in der [Dokumentation](https:/
 
 ## ❓ FAQ
 
-**Brauche ich eine Homematic-CCU?** Nein. Die Kacheln stammen aus MUI, in Home Assistant arbeiten sie nur mit
+**Brauche ich eine Homematic-CCU?** Nein. Die Kacheln stammen aus ccu-addon-mui, in Home Assistant arbeiten sie nur mit
 Entitäten und Diensten, aus jeder Integration.
 
 **Warum ist mein Schalter eine Steckdose?** Ein `switch` wird zur Lampe, wenn sein Name oder seine Entity-ID
@@ -93,4 +93,4 @@ setzen, die dein Rollladen von ganz zu bis ganz offen braucht.
 
 ## 📄 Lizenz
 
-[AGPL-3.0](LICENSE), wie MUI.
+[AGPL-3.0](LICENSE), wie ccu-addon-mui.

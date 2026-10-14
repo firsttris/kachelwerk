@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-detector` · for `binary_sensor`, `siren`
 
-![Detector cards](../screenshots/detector.png#only-light)
-![Detector cards](../screenshots/detector-dark.png#only-dark)
+![Detector: detector in motion](../animations/detector.webp){ width="480" }
 
 Detectors by their device class, calm green, blue while something happens, red and pulsing on alarm.
 
@@ -36,3 +35,8 @@ test_entity: button.hallway_smoke_test
 ## What it calls
 
 `button.press` for the smoke test, `homeassistant.turn_on` / `turn_off` for detection.
+
+## Light and dark
+
+![Detector cards](../screenshots/detector.png#only-light)
+![Detector cards](../screenshots/detector-dark.png#only-dark)

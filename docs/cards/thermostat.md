@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-thermostat` · for `climate`
 
-![Thermostat cards](../screenshots/thermostat.png#only-light)
-![Thermostat cards](../screenshots/thermostat-dark.png#only-dark)
+![Thermostat: thermostat in motion](../animations/thermostat.webp){ width="480" }
 
 A dial with the target and the actual temperature. The arc is orange while the room is heated, blue while the thermostat holds the temperature and grey when it is off.
 
@@ -37,3 +36,8 @@ valve_entity: sensor.bathroom_valve
 ## What it calls
 
 `climate.set_temperature`, `climate.set_hvac_mode`, `climate.set_preset_mode`.
+
+## Light and dark
+
+![Thermostat cards](../screenshots/thermostat.png#only-light)
+![Thermostat cards](../screenshots/thermostat-dark.png#only-dark)

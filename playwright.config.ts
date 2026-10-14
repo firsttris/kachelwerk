@@ -12,8 +12,9 @@ export default defineConfig({
     ...devices['Desktop Chrome'],
   },
   projects: [
-    { name: 'cards', testIgnore: /screenshots\.spec\.ts/ },
+    { name: 'cards', testIgnore: /(screenshots|animations)\.spec\.ts/ },
     { name: 'screenshots', testMatch: /screenshots\.spec\.ts/ },
+    { name: 'animations', testMatch: /animations\.spec\.ts/ },
   ],
   webServer: {
     command: 'npx vite demo --config vite.config.ts --port 4300 --strictPort',

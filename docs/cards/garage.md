@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-garage` · for `cover`
 
-![Garage door cards](../screenshots/garage.png#only-light)
-![Garage door cards](../screenshots/garage-dark.png#only-dark)
+![Garage door: garage in motion](../animations/garage.webp){ width="480" }
 
 A garage whose sectional door rolls up and down; a lamp lights up inside while it is open.
 
@@ -31,3 +30,8 @@ entity: cover.garage_door
 ## What it calls
 
 `cover.open_cover`, `cover.close_cover`, `cover.set_cover_position`, `cover.stop_cover`.
+
+## Light and dark
+
+![Garage door cards](../screenshots/garage.png#only-light)
+![Garage door cards](../screenshots/garage-dark.png#only-dark)

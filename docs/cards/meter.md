@@ -2,8 +2,7 @@
 
 `custom:kachelwerk-meter` · for `sensor`
 
-![Meter cards](../screenshots/meter.png#only-light)
-![Meter cards](../screenshots/meter-dark.png#only-dark)
+![Meter: meter in motion](../animations/meter.webp){ width="480" }
 
 Electricity as a Ferraris meter whose disc turns with the power, faster the more flows and backwards while you feed in; gas as a diaphragm meter whose last roll turns while gas flows. The tenths are red, as on the real thing.
 
@@ -41,3 +40,8 @@ feed_in: sensor.grid_export
 ## What it calls
 
 None, the card only shows.
+
+## Light and dark
+
+![Meter cards](../screenshots/meter.png#only-light)
+![Meter cards](../screenshots/meter-dark.png#only-dark)

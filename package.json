@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "shots": "node scripts/shots.mjs",
     "test:e2e": "playwright test --project=cards",
-    "screenshots": "KACHELWERK_SCREENSHOTS=1 playwright test --project=screenshots"
+    "screenshots": "KACHELWERK_SCREENSHOTS=1 playwright test --project=screenshots",
+    "animations": "KACHELWERK_ANIMATIONS=1 playwright test --project=animations"
   },
   "dependencies": {
     "preact": "^10.29.8"

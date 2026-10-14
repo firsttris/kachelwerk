@@ -62,4 +62,30 @@ export const examples: { config: Record<string, unknown> & { type: string; entit
     config: { type: 'custom:kachelwerk-light', entity: 'light.wohnzimmer' },
     entities: [entity('light.wohnzimmer', 'on', { friendly_name: 'Deckenlicht Wohnzimmer', brightness: 230, color_mode: 'color_temp', color_temp_kelvin: 2700, supported_color_modes: ['color_temp'], min_color_temp_kelvin: 2700, max_color_temp_kelvin: 6500 })],
   },
+  {
+    config: { type: 'custom:kachelwerk-thermostat', entity: 'climate.bad', window_entity: 'binary_sensor.fenster_bad', valve_entity: 'sensor.ventil_bad' },
+    entities: [
+      entity('climate.bad', 'auto', { friendly_name: 'Thermostat Bad', hvac_modes: ['auto', 'heat', 'off'], preset_modes: ['boost', 'none'], preset_mode: 'none', min_temp: 4.5, max_temp: 30.5, target_temp_step: 0.5, current_temperature: 20.3, temperature: 22, current_humidity: 61, hvac_action: 'heating' }),
+      entity('binary_sensor.fenster_bad', 'off', { friendly_name: 'Fenster Bad', device_class: 'window' }),
+      entity('sensor.ventil_bad', '38', { unit_of_measurement: '%' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-thermostat', entity: 'climate.wohnraum' },
+    entities: [
+      entity('climate.wohnraum', 'heat', { friendly_name: 'Wohnraum', hvac_modes: ['auto', 'heat', 'off'], preset_modes: ['boost', 'none'], preset_mode: 'boost', min_temp: 4.5, max_temp: 30.5, target_temp_step: 0.5, current_temperature: 21.4, temperature: 21, current_humidity: 48, hvac_action: 'heating' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-thermostat', entity: 'climate.buero' },
+    entities: [
+      entity('climate.buero', 'heat', { friendly_name: 'Großes Büro', hvac_modes: ['heat', 'off'], preset_modes: ['comfort', 'eco'], preset_mode: 'comfort', min_temp: 7, max_temp: 25, current_temperature: 21.8, temperature: 21.5, hvac_action: 'idle' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-thermostat', entity: 'climate.dg' },
+    entities: [
+      entity('climate.dg', 'off', { friendly_name: 'Dachgeschoss', hvac_modes: ['auto', 'heat', 'off'], min_temp: 4.5, max_temp: 30.5, current_temperature: 17.2, temperature: null, hvac_action: 'off' }),
+    ],
+  },
 ];

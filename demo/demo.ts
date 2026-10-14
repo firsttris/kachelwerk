@@ -27,6 +27,11 @@ const hassFor = (dark: boolean): Hass => ({
       if (to !== null) set({ state: to > Number(entity.attributes.current_position ?? 0) ? 'opening' : 'closing' });
       if (service === 'set_cover_tilt_position') set({}, { current_tilt_position: Number(data.tilt_position) });
     }
+    if (domain === 'climate') {
+      if (service === 'set_temperature') set({}, { temperature: data.temperature });
+      if (service === 'set_hvac_mode') set({ state: String(data.hvac_mode) });
+      if (service === 'set_preset_mode') set({}, { preset_mode: data.preset_mode });
+    }
     if (service === 'toggle') set({ state: entity.state === 'on' ? 'off' : 'on' });
     if (domain === 'light' && service === 'turn_off') set({ state: 'off' });
     if (domain === 'light' && service === 'turn_on') {

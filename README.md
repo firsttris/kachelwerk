@@ -16,7 +16,8 @@ die sich anfühlen wie eine App.
 | --- | --- | --- |
 | `custom:kachelwerk-shutter` | Rollläden, Raffstores, Markisen (`cover`) | ✅ |
 | `custom:kachelwerk-light` | Lampen, Dimmer, Farblicht (`light`), Schalter und Steckdosen (`switch`, `input_boolean`) | ✅ |
-| Thermostat, Fenster, Tür, Sensoren … | | in Arbeit |
+| `custom:kachelwerk-thermostat` | Heizkörper- und Wandthermostate (`climate`) | ✅ |
+| Fenster, Tür, Sensoren … | | in Arbeit |
 
 ### Rollladen
 
@@ -46,6 +47,23 @@ den Dialog der Entität.
 type: custom:kachelwerk-light
 entity: switch.kaffeemaschine
 tile: socket            # optional: light, socket, dimmer oder color
+```
+
+### Thermostat
+
+Das Drehrad zeigt Soll- und Ist-Temperatur: ziehen oder mit − und + einstellen, gesendet wird einmal nach der
+letzten Änderung. Der Bogen ist orange, solange geheizt wird (`hvac_action`), blau, wenn die Temperatur gehalten
+wird, grau aus. Im Rad: Ausschalten, Auto/Manuell (`hvac_mode` auto ↔ heat), Komfort/Eco und Boost, wenn das
+Thermostat diese Presets hat.
+
+<img src="docs/thermostat.png" alt="Thermostat-Kacheln in hell und dunkel" width="600">
+
+```yaml
+type: custom:kachelwerk-thermostat
+entity: climate.bad
+window_entity: binary_sensor.fenster_bad     # optional: zeigt „Fenster offen“
+valve_entity: sensor.bad_ventil              # optional: Ventilöffnung in %
+humidity_entity: sensor.bad_luftfeuchte      # optional, wenn das Thermostat keine Luftfeuchte hat
 ```
 
 ## Installation

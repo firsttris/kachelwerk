@@ -1,31 +1,20 @@
 name: Release
 
-# The checks (ci.yml) unless main's CI already tested the code, then the build: kachelwerk.js is
-# attached to the GitHub release, which HACS installs. Started by "Bump version" on its tag, or by
-# a tag pushed from a checkout.
+# The checks (ci.yml), then the build: kachelwerk.js is attached to the GitHub release, which HACS
+# installs. Started by "Bump version" on its tag, or by a tag pushed from a checkout.
 on:
   push:
     tags: ["v*"]
   workflow_dispatch:
 
 jobs:
-  tested:
-    uses: firsttris/workflows/.github/workflows/tested-on-main.yml@v1
-    permissions:
-      actions: read
-      contents: read
-
   checks:
-    needs: tested
-    if: needs.tested.outputs.tested != 'true'
     uses: ./.github/workflows/ci.yml
     permissions:
       contents: read
 
   build:
-    needs: [tested, checks]
-    # The checks either passed or were not needed
-    if: ${{ !cancelled() && needs.tested.result == 'success' && needs.checks.result != 'failure' }}
+    needs: checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

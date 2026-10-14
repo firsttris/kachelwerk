@@ -21,6 +21,7 @@ import {
 } from './cards/climate-sensor/ClimateSensorCard';
 import { MeterCard, type MeterConfig, meterEntities, meterSchema } from './cards/meter/MeterCard';
 import { DetectorCard, type DetectorConfig, detectorEntities, detectorSchema } from './cards/detector/DetectorCard';
+import { FloorCard, type FloorConfig, floorEntities, floorSchema } from './cards/floor/FloorCard';
 import type { BaseConfig } from './ha/types';
 
 // Every card of Kachelwerk, registered with HA's card picker
@@ -117,6 +118,17 @@ defineCard<DetectorConfig>({
   entitiesOf: detectorEntities,
   columns: 6,
   schema: detectorSchema,
+});
+
+defineCard<FloorConfig>({
+  type: 'kachelwerk-floor',
+  name: 'Kachelwerk Fußbodenheizung',
+  description: 'Heizkreis mit Rohrschleife, die sich mit warmem Wasser füllt; Pumpe und Ausgang',
+  component: FloorCard,
+  domains: ['number', 'sensor', 'input_number', 'switch', 'binary_sensor'],
+  entitiesOf: floorEntities,
+  columns: 6,
+  schema: floorSchema,
 });
 
 console.info(`%c KACHELWERK %c ${__VERSION__} `, 'background:#0f766e;color:#fff;padding:2px 4px', 'padding:2px 4px');

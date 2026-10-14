@@ -23,7 +23,8 @@ die sich anfühlen wie eine App.
 | `custom:kachelwerk-climate-sensor` | Temperatur-/Feuchtesensoren, Wetter (`sensor`, `weather`) | ✅ |
 | `custom:kachelwerk-meter` | Strom- und Gaszähler (`sensor`) | ✅ |
 | `custom:kachelwerk-detector` | Rauch-, Bewegungs-, Präsenz-, Wassermelder (`binary_sensor`), Sirenen (`siren`) | ✅ |
-| Fußbodenheizung, weitere Sensoren, Wasser, Taster … | | in Arbeit |
+| `custom:kachelwerk-floor` | Fußbodenheizungs-Kreise (`number`/`sensor` in %), Pumpe und Ausgang (`switch`, `binary_sensor`) | ✅ |
+| Weitere Sensoren, Wasser, Taster … | | in Arbeit |
 
 ### Rollladen
 

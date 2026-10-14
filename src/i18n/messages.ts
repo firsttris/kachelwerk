@@ -117,6 +117,15 @@ const de = {
   SIREN_ACOUSTIC: 'Sirene ertönt!',
   SIREN_OPTICAL: 'Blitzlicht aktiv',
   SIREN_QUIET: 'Ruhig',
+  VALVE_CLOSED: 'Geschlossen',
+  VALVE_OPEN: 'Offen',
+  VALVE_PARTLY: fill('{percent} % offen'),
+  VALVE_OPENING: 'Ventilöffnung',
+  PUMP_ON: 'Pumpe läuft',
+  PUMP_OFF: 'Pumpe aus',
+  PUMP: 'Pumpe',
+  OUTPUT: 'Ausgang',
+  FLOOR_DEW_POINT: 'Taupunktalarm',
 } satisfies Record<string, Text>;
 
 type Key = keyof typeof de;
@@ -231,6 +240,15 @@ const en: Record<Key, Text> = {
   SIREN_ACOUSTIC: 'Siren sounding!',
   SIREN_OPTICAL: 'Flash light on',
   SIREN_QUIET: 'Quiet',
+  VALVE_CLOSED: 'Closed',
+  VALVE_OPEN: 'Open',
+  VALVE_PARTLY: fill('{percent} % open'),
+  VALVE_OPENING: 'Valve opening',
+  PUMP_ON: 'Pump running',
+  PUMP_OFF: 'Pump off',
+  PUMP: 'Pump',
+  OUTPUT: 'Output',
+  FLOOR_DEW_POINT: 'Dew point alarm',
 };
 
 const tables: Record<string, Record<Key, Text>> = { de, en };

@@ -174,4 +174,20 @@ export const examples: { config: Record<string, unknown> & { type: string; entit
     config: { type: 'custom:kachelwerk-detector', entity: 'siren.alarm' },
     entities: [entity('siren.alarm', 'off', { friendly_name: 'Alarmsirene' })],
   },
+  {
+    config: { type: 'custom:kachelwerk-floor', entity: 'number.fbh_wohnzimmer', name: 'Wohnzimmer 1' },
+    entities: [entity('number.fbh_wohnzimmer', '65', { unit_of_measurement: '%', max: 100 })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-floor', entity: 'number.fbh_flur', name: 'Flur' },
+    entities: [entity('number.fbh_flur', '0', { unit_of_measurement: '%', max: 100 })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-floor', entity: 'number.fbh_bad', name: 'Bad' },
+    entities: [entity('number.fbh_bad', '100', { unit_of_measurement: '%', max: 100 })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-floor', entity: 'switch.fbh_pumpe' },
+    entities: [entity('switch.fbh_pumpe', 'on', { friendly_name: 'Pumpe FBH' })],
+  },
 ];

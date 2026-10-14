@@ -88,4 +88,32 @@ export const examples: { config: Record<string, unknown> & { type: string; entit
       entity('climate.dg', 'off', { friendly_name: 'Dachgeschoss', hvac_modes: ['auto', 'heat', 'off'], min_temp: 4.5, max_temp: 30.5, current_temperature: 17.2, temperature: null, hvac_action: 'off' }),
     ],
   },
+  {
+    config: { type: 'custom:kachelwerk-window', entity: 'binary_sensor.fenster_bad_og' },
+    entities: [entity('binary_sensor.fenster_bad_og', 'on', { friendly_name: 'Fenster Bad OG', device_class: 'window' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-window', entity: 'binary_sensor.fenster_keller' },
+    entities: [entity('binary_sensor.fenster_keller', 'off', { friendly_name: 'Fenster Keller', device_class: 'window' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-window', entity: 'sensor.griff_kueche' },
+    entities: [entity('sensor.griff_kueche', 'tilted', { friendly_name: 'Fenstergriff Küche' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-window', entity: 'binary_sensor.terrassentuer' },
+    entities: [entity('binary_sensor.terrassentuer', 'unavailable', { friendly_name: 'Terrassentür', device_class: 'door' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-garage', entity: 'cover.garage' },
+    entities: [entity('cover.garage', 'closed', { friendly_name: 'Garagentor', device_class: 'garage', current_position: 0, supported_features: 15 })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-lock', entity: 'lock.haustuer' },
+    entities: [entity('lock.haustuer', 'locked', { friendly_name: 'Haustür', supported_features: 1 })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-lock', entity: 'lock.keller' },
+    entities: [entity('lock.keller', 'unlocked', { friendly_name: 'Kellertür', supported_features: 0 })],
+  },
 ];

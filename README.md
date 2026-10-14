@@ -17,7 +17,10 @@ die sich anfühlen wie eine App.
 | `custom:kachelwerk-shutter` | Rollläden, Raffstores, Markisen (`cover`) | ✅ |
 | `custom:kachelwerk-light` | Lampen, Dimmer, Farblicht (`light`), Schalter und Steckdosen (`switch`, `input_boolean`) | ✅ |
 | `custom:kachelwerk-thermostat` | Heizkörper- und Wandthermostate (`climate`) | ✅ |
-| Fenster, Tür, Sensoren … | | in Arbeit |
+| `custom:kachelwerk-window` | Fenster- und Türkontakte (`binary_sensor`), Fenstergriffe (`sensor`: closed/tilted/open) | ✅ |
+| `custom:kachelwerk-garage` | Garagentore (`cover`) | ✅ |
+| `custom:kachelwerk-lock` | Türschlösser (`lock`) | ✅ |
+| Sensoren, Melder, Energie … | | in Arbeit |
 
 ### Rollladen
 
@@ -64,6 +67,20 @@ entity: climate.bad
 window_entity: binary_sensor.fenster_bad     # optional: zeigt „Fenster offen“
 valve_entity: sensor.bad_ventil              # optional: Ventilöffnung in %
 humidity_entity: sensor.bad_luftfeuchte      # optional, wenn das Thermostat keine Luftfeuchte hat
+```
+
+### Fenster, Garagentor, Türschloss
+
+- **Fenster:** Der Flügel kippt oder schwenkt auf, frische Luft zieht herein; Fenstergriffe drehen ihren Knauf.
+  Optional `sabotage_entity` für einen Sabotagekontakt.
+- **Garagentor:** Das Sektionaltor rollt hoch und runter. Öffnen muss gedrückt gehalten werden, Zu, Lüften (15 %,
+  wenn das Tor Positionen kann) und Stopp sind ein Tipp.
+- **Türschloss:** Sperren ist ein Tipp, Entsperren muss gedrückt gehalten werden, Öffnen (wenn das Schloss es
+  kann) muss geschoben werden, damit ein versehentlicher Tipp nie die Haustür öffnet.
+
+```yaml
+type: custom:kachelwerk-lock
+entity: lock.haustuer
 ```
 
 ## Installation

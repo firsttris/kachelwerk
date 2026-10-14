@@ -10,6 +10,10 @@ import {
   thermostatEntities,
   thermostatSchema,
 } from './cards/thermostat/ThermostatCard';
+import { WindowCard, type WindowConfig, windowEntities, windowSchema } from './cards/window/WindowCard';
+import { GarageCard, garageSchema } from './cards/garage/GarageCard';
+import { LockCard, lockSchema } from './cards/lock/LockCard';
+import type { BaseConfig } from './ha/types';
 
 // Every card of Kachelwerk, registered with HA's card picker
 defineCard<ShutterConfig>({
@@ -41,6 +45,37 @@ defineCard<ThermostatConfig>({
   entitiesOf: thermostatEntities,
   columns: 6,
   schema: thermostatSchema,
+});
+
+defineCard<WindowConfig>({
+  type: 'kachelwerk-window',
+  name: 'Kachelwerk Fenster',
+  description: 'Fenster- und Türkontakte, Fenstergriffe: gekippt, offen, zu als Bild',
+  component: WindowCard,
+  domains: ['binary_sensor', 'sensor'],
+  entitiesOf: windowEntities,
+  columns: 6,
+  schema: windowSchema,
+});
+
+defineCard<BaseConfig>({
+  type: 'kachelwerk-garage',
+  name: 'Kachelwerk Garagentor',
+  description: 'Garagentor mit Sektionaltor; Öffnen gedrückt halten, Lüften, Stopp',
+  component: GarageCard,
+  domains: ['cover'],
+  columns: 12,
+  schema: garageSchema,
+});
+
+defineCard<BaseConfig>({
+  type: 'kachelwerk-lock',
+  name: 'Kachelwerk Türschloss',
+  description: 'Tür mit Riegel: Sperren tippen, Entsperren halten, Öffnen schieben',
+  component: LockCard,
+  domains: ['lock'],
+  columns: 12,
+  schema: lockSchema,
 });
 
 console.info(`%c KACHELWERK %c ${__VERSION__} `, 'background:#0f766e;color:#fff;padding:2px 4px', 'padding:2px 4px');

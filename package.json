@@ -6,11 +6,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite demo --config vite.config.ts",
     "build": "tsc --noEmit && vite build",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "shots": "node scripts/shots.mjs"
+    "shots": "node scripts/shots.mjs",
+    "test:e2e": "playwright test --project=cards",
+    "screenshots": "KACHELWERK_SCREENSHOTS=1 playwright test --project=screenshots"
   },
   "dependencies": {
     "preact": "^10.29.8"
@@ -19,14 +21,15 @@
     "@fontsource-variable/geist": "^5.3.0",
     "@iconify-json/lucide": "^1.2.137",
     "@iconify/utils": "^3.1.7",
+    "@playwright/test": "^1.63.0",
     "@preact/preset-vite": "^2.10.6",
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",
     "@tailwindcss/vite": "^4.3.3",
     "@testing-library/preact": "^3.2.4",
+    "@types/node": "^26.6.3",
     "clsx": "^2.1.1",
     "happy-dom": "^20.14.5",
-    "playwright": "^1.63.0",
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",

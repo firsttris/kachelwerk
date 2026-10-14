@@ -1,0 +1,24 @@
+name: Update screenshots
+
+# After every change to the look on main, and by hand. The pictures are committed with the
+# GITHUB_TOKEN, which starts no other workflow, so they don't run the checks or themselves again.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "demo/**"
+      - "tests/screenshots.spec.ts"
+      - "playwright.config.ts"
+      - "package.json"
+      - "package-lock.json"
+  workflow_dispatch:
+
+jobs:
+  screenshots:
+    uses: firsttris/workflows/.github/workflows/screenshots.yml@v1
+    with:
+      command: npm run screenshots
+      paths: docs/screenshots
+    permissions:
+      contents: write

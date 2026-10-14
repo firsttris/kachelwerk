@@ -1,16 +1,39 @@
 import '../src/main';
 import type { Hass, HassEntity } from '../src/ha/types';
+import { english } from './english';
 import { examples } from './examples';
+
+// ?only=light,thermostat  only these cards
+// ?theme=light|dark       one theme, without its heading (for screenshots)
+// ?lang=en                English texts and device names
+// ?width=540              the grid's width in px (a narrow HA section)
+// ?ids=a,b                 only the cards of these entities, in this order
+const params = new URLSearchParams(location.search);
+const only = params.get('only')?.split(',');
+const theme = params.get('theme');
+const lang = params.get('lang') ?? 'de';
+const width = params.get('width');
+const ids = params.get('ids')?.split(',');
+if (width) document.documentElement.style.setProperty('--demo-width', `${width}px`);
+const translate = <T,>(name: T): T =>
+  lang === 'en' && typeof name === 'string' ? ((english[name] ?? name) as T) : name;
+const picked = ids ? ids.flatMap((id) => examples.filter(({ config }) => config.entity === id)) : examples;
+const shown = picked
+  .filter(({ config }) => !only || only.includes(config.type.replace('custom:kachelwerk-', '')))
+  .map(({ config, entities }) => ({
+    config: { ...config, name: translate(config.name) },
+    entities: entities.map((e) => ({ ...e, attributes: { ...e.attributes, friendly_name: translate(e.attributes.friendly_name) } })),
+  }));
 
 // A stand-in for HA's hass object: the example entities, and services that
 // change them as HA would (a cover travels in steps, then stands)
-let states: Record<string, HassEntity> = Object.fromEntries(examples.flatMap((e) => e.entities).map((e) => [e.entity_id, e]));
+let states: Record<string, HassEntity> = Object.fromEntries(shown.flatMap((e) => e.entities).map((e) => [e.entity_id, e]));
 const cards: { el: HTMLElement & { hass?: Hass }; dark: boolean }[] = [];
 
 const hassFor = (dark: boolean): Hass => ({
   states,
-  language: 'de',
-  locale: { language: new URLSearchParams(location.search).get('lang') ?? 'de' },
+  language: lang,
+  locale: { language: lang },
   themes: { darkMode: dark },
   callService: async (domain, service, data = {}) => {
     console.log('callService', domain, service, JSON.stringify(data));
@@ -50,7 +73,12 @@ const push = () => cards.forEach((c) => (c.el.hass = hassFor(c.dark)));
 (window as unknown as { calls: unknown[] }).calls = [];
 for (const dark of [false, true]) {
   const parent = document.getElementById(dark ? 'dark' : 'light')!;
-  for (const { config } of examples) {
+  if (theme && theme !== (dark ? 'dark' : 'light')) {
+    parent.remove();
+    continue;
+  }
+  if (theme) parent.classList.add('bare');
+  for (const { config } of shown) {
     const el = document.createElement(config.type.replace('custom:', '')) as HTMLElement & {
       setConfig: (c: unknown) => void;
       hass?: Hass;

@@ -2,12 +2,27 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main]            # not every branch, pull requests build through pull_request
+    paths-ignore: ["**.md", "docs/**", "LICENSE", "mkdocs.yml"]
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore: ["**.md", "docs/**", "LICENSE", "mkdocs.yml"]
+  workflow_call:                # release.yml runs the same checks before publishing
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new push to a pull request cancels its outdated run; runs on main and tags finish
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   check:
+    if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,6 +30,59 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run build
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm test
+      - name: Build
+        run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kachelwerk
+          path: dist/kachelwerk.js
+          retention-days: 7
+
+  # What HACS checks before it lists a dashboard repository
+  hacs:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # HACS's own docs use main; its last tagged release is from 2022
+      - uses: hacs/action@main
+        with:
+          category: plugin
+          # Brands are for integrations; a release only exists from the first tag on
+          ignore: brands
+
+  playwright-image:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.playwright.outputs.image }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: playwright
+        uses: firsttris/workflows/actions/playwright-image@v1
+
+  # Every card on the demo page, clicked through as a user would
+  e2e:
+    needs: playwright-image
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: ${{ needs.playwright-image.outputs.image }}
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - name: Playwright
+        env:
+          HOME: /root
+        run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

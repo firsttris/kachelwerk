@@ -30,18 +30,26 @@ build is one file, `dist/kachelwerk.js`.
 
 ## Checking a change
 
-- `npm run typecheck`, `npm test`, `npm run build`
-- `node scripts/shots.mjs [width] [lang]`: screenshots of the demo page
-  (`demo/`, a fake hass with the entities in `demo/examples.ts`) in both
-  themes; look at them before committing a visual change.
-- `node scripts/interact.mjs <entity> <button> <ms...>`: clicks a button of
-  a tile and screenshots the following moments.
+- `npm run typecheck`, `npm test` (vitest), `npm run build`
+- `npm run test:e2e`: every card on the demo page clicked through
+  (`tests/cards.spec.ts`); add a test there for a new card's controls.
+- `npm run screenshots`: `docs/screenshots/<card>.png` and `-dark.png` in
+  English (`tests/screenshots.spec.ts`); CI commits them after a push to main.
+- `node scripts/shots.mjs [width] [lang] [cards]`: quick screenshots of the
+  demo page (`demo/`, a fake hass with the entities in `demo/examples.ts`;
+  URL parameters `only`, `ids`, `theme`, `lang`, `width`). Look at narrow
+  widths too (540 is a card of ~255 px, as in a 4-column sections view).
+
+A new card: its examples in `demo/examples.ts` (English names in
+`demo/english.ts`), a line in `SHOTS` of `tests/screenshots.spec.ts`, a page
+in `docs/cards/` and the nav of `mkdocs.yml`, a row in both READMEs.
 
 ## Language
 
-Commit messages, README and docs in German; comments and identifiers in the
-code in English. Texts of the tiles in `src/i18n/messages.ts`, German and
-English, with MUI's keys and wording.
+Commit messages in German. README.md, the docs (`docs/`, mkdocs-material on
+GitHub Pages) and code comments in English; README.de.md in German. Texts of
+the tiles in `src/i18n/messages.ts`, German and English, with MUI's keys and
+wording; the editor's labels in `src/i18n/fields.ts`.
 
 ## Code style
 

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Four tiles; the first one lit by a pendant lamp -->
+  <defs>
+    <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde68a" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#f59e0b" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="26" height="26" rx="7" fill="#1f2937"/>
+  <line x1="17" y1="4" x2="17" y2="10" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M11 15 Q11 10 17 10 Q23 10 23 15 Z" fill="#9ca3af"/>
+  <path d="M12.5 15 H21.5 L27 30 H7 Z" fill="url(#cone)"/>
+  <circle cx="17" cy="15.5" r="2" fill="#fef3c7"/>
+  <rect x="34" y="4" width="26" height="26" rx="7" fill="#0f766e"/>
+  <path d="M41 21 a8 8 0 1 1 12 0" stroke="#ccfbf1" stroke-width="3" stroke-linecap="round"/>
+  <rect x="4" y="34" width="26" height="26" rx="7" fill="#2563eb"/>
+  <path d="M10 40 H24 M10 44 H24 M10 48 H24" stroke="#bfdbfe" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="34" y="34" width="26" height="26" rx="7" fill="#e5e7eb"/>
+  <circle cx="47" cy="47" r="6" stroke="#6b7280" stroke-width="2.5"/>
+  <circle cx="47" cy="47" r="2" fill="#6b7280"/>
+</svg>

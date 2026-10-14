@@ -6,8 +6,8 @@
     <title>Kachelwerk Demo</title>
     <style>
       /* HA's default theme variables, light and dark */
-      body { margin: 0; font-family: var(--demo-font, Roboto), Noto, sans-serif; -webkit-font-smoothing: antialiased; }
-      .theme { padding: 16px; display: grid; gap: 8px; grid-template-columns: repeat(12, 1fr); max-width: 760px; }
+      body { margin: 0; font-family: Roboto, Noto, sans-serif; -webkit-font-smoothing: antialiased; }
+      .theme { padding: 16px; display: grid; gap: 8px; grid-template-columns: repeat(12, 1fr); max-width: var(--demo-width, 760px); }
       .theme > * { grid-column: span var(--cols, 12); }
       .light {
         --primary-background-color: #fafafa; --card-background-color: #fff; --primary-text-color: #212121;
@@ -20,6 +20,7 @@
         --secondary-background-color: #282828; --ha-card-border-radius: 12px; background: #111111;
       }
       h2 { grid-column: 1 / -1; margin: 0; font: 500 14px Roboto, sans-serif; color: var(--secondary-text-color); }
+      .bare h2 { display: none; }
     </style>
   </head>
   <body>

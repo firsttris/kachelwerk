@@ -1,5 +1,6 @@
 import { type ComponentType, render } from 'preact';
 import { EffectsProvider } from '../contexts/EffectsContext';
+import { fieldLabel } from '../i18n/fields';
 import { setLocale } from '../i18n/messages';
 import { adoptStyles } from './styles';
 import { HassContext } from './context';
@@ -111,7 +112,7 @@ export const defineCard = <C extends BaseConfig>(definition: CardDefinition<C>) 
     }
 
     static getConfigForm() {
-      return definition.schema ? { schema: definition.schema } : undefined;
+      return definition.schema ? { schema: definition.schema, computeLabel: fieldLabel } : undefined;
     }
 
     private update() {

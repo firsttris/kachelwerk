@@ -60,9 +60,13 @@ export const LightCard = ({ hass, config }: CardProps<LightConfig>) => {
   );
 };
 
-// Color lights are wide, as in MUI (col-span-2)
+// As wide as in MUI's grid: switches and sockets a third of a section (three
+// in a row, nearly square), dimmers half, color lights the whole section
+// (col-span-2 in MUI)
+const COLUMNS = { socket: 4, switch: 4, dimmer: 6, color: 12 } as const;
+
 export const lightColumns = (config: LightConfig, hass: CardProps<LightConfig>['hass']) =>
-  kindOf(hass.states[config.entity], nameOf(config, hass.states[config.entity]), config.tile) === 'color' ? 12 : 6;
+  COLUMNS[kindOf(hass.states[config.entity], nameOf(config, hass.states[config.entity]), config.tile)];
 
 export const lightSchema = [
   { name: 'entity', required: true, selector: { entity: { domain: ['light', 'switch', 'input_boolean'] } } },

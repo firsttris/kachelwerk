@@ -3,10 +3,10 @@
 # Kachelwerk
 
 **Die Kacheln aus [MUI](https://github.com/firsttris/ccu-addon-mui) für Home Assistant.**<br>
-Rollladen als Fenster zum Ziehen, Lampen mit Lichtkegel, Thermostate zum Drehen: Karten fürs Dashboard,
-die sich anfühlen wie eine App.
+Rollladen als Fenster zum Ziehen, Lampen mit Lichtkegel, Thermostate zum Drehen, Zähler mit drehender Scheibe:
+13 Karten fürs Dashboard, die sich anfühlen wie eine App. Hell und dunkel nach dem HA-Theme, deutsch und englisch.
 
-<img src="docs/rollladen.png" alt="Rollladen-Kacheln in hell und dunkel" width="900">
+<img src="docs/hero.png" alt="Licht- und Thermostat-Kacheln im dunklen Theme" width="600">
 
 </div>
 
@@ -43,6 +43,8 @@ effects: subtle         # optional: off, subtle oder strong (Leuchten und Bewegu
 ```
 
 Ein Tipp auf den Namen öffnet den Dialog der Entität. Alle Optionen lassen sich auch im visuellen Editor setzen.
+
+<img src="docs/rollladen.png" alt="Rollladen-Kacheln in hell und dunkel" width="900">
 
 ### Licht
 

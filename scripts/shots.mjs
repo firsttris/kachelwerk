@@ -1,6 +1,6 @@
 // Screenshots of the demo page (demo/), both themes, for a look at the
 // tiles without Home Assistant: node scripts/shots.mjs [width] [lang] [card]
-// (card: only that card type, e.g. thermostat)
+// (card: only these card types, e.g. thermostat or light,thermostat)
 import { createServer } from 'vite';
 import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';
@@ -18,12 +18,13 @@ page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 await page.goto(`http://localhost:4211/?lang=${lang}`);
 await page.waitForTimeout(1200);
 if (only) {
-  await page.addStyleTag({ content: `.theme > :not(h2):not(kachelwerk-${only}) { display: none }` });
+  const keep = only.split(',').map((type) => `:not(kachelwerk-${type})`).join('');
+  await page.addStyleTag({ content: `.theme > :not(h2)${keep} { display: none }` });
   await page.waitForTimeout(200);
 }
 mkdirSync('shots', { recursive: true });
-await page.screenshot({ path: `shots/demo-${width}-${lang}${only ? `-${only}` : ''}.png`, fullPage: true });
+await page.screenshot({ path: `shots/demo-${width}-${lang}${only ? `-${only.replaceAll(',', '+')}` : ''}.png`, fullPage: true });
 if (errors.length) console.log('Fehler:\n' + errors.join('\n'));
-console.log(`shots/demo-${width}-${lang}${only ? `-${only}` : ''}.png`);
+console.log(`shots/demo-${width}-${lang}${only ? `-${only.replaceAll(',', '+')}` : ''}.png`);
 await browser.close();
 await server.close();

@@ -116,4 +116,62 @@ export const examples: { config: Record<string, unknown> & { type: string; entit
     config: { type: 'custom:kachelwerk-lock', entity: 'lock.keller' },
     entities: [entity('lock.keller', 'unlocked', { friendly_name: 'Kellertür', supported_features: 0 })],
   },
+  {
+    config: { type: 'custom:kachelwerk-climate-sensor', entity: 'sensor.wz_temperatur', humidity_entity: 'sensor.wz_feuchte' },
+    entities: [
+      entity('sensor.wz_temperatur', '21.6', { friendly_name: 'Wohnzimmer', unit_of_measurement: '°C', device_class: 'temperature' }),
+      entity('sensor.wz_feuchte', '48', { unit_of_measurement: '%', device_class: 'humidity' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-climate-sensor', entity: 'weather.home', name: 'Draußen', rain_entity: 'binary_sensor.regen', illuminance_entity: 'sensor.lux' },
+    entities: [
+      entity('weather.home', 'rainy', { friendly_name: 'Wetter', temperature: 9.5, humidity: 88, wind_speed: 24, wind_speed_unit: 'km/h' }),
+      entity('binary_sensor.regen', 'on', { device_class: 'moisture' }),
+      entity('sensor.lux', '3200', { unit_of_measurement: 'lx' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-meter', entity: 'sensor.netz_leistung', energy: 'sensor.netz_bezug', feed_in: 'sensor.netz_einspeisung', name: 'Hausanschluss' },
+    entities: [
+      entity('sensor.netz_leistung', '-1840', { friendly_name: 'Netz', unit_of_measurement: 'W', device_class: 'power' }),
+      entity('sensor.netz_bezug', '23456.7', { unit_of_measurement: 'kWh', device_class: 'energy' }),
+      entity('sensor.netz_einspeisung', '8123.4', { unit_of_measurement: 'kWh', device_class: 'energy' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-meter', entity: 'sensor.gaszaehler' },
+    entities: [entity('sensor.gaszaehler', '4711.25', { friendly_name: 'Gaszähler', unit_of_measurement: 'm³', device_class: 'gas' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-detector', entity: 'binary_sensor.rauch_flur', test_entity: 'button.rauch_flur_test' },
+    entities: [
+      entity('binary_sensor.rauch_flur', 'off', { friendly_name: 'Rauchmelder Flur', device_class: 'smoke' }),
+      entity('button.rauch_flur_test', 'unknown', {}),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-detector', entity: 'binary_sensor.rauch_kueche' },
+    entities: [entity('binary_sensor.rauch_kueche', 'on', { friendly_name: 'Rauchmelder Küche', device_class: 'smoke' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-detector', entity: 'binary_sensor.bewegung_flur', illuminance_entity: 'sensor.flur_lux', detection_entity: 'switch.bewegung_aktiv' },
+    entities: [
+      { ...entity('binary_sensor.bewegung_flur', 'off', { friendly_name: 'Bewegung Flur', device_class: 'motion' }), last_changed: new Date(Date.now() - 7 * 60000).toISOString() },
+      entity('sensor.flur_lux', '42', { unit_of_measurement: 'lx' }),
+      entity('switch.bewegung_aktiv', 'on', {}),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-detector', entity: 'binary_sensor.praesenz_buero' },
+    entities: [entity('binary_sensor.praesenz_buero', 'on', { friendly_name: 'Präsenz Büro', device_class: 'occupancy' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-detector', entity: 'binary_sensor.wasser_keller' },
+    entities: [entity('binary_sensor.wasser_keller', 'off', { friendly_name: 'Wassermelder Keller', device_class: 'moisture' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-detector', entity: 'siren.alarm' },
+    entities: [entity('siren.alarm', 'off', { friendly_name: 'Alarmsirene' })],
+  },
 ];

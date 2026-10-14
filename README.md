@@ -20,7 +20,10 @@ die sich anfühlen wie eine App.
 | `custom:kachelwerk-window` | Fenster- und Türkontakte (`binary_sensor`), Fenstergriffe (`sensor`: closed/tilted/open) | ✅ |
 | `custom:kachelwerk-garage` | Garagentore (`cover`) | ✅ |
 | `custom:kachelwerk-lock` | Türschlösser (`lock`) | ✅ |
-| Sensoren, Melder, Energie … | | in Arbeit |
+| `custom:kachelwerk-climate-sensor` | Temperatur-/Feuchtesensoren, Wetter (`sensor`, `weather`) | ✅ |
+| `custom:kachelwerk-meter` | Strom- und Gaszähler (`sensor`) | ✅ |
+| `custom:kachelwerk-detector` | Rauch-, Bewegungs-, Präsenz-, Wassermelder (`binary_sensor`), Sirenen (`siren`) | ✅ |
+| Fußbodenheizung, weitere Sensoren, Wasser, Taster … | | in Arbeit |
 
 ### Rollladen
 
@@ -81,6 +84,24 @@ humidity_entity: sensor.bad_luftfeuchte      # optional, wenn das Thermostat kei
 ```yaml
 type: custom:kachelwerk-lock
 entity: lock.haustuer
+```
+
+### Raumklima, Zähler, Melder
+
+- **Raumklima:** Temperatur groß mit Farbglühen, Luftfeuchte als Ring mit „trocken/angenehm/feucht“ und Taupunkt.
+  Optional `humidity_entity`, `wind_entity`, `rain_entity`, `illuminance_entity`, `sunshine_entity`; eine
+  `weather.*`-Entität bringt Temperatur, Feuchte und Wind selbst mit.
+- **Zähler:** Ferraris-Zähler, dessen Scheibe sich mit der Leistung dreht (rückwärts bei Einspeisung), Gaszähler
+  mit laufender Rolle. Die Hauptentität wird an der Einheit erkannt (W, kWh, m³, m³/h); dazu optional `power`,
+  `energy` (einer oder mehrere Zählerstände), `feed_in`, `voltage`, `current`, `frequency`, `gas`, `gas_flow`.
+- **Melder:** nach `device_class` Rauch (mit Rauchtest über `test_entity`, gedrückt halten), Bewegung oder Präsenz
+  (Radarwellen, „zuletzt vor … Min.“, optional `illuminance_entity` und `detection_entity`), Wasser, Sirene.
+
+```yaml
+type: custom:kachelwerk-meter
+entity: sensor.netz_leistung
+energy: sensor.netz_bezug
+feed_in: sensor.netz_einspeisung
 ```
 
 ## Installation

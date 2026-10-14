@@ -13,6 +13,14 @@ import {
 import { WindowCard, type WindowConfig, windowEntities, windowSchema } from './cards/window/WindowCard';
 import { GarageCard, garageSchema } from './cards/garage/GarageCard';
 import { LockCard, lockSchema } from './cards/lock/LockCard';
+import {
+  ClimateSensorCard,
+  type ClimateSensorConfig,
+  climateSensorEntities,
+  climateSensorSchema,
+} from './cards/climate-sensor/ClimateSensorCard';
+import { MeterCard, type MeterConfig, meterEntities, meterSchema } from './cards/meter/MeterCard';
+import { DetectorCard, type DetectorConfig, detectorEntities, detectorSchema } from './cards/detector/DetectorCard';
 import type { BaseConfig } from './ha/types';
 
 // Every card of Kachelwerk, registered with HA's card picker
@@ -76,6 +84,39 @@ defineCard<BaseConfig>({
   domains: ['lock'],
   columns: 12,
   schema: lockSchema,
+});
+
+defineCard<ClimateSensorConfig>({
+  type: 'kachelwerk-climate-sensor',
+  name: 'Kachelwerk Raumklima',
+  description: 'Temperatur groß, Luftfeuchte als Ring mit Taupunkt, dazu Wind, Regen, Helligkeit',
+  component: ClimateSensorCard,
+  domains: ['sensor', 'weather'],
+  entitiesOf: climateSensorEntities,
+  columns: 6,
+  schema: climateSensorSchema,
+});
+
+defineCard<MeterConfig>({
+  type: 'kachelwerk-meter',
+  name: 'Kachelwerk Zähler',
+  description: 'Ferraris-Zähler mit drehender Scheibe, Gaszähler mit laufender Rolle',
+  component: MeterCard,
+  domains: ['sensor'],
+  entitiesOf: meterEntities,
+  columns: 12,
+  schema: meterSchema,
+});
+
+defineCard<DetectorConfig>({
+  type: 'kachelwerk-detector',
+  name: 'Kachelwerk Melder',
+  description: 'Rauch-, Bewegungs-, Präsenz- und Wassermelder, Sirenen',
+  component: DetectorCard,
+  domains: ['binary_sensor', 'siren'],
+  entitiesOf: detectorEntities,
+  columns: 6,
+  schema: detectorSchema,
 });
 
 console.info(`%c KACHELWERK %c ${__VERSION__} `, 'background:#0f766e;color:#fff;padding:2px 4px', 'padding:2px 4px');

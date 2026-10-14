@@ -45,3 +45,10 @@ export const numberAttr = (entity: HassEntity | undefined, key: string): number 
   const value = entity?.attributes[key];
   return typeof value === 'number' && Number.isFinite(value) ? value : null;
 };
+
+// A sensor's state as a number, undefined while it has none
+export const numberState = (entity: HassEntity | undefined): number | undefined => {
+  if (!entity) return undefined;
+  const value = Number(entity.state);
+  return entity.state !== '' && Number.isFinite(value) ? value : undefined;
+};

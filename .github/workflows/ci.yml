@@ -42,9 +42,10 @@ jobs:
           path: dist/kachelwerk.js
           retention-days: 7
 
-  # What HACS checks before it lists a dashboard repository
+  # What HACS checks before it lists a dashboard repository. HACS installs from the latest
+  # release, so not while a release (a tag) is being built: its release doesn't exist yet
   hacs:
-    if: ${{ !github.event.pull_request.draft }}
+    if: ${{ !github.event.pull_request.draft && !startsWith(github.ref, 'refs/tags/') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

@@ -24,7 +24,8 @@ die sich anfühlen wie eine App.
 | `custom:kachelwerk-meter` | Strom- und Gaszähler (`sensor`) | ✅ |
 | `custom:kachelwerk-detector` | Rauch-, Bewegungs-, Präsenz-, Wassermelder (`binary_sensor`), Sirenen (`siren`) | ✅ |
 | `custom:kachelwerk-floor` | Fußbodenheizungs-Kreise (`number`/`sensor` in %), Pumpe und Ausgang (`switch`, `binary_sensor`) | ✅ |
-| Weitere Sensoren, Wasser, Taster … | | in Arbeit |
+| `custom:kachelwerk-sensor` | Messwerte (`sensor`): CO₂, Feinstaub, Bodenfeuchte bewertet, alles andere schlicht groß | ✅ |
+| Wasser, Ventile, Taster … | | in Arbeit |
 
 ### Rollladen
 
@@ -95,8 +96,12 @@ entity: lock.haustuer
 - **Zähler:** Ferraris-Zähler, dessen Scheibe sich mit der Leistung dreht (rückwärts bei Einspeisung), Gaszähler
   mit laufender Rolle. Die Hauptentität wird an der Einheit erkannt (W, kWh, m³, m³/h); dazu optional `power`,
   `energy` (einer oder mehrere Zählerstände), `feed_in`, `voltage`, `current`, `frequency`, `gas`, `gas_flow`.
+- **Messwert:** ein Wert groß mit Einheit. CO₂ nach UBA (unter 1000 ppm unbedenklich, bis 2000 auffällig),
+  Feinstaub PM2.5 nach dem europäischen Luftqualitätsindex, Bodenfeuchte trocken/feucht/nass; optional
+  `pm10_entity`, `temperature_entity`, `humidity_entity`.
 - **Melder:** nach `device_class` Rauch (mit Rauchtest über `test_entity`, gedrückt halten), Bewegung oder Präsenz
-  (Radarwellen, „zuletzt vor … Min.“, optional `illuminance_entity` und `detection_entity`), Wasser, Sirene.
+  (Radarwellen, „zuletzt vor … Min.“, optional `illuminance_entity` und `detection_entity`), Wasser, Netzausfall
+  (`power`), Sirene; Regen mit `kind: rain`.
 
 ```yaml
 type: custom:kachelwerk-meter
@@ -109,12 +114,12 @@ feed_in: sensor.netz_einspeisung
 
 ### HACS
 
-1. HACS → ⋮ → **Benutzerdefinierte Repositories** → `https://github.com/firsttris/Kachelwerk`, Typ **Dashboard**
+1. HACS → ⋮ → **Benutzerdefinierte Repositories** → `https://github.com/firsttris/kachelwerk`, Typ **Dashboard**
 2. **Kachelwerk** installieren und die Seite neu laden
 
 ### Manuell
 
-`kachelwerk.js` aus dem [neuesten Release](https://github.com/firsttris/Kachelwerk/releases/latest) nach
+`kachelwerk.js` aus dem [neuesten Release](https://github.com/firsttris/kachelwerk/releases/latest) nach
 `config/www/kachelwerk/` legen und unter **Einstellungen → Dashboards → ⋮ → Ressourcen** als
 `/local/kachelwerk/kachelwerk.js` (JavaScript-Modul) eintragen.
 

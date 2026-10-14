@@ -190,4 +190,31 @@ export const examples: { config: Record<string, unknown> & { type: string; entit
     config: { type: 'custom:kachelwerk-floor', entity: 'switch.fbh_pumpe' },
     entities: [entity('switch.fbh_pumpe', 'on', { friendly_name: 'Pumpe FBH' })],
   },
+  {
+    config: { type: 'custom:kachelwerk-sensor', entity: 'sensor.co2_buero' },
+    entities: [entity('sensor.co2_buero', '1240', { friendly_name: 'CO₂ Büro', unit_of_measurement: 'ppm', device_class: 'carbon_dioxide' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-sensor', entity: 'sensor.pm25', pm10_entity: 'sensor.pm10', temperature_entity: 'sensor.wz_temperatur' },
+    entities: [
+      entity('sensor.pm25', '7.4', { friendly_name: 'Feinstaub', unit_of_measurement: 'µg/m³', device_class: 'pm25' }),
+      entity('sensor.pm10', '12.1', { unit_of_measurement: 'µg/m³', device_class: 'pm10' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-sensor', entity: 'sensor.beet' },
+    entities: [entity('sensor.beet', '22', { friendly_name: 'Hochbeet', unit_of_measurement: '%', device_class: 'moisture' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-sensor', entity: 'sensor.pv_leistung' },
+    entities: [entity('sensor.pv_leistung', '4218', { friendly_name: 'PV-Leistung', unit_of_measurement: 'W', device_class: 'power' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-detector', entity: 'binary_sensor.regen_garten', kind: 'rain' },
+    entities: [entity('binary_sensor.regen_garten', 'on', { friendly_name: 'Regensensor', device_class: 'moisture' })],
+  },
+  {
+    config: { type: 'custom:kachelwerk-detector', entity: 'binary_sensor.netz' },
+    entities: [entity('binary_sensor.netz', 'off', { friendly_name: 'Stromnetz', device_class: 'power' })],
+  },
 ];

@@ -1,6 +1,8 @@
 import type { HassEntity } from '../../ha/types';
 
-export type DetectorKind = 'smoke' | 'motion' | 'presence' | 'water' | 'siren';
+export type DetectorKind = 'smoke' | 'motion' | 'presence' | 'water' | 'siren' | 'rain' | 'power';
+
+const KINDS: DetectorKind[] = ['smoke', 'motion', 'presence', 'water', 'siren', 'rain', 'power'];
 
 // BinarySensorDeviceClass (homeassistant/components/binary_sensor/__init__.py)
 // to MUI's detector tiles
@@ -15,10 +17,11 @@ const BY_CLASS: Record<string, DetectorKind> = {
   occupancy: 'presence',
   presence: 'presence',
   moisture: 'water',
+  power: 'power',
 };
 
 export const detectorKindOf = (entity: HassEntity | undefined, kind?: string): DetectorKind => {
-  if (kind && ['smoke', 'motion', 'presence', 'water', 'siren'].includes(kind)) return kind as DetectorKind;
+  if (kind && KINDS.includes(kind as DetectorKind)) return kind as DetectorKind;
   if (entity?.entity_id.startsWith('siren.')) return 'siren';
   return BY_CLASS[String(entity?.attributes.device_class ?? '')] ?? 'motion';
 };
@@ -31,3 +34,7 @@ export const lastMotionOf = (entity: HassEntity | undefined): number | null => {
   const at = Date.parse(entity.last_changed);
   return Number.isFinite(at) ? at : null;
 };
+
+// on, off, or null while the entity has no state
+export const onOff = (entity: HassEntity | undefined): boolean | null =>
+  entity?.state === 'on' ? true : entity?.state === 'off' ? false : null;

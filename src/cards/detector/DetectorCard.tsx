@@ -1,11 +1,11 @@
 import { useCallService, useMoreInfo } from '../../ha/context';
 import type { CardProps } from '../../ha/defineCard';
 import { type BaseConfig, isUnavailable, nameOf, numberState } from '../../ha/types';
-import { detectorKindOf, isOn, lastMotionOf } from './detectorModel';
-import { MotionDetector, Siren, SmokeDetector, WaterDetector } from './Detectors';
+import { detectorKindOf, isOn, lastMotionOf, onOff } from './detectorModel';
+import { MotionDetector, PowerMains, RainSensor, Siren, SmokeDetector, WaterDetector } from './Detectors';
 
 export interface DetectorConfig extends BaseConfig {
-  // smoke, motion, presence, water or siren; else by the device class
+  // smoke, motion, presence, water, siren, rain or power; else by the device class
   kind?: string;
   // Smoke detector: a button entity that starts the smoke test
   test_entity?: string;
@@ -37,6 +37,11 @@ export const DetectorCard = ({ hass, config }: CardProps<DetectorConfig>) => {
   }
   if (kind === 'water') return <WaterDetector {...common} wet={isOn(entity)} />;
   if (kind === 'siren') return <Siren {...common} sounding={isOn(entity)} />;
+  if (kind === 'rain') return <RainSensor {...common} raining={onOff(entity)} />;
+  if (kind === 'power') {
+    const on = onOff(entity);
+    return <PowerMains {...common} failure={on === null ? null : !on} />;
+  }
   const detection = config.detection_entity ? hass.states[config.detection_entity] : undefined;
   return (
     <MotionDetector
@@ -63,7 +68,7 @@ export const detectorEntities = (config: DetectorConfig) =>
 export const detectorSchema = [
   { name: 'entity', required: true, selector: { entity: { domain: ['binary_sensor', 'siren'] } } },
   { name: 'name', selector: { text: {} } },
-  { name: 'kind', selector: { select: { mode: 'dropdown', options: ['smoke', 'motion', 'presence', 'water', 'siren'] } } },
+  { name: 'kind', selector: { select: { mode: 'dropdown', options: ['smoke', 'motion', 'presence', 'water', 'siren', 'rain', 'power'] } } },
   { name: 'test_entity', selector: { entity: { domain: 'button' } } },
   { name: 'illuminance_entity', selector: { entity: { domain: 'sensor', device_class: 'illuminance' } } },
   { name: 'detection_entity', selector: { entity: { domain: ['switch', 'input_boolean'] } } },

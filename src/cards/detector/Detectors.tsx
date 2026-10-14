@@ -5,6 +5,10 @@ import SunDimIcon from '~icons/lucide/sun-dim';
 import RadarIcon from '~icons/lucide/radar';
 import SirenIcon from '~icons/lucide/siren';
 import PersonIcon from '~icons/lucide/person-standing';
+import CloudRainIcon from '~icons/lucide/cloud-rain';
+import CloudIcon from '~icons/lucide/cloud';
+import PlugZapIcon from '~icons/lucide/plug-zap';
+import UnplugIcon from '~icons/lucide/unplug';
 import { HoldButton } from '../../components/Gestures';
 import { Switch } from '../../components/Switch';
 import type { TileStatus } from '../../components/Tile';
@@ -147,5 +151,32 @@ export const Siren = ({ name, status, onName, sounding }: Common & { sounding: b
     waves={sounding}
     icon={<SirenIcon />}
     status={sounding ? m.SIREN_ACOUSTIC() : m.SIREN_QUIET()}
+  />
+);
+
+// MUI's RainSensorControl (HmIP-SRD)
+export const RainSensor = ({ name, status, onName, raining }: Common & { raining: boolean | null }) => (
+  <DetectorTile
+    name={name}
+    tileStatus={status}
+    onName={onName}
+    tone={raining ? 'active' : 'calm'}
+    waves={!!raining}
+    icon={raining ? <CloudRainIcon /> : <CloudIcon />}
+    status={raining === null ? m.WINDOW_UNKNOWN() : raining ? m.IS_RAINING() : m.DRY()}
+  />
+);
+
+// MUI's PowerMainsControl (HmIP-PMFS): HA's power class is on while there
+// is power
+export const PowerMains = ({ name, status, onName, failure }: Common & { failure: boolean | null }) => (
+  <DetectorTile
+    name={name}
+    tileStatus={status}
+    onName={onName}
+    tone={failure ? 'alarm' : 'calm'}
+    waves={!!failure}
+    icon={failure ? <UnplugIcon /> : <PlugZapIcon />}
+    status={failure === null ? m.WINDOW_UNKNOWN() : failure ? m.POWER_FAILURE() : m.POWER_OK()}
   />
 );

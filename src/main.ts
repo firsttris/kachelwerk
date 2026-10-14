@@ -22,6 +22,7 @@ import {
 import { MeterCard, type MeterConfig, meterEntities, meterSchema } from './cards/meter/MeterCard';
 import { DetectorCard, type DetectorConfig, detectorEntities, detectorSchema } from './cards/detector/DetectorCard';
 import { FloorCard, type FloorConfig, floorEntities, floorSchema } from './cards/floor/FloorCard';
+import { SensorCard, type SensorConfig, sensorEntities, sensorSchema } from './cards/sensor/SensorCard';
 import type { BaseConfig } from './ha/types';
 
 // Every card of Kachelwerk, registered with HA's card picker
@@ -112,7 +113,7 @@ defineCard<MeterConfig>({
 defineCard<DetectorConfig>({
   type: 'kachelwerk-detector',
   name: 'Kachelwerk Melder',
-  description: 'Rauch-, Bewegungs-, Präsenz- und Wassermelder, Sirenen',
+  description: 'Rauch-, Bewegungs-, Präsenz-, Wasser- und Regenmelder, Netzausfall, Sirenen',
   component: DetectorCard,
   domains: ['binary_sensor', 'siren'],
   entitiesOf: detectorEntities,
@@ -129,6 +130,17 @@ defineCard<FloorConfig>({
   entitiesOf: floorEntities,
   columns: 6,
   schema: floorSchema,
+});
+
+defineCard<SensorConfig>({
+  type: 'kachelwerk-sensor',
+  name: 'Kachelwerk Messwert',
+  description: 'Ein Messwert groß mit Einheit; CO₂, Feinstaub und Bodenfeuchte bewertet',
+  component: SensorCard,
+  domains: ['sensor', 'number', 'input_number'],
+  entitiesOf: sensorEntities,
+  columns: 6,
+  schema: sensorSchema,
 });
 
 console.info(`%c KACHELWERK %c ${__VERSION__} `, 'background:#0f766e;color:#fff;padding:2px 4px', 'padding:2px 4px');

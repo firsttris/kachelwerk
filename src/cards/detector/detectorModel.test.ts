@@ -18,6 +18,8 @@ describe('detectorKindOf', () => {
     expect(detectorKindOf(entity('binary_sensor.a', 'off', 'motion'))).toBe('motion');
     expect(detectorKindOf(entity('siren.a', 'off'))).toBe('siren');
     expect(detectorKindOf(entity('binary_sensor.a', 'off'), 'water')).toBe('water');
+    expect(detectorKindOf(entity('binary_sensor.a', 'on', 'power'))).toBe('power');
+    expect(detectorKindOf(entity('binary_sensor.a', 'on', 'moisture'), 'rain')).toBe('rain');
   });
 });
 

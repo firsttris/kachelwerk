@@ -46,7 +46,7 @@ export interface CardDefinition<C extends BaseConfig> {
   stubExtra?: (hass: Hass, entityId: string) => Partial<C>;
 }
 
-const DOCS = 'https://github.com/firsttris/Kachelwerk';
+const DOCS = 'https://github.com/firsttris/kachelwerk';
 
 const languageOf = (hass: Hass) => hass.locale?.language ?? hass.language ?? 'en';
 

@@ -233,7 +233,7 @@ export const ClimateSensor = ({
             </div>
           )}
         </div>
-        {extras.length > 0 && <div className="grid grid-cols-2 gap-2">{extras}</div>}
+        {extras.length > 0 && <div className="grid grid-cols-2 gap-2 @max-[300px]:grid-cols-1">{extras}</div>}
       </div>
     </Tile>
   );

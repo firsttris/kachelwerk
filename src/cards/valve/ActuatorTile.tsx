@@ -3,7 +3,10 @@ import { Tile, type TileStatus } from '../../components/Tile';
 import { cn } from '../../lib/utils';
 
 export const button =
-  'press flex h-11 flex-1 items-center justify-center gap-1.5 rounded-xl border bg-background/60 text-[13px] font-medium hover:bg-accent disabled:opacity-50 [&_svg]:size-4';
+  'press flex h-11 flex-1 items-center justify-center gap-1.5 rounded-xl border bg-background/60 text-[13px] font-medium hover:bg-accent disabled:opacity-50 [&_svg]:size-4 @max-[300px]:px-1 @max-[300px]:[&_svg]:hidden';
+
+// An icon-only button (stop) keeps its icon on a narrow card
+export const iconOnly = '@max-[300px]:[&_svg]:!block';
 
 // From MUI's WaterControls: a device with a name, a status line and buttons
 // below

@@ -37,7 +37,7 @@ const FloorPicture = ({ value, label }: { value: number; label: string }) => {
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={value}
-      className="relative h-[76px] w-[120px] shrink-0 overflow-hidden rounded-[10px] border-[3px] border-zinc-300 bg-[repeating-linear-gradient(135deg,#e4e4e7_0_6px,#dcdce0_6px_12px)] dark:border-zinc-700 dark:bg-[repeating-linear-gradient(135deg,#27272a_0_6px,#232326_6px_12px)]"
+      className="relative h-[76px] w-[120px] shrink-0 overflow-hidden @max-[300px]:h-[54px] @max-[300px]:w-[84px] rounded-[10px] border-[3px] border-zinc-300 bg-[repeating-linear-gradient(135deg,#e4e4e7_0_6px,#dcdce0_6px_12px)] dark:border-zinc-700 dark:bg-[repeating-linear-gradient(135deg,#27272a_0_6px,#232326_6px_12px)]"
     >
       {/* The screed warming up */}
       <div
@@ -125,10 +125,10 @@ export const FloorCircuit = ({ name, value, status: tileStatus, onName }: FloorC
 
   return (
     <Tile status={tileStatus}>
-      <div className="flex items-center gap-3.5 p-3.5">
+      <div className="flex items-center gap-3.5 p-3.5 @max-[300px]:gap-2.5 @max-[300px]:p-3">
         <FloorPicture value={value} label={`${m.VALVE_OPENING()} ${name}`} />
         <button type="button" onClick={onName} className="flex min-w-0 flex-col gap-0.5 text-left">
-          <span className="line-clamp-2 text-[15px] leading-snug font-medium" title={name}>
+          <span className="line-clamp-2 text-[15px] leading-snug font-medium break-words" title={name}>
             {name}
           </span>
           <span

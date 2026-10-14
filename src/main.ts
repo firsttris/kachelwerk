@@ -34,7 +34,7 @@ defineCard<ShutterConfig>({
   description: 'Rollladen als Fenster zum Ziehen, mit Fahrt und Lamellen',
   component: ShutterCard,
   domains: ['cover'],
-  columns: 12,
+  columns: 6,
   schema: shutterSchema,
 });
 

@@ -25,6 +25,11 @@
   --color-ring: var(--ring);
 }
 
+/* The card itself: a block, so its width is the grid cell's */
+:host {
+  display: block;
+}
+
 /* HA's theme variables, with MUI's light values as fallback */
 .kw {
   --radius: 0.75rem;
@@ -42,7 +47,10 @@
   --border: var(--divider-color, oklch(0.922 0 0));
   --ring: var(--primary-color, oklch(0.708 0 0));
   color: var(--foreground);
-  font-family: inherit;
+  /* MUI's Geist; the theme's font where a glyph is missing */
+  font-family: 'Kachelwerk Geist', var(--ha-font-family-body, var(--primary-font-family, Roboto)), sans-serif;
+  /* Each tile knows its width: narrow cards rearrange (@container) */
+  container-type: inline-size;
   -webkit-font-smoothing: antialiased;
 }
 

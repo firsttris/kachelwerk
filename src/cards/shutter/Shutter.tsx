@@ -94,7 +94,7 @@ export const Shutter = ({
 
   return (
     <Tile status={status}>
-      <div className="flex gap-4 p-4">
+      <div className="flex gap-4 p-4 @max-[280px]:gap-3 @max-[280px]:p-3">
         <div
           ref={ref}
           role="slider"
@@ -110,7 +110,7 @@ export const Shutter = ({
             handlers.onPointerDown(event);
           }}
           onKeyDown={onKeyDown}
-          className="relative min-h-[168px] w-32 shrink-0 self-stretch cursor-ns-resize touch-pan-y overflow-hidden rounded-[10px] border-[3px] border-zinc-400 bg-[linear-gradient(180deg,#bfe3fb_0%,#9fd2f5_55%,#86c3ee_100%)] transition-shadow duration-500 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:border-zinc-700 dark:bg-[linear-gradient(180deg,#2a4a6b_0%,#1a3350_55%,#142a40_100%)]"
+          className="relative min-h-[168px] w-32 shrink-0 @max-[280px]:w-28 @min-[420px]:w-40 self-stretch cursor-ns-resize touch-pan-y overflow-hidden rounded-[10px] border-[3px] border-zinc-400 bg-[linear-gradient(180deg,#bfe3fb_0%,#9fd2f5_55%,#86c3ee_100%)] transition-shadow duration-500 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:border-zinc-700 dark:bg-[linear-gradient(180deg,#2a4a6b_0%,#1a3350_55%,#142a40_100%)]"
           style={
             effects.on && height > 0
               ? { boxShadow: `0 0 ${28 * effects.k}px -4px rgba(125,211,252,${a(0.35 * open)})` }
@@ -162,7 +162,7 @@ export const Shutter = ({
             {shown} %
           </div>
         </div>
-        <div className="flex min-w-0 flex-1 flex-col justify-between gap-3">
+        <div className="flex min-w-0 flex-1 flex-col justify-between gap-3 @min-[420px]:max-w-[180px]">
           <div className="min-w-0">
             {/* A button centers its content, so the clamp sits in a span */}
             <button type="button" onClick={onName} className="block w-full text-left" title={name}>
@@ -171,7 +171,7 @@ export const Shutter = ({
             <div className="mt-0.5 text-[13px] text-muted-foreground">{label}</div>
             {slats !== null && (
               <details className="group mt-2">
-                <summary className="w-fit cursor-pointer list-none rounded-full border px-2.5 py-0.5 text-xs text-muted-foreground hover:bg-accent [&::-webkit-details-marker]:hidden">
+                <summary className="w-fit cursor-pointer list-none rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap text-muted-foreground hover:bg-accent [&::-webkit-details-marker]:hidden">
                   {m.SLATS()} · {slats} %
                 </summary>
                 <div className="mt-2">

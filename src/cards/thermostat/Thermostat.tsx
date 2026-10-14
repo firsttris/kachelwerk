@@ -112,7 +112,7 @@ export const Thermostat = ({
           </span>
         </div>
 
-        <div className="relative aspect-square w-full max-w-[220px]">
+        <div className="@container relative aspect-square w-full max-w-[220px]">
           <ThermostatDial
             range={range}
             label={name}

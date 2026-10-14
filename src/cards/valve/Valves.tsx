@@ -7,7 +7,7 @@ import GaugeIcon from '~icons/lucide/gauge';
 import WavesIcon from '~icons/lucide/waves';
 import type { TileStatus } from '../../components/Tile';
 import { m } from '../../i18n/messages';
-import { ActuatorTile, button } from './ActuatorTile';
+import { ActuatorTile, button, iconOnly } from './ActuatorTile';
 
 interface Common {
   name: string;
@@ -75,7 +75,7 @@ export const Valve = ({
         {m.CLOSE()}
       </button>
       {onStop && (
-        <button type="button" className={`${button} max-w-12`} onClick={onStop} aria-label={m.BLIND_STOP()}>
+        <button type="button" className={`${button} ${iconOnly} max-w-12`} onClick={onStop} aria-label={m.BLIND_STOP()}>
           <SquareIcon className="fill-current !size-3.5" />
         </button>
       )}

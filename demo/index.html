@@ -6,7 +6,7 @@
     <title>Kachelwerk Demo</title>
     <style>
       /* HA's default theme variables, light and dark */
-      body { margin: 0; font-family: Roboto, system-ui, sans-serif; }
+      body { margin: 0; font-family: var(--demo-font, Roboto), Noto, sans-serif; -webkit-font-smoothing: antialiased; }
       .theme { padding: 16px; display: grid; gap: 8px; grid-template-columns: repeat(12, 1fr); max-width: 760px; }
       .theme > * { grid-column: span var(--cols, 12); }
       .light {

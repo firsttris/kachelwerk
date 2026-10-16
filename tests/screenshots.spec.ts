@@ -3,21 +3,26 @@ import { expect, test } from '@playwright/test';
 
 const DIR = 'docs/screenshots';
 
-// One picture per card type (only=…); hero is the README's picture on top, chosen cards whose
-// widths fill the rows (ids=…)
+// One picture per card type (only=…); hero is the README's picture on top: two
+// sections side by side as in HA's sections view, a card pair as wide as in a
+// real dashboard (sections=…, cards of a section by ;)
 const HERO = [
-  'switch.licht_flur',
-  'switch.licht_bad',
-  'switch.server',
-  'climate.bad',
-  'climate.wohnraum',
-  'cover.wohnzimmer',
-  'cover.buero',
-  'light.streifen',
-].join(',');
+  [
+    'switch.licht_flur',
+    'switch.licht_bad',
+    'switch.server',
+    'climate.wohnraum',
+    'media_player.wohnzimmer',
+    'cover.wohnzimmer',
+    'fan.ventilator_schlafzimmer',
+  ],
+  ['light.streifen', 'weather.zuhause', 'alarm_control_panel.haus', 'person.anna', 'vacuum.saugroboter'],
+]
+  .map((section) => section.join(','))
+  .join(';');
 
 const SHOTS: Record<string, string> = {
-  hero: `ids=${HERO}`,
+  hero: `sections=${HERO}`,
   shutter: 'only=shutter',
   light: 'only=light',
   thermostat: 'only=thermostat',
@@ -51,8 +56,10 @@ test.skip(!process.env.KACHELWERK_SCREENSHOTS, 'only with npm run screenshots');
 for (const theme of ['light', 'dark'] as const) {
   for (const [file, cards] of Object.entries(SHOTS)) {
     test(`${file} ${theme}`, async ({ page }) => {
-      await page.setViewportSize({ width: 820, height: 900 });
-      await page.goto(`/?lang=en&theme=${theme}&${cards}&width=780`);
+      // The sections bring their own width
+      const hero = cards.startsWith('sections=');
+      await page.setViewportSize({ width: hero ? 1100 : 820, height: 900 });
+      await page.goto(`/?lang=en&theme=${theme}&${cards}${hero ? '' : '&width=780'}`);
       const section = page.locator(`#${theme}`);
       await expect(section.locator('[data-entity]').first()).toBeVisible();
       await page.waitForLoadState('networkidle');

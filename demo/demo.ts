@@ -10,12 +10,15 @@ import { demoConnection } from './forecast';
 // ?lang=en                English texts and device names
 // ?width=540              the grid's width in px (a narrow HA section)
 // ?ids=a,b                 only the cards of these entities, in this order
+// ?sections=a,b;c,d        the same, in sections side by side as in HA's
+//                          sections view (each a 12-column grid)
 const params = new URLSearchParams(location.search);
 const only = params.get('only')?.split(',');
 const theme = params.get('theme');
 const lang = params.get('lang') ?? 'de';
 const width = params.get('width');
-const ids = params.get('ids')?.split(',');
+const sections = params.get('sections')?.split(';').map((s) => s.split(','));
+const ids = sections?.flat() ?? params.get('ids')?.split(',');
 if (width) document.documentElement.style.setProperty('--demo-width', `${width}px`);
 const translate = <T,>(name: T): T =>
   lang === 'en' && typeof name === 'string' ? ((english[name] ?? name) as T) : name;
@@ -205,6 +208,14 @@ for (const dark of [false, true]) {
     // The page around it in the theme's color too (the animations crop with a margin)
     document.body.style.background = dark ? '#111111' : '#fafafa';
   }
+  // One grid per section, or the theme's own
+  const grids = sections?.map(() => {
+    const grid = document.createElement('div');
+    grid.className = 'section';
+    parent.append(grid);
+    return grid;
+  });
+  if (grids) parent.classList.add('sectioned');
   for (const { config } of shown) {
     const el = document.createElement(config.type.replace('custom:', '')) as HTMLElement & {
       setConfig: (c: unknown) => void;
@@ -212,7 +223,8 @@ for (const dark of [false, true]) {
     };
     el.setConfig(config);
     el.dataset.entity = String(config.entity);
-    parent.append(el);
+    const at = sections?.findIndex((group) => group.includes(String(config.entity))) ?? -1;
+    (grids?.[at] ?? parent).append(el);
     cards.push({ el, dark });
   }
 }

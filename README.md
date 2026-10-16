@@ -34,7 +34,7 @@ entity: light.dining_table
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/hero-dark.png">
-  <img src="docs/screenshots/hero.png" alt="Kachelwerk cards: three lights, two thermostat dials, two shutters and a color light" width="800">
+  <img src="docs/screenshots/hero.png" alt="Kachelwerk cards in two sections: lights, a thermostat dial, a media player, a shutter, a fan, a color light, the weather forecast, an alarm panel, who is home and a robot vacuum" width="800">
 </picture>
 
 </div>

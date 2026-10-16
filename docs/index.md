@@ -4,8 +4,8 @@
 Shutters you drag like a window, lamps that cast their light into the tile, a thermostat dial, a Ferraris
 meter whose disc turns with your power: thirteen cards for the everyday controls of a home.
 
-![Kachelwerk cards: lights, thermostats, shutters and a color light](screenshots/hero.png#only-light)
-![Kachelwerk cards: lights, thermostats, shutters and a color light](screenshots/hero-dark.png#only-dark)
+![Kachelwerk cards in two sections: lights, a thermostat, a media player, a shutter, a fan, a color light, the weather forecast, an alarm panel, presence and a robot vacuum](screenshots/hero.png#only-light)
+![Kachelwerk cards in two sections: lights, a thermostat, a media player, a shutter, a fan, a color light, the weather forecast, an alarm panel, presence and a robot vacuum](screenshots/hero-dark.png#only-dark)
 
 The cards are the tiles of [ccu-addon-mui](https://github.com/firsttris/ccu-addon-mui), a modern web UI for the
 Homematic CCU, brought to Home Assistant. They work with any integration: what a card shows comes from

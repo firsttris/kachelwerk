@@ -44,7 +44,7 @@ const click = (at: number, entity: string, button: string): Step => ({ at, click
 const scenes: Scene[] = [
   {
     file: 'shutter',
-    ids: ['cover.wohnzimmer'],
+    ids: ['cover.wohnzimmer', 'cover.buero'],
     ms: 5200,
     steps: [
       click(400, 'cover.wohnzimmer', 'Down'),
@@ -65,7 +65,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'dimmer',
-    ids: ['light.esstisch'],
+    ids: ['light.esstisch', 'light.terrasse'],
     steps: [
       set(400, 'light.esstisch', 'on', { brightness: 38 }),
       set(1500, 'light.esstisch', 'on', { brightness: 255 }),
@@ -83,7 +83,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'thermostat',
-    ids: ['climate.bad'],
+    ids: ['climate.bad', 'climate.wohnraum'],
     steps: [
       set(500, 'climate.bad', undefined, { temperature: 23.5 }),
       set(1800, 'binary_sensor.fenster_bad', 'on'),
@@ -94,7 +94,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'aircon',
-    ids: ['climate.klima_wohnzimmer'],
+    ids: ['climate.klima_wohnzimmer', 'climate.klima_schlafzimmer'],
     ms: 5600,
     steps: [
       // Cold air, faster with the fan on high and the louvre swinging; then heating, off, cooling again
@@ -111,7 +111,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'floor',
-    ids: ['number.fbh_wohnzimmer'],
+    ids: ['number.fbh_wohnzimmer', 'number.fbh_bad'],
     steps: [
       set(400, 'number.fbh_wohnzimmer', '15'),
       set(1800, 'number.fbh_wohnzimmer', '100'),
@@ -131,7 +131,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'garage',
-    ids: ['cover.garage'],
+    ids: ['cover.garage', 'cover.garage_werkstatt'],
     ms: 5000,
     steps: [
       set(400, 'cover.garage', 'opening'),
@@ -142,7 +142,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'lock',
-    ids: ['lock.haustuer'],
+    ids: ['lock.haustuer', 'lock.keller'],
     ms: 4600,
     steps: [
       set(400, 'lock.haustuer', 'unlocking'),
@@ -153,7 +153,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'climate-sensor',
-    ids: ['sensor.wz_temperatur'],
+    ids: ['sensor.wz_temperatur', 'weather.home'],
     steps: [
       set(400, 'sensor.wz_feuchte', '31'),
       set(1600, 'sensor.wz_temperatur', '24.8'),
@@ -164,7 +164,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'meter',
-    ids: ['sensor.netz_leistung'],
+    ids: ['sensor.netz_leistung', 'sensor.gaszaehler'],
     ms: 4400,
     steps: [
       set(0, 'sensor.netz_leistung', '320'),
@@ -174,7 +174,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'sensor',
-    ids: ['sensor.co2_buero'],
+    ids: ['sensor.co2_buero', 'sensor.pm25'],
     steps: [
       set(400, 'sensor.co2_buero', '640'),
       set(1600, 'sensor.co2_buero', '1240'),
@@ -194,12 +194,12 @@ const scenes: Scene[] = [
   },
   {
     file: 'valve',
-    ids: ['switch.beet'],
+    ids: ['switch.beet', 'valve.haupthahn'],
     steps: [set(600, 'switch.beet', 'off'), set(2000, 'switch.beet', 'on')],
   },
   {
     file: 'buttons',
-    ids: ['event.flur_oben'],
+    ids: ['event.flur_oben', 'script.gute_nacht'],
     steps: [
       set(600, 'event.flur_oben', '2026-10-14T12:00:01Z'),
       set(1800, 'event.flur_unten', '2026-10-14T12:00:02Z'),
@@ -237,7 +237,7 @@ const scenes: Scene[] = [
   // Water heater
   {
     file: 'water-heater',
-    ids: ['water_heater.warmwasserspeicher'],
+    ids: ['water_heater.warmwasserspeicher', 'water_heater.boiler_keller'],
     ms: 6000,
     steps: [
       // Heating up: the water rises and warms, then steams at the target; eco, and cold water drawn
@@ -252,7 +252,7 @@ const scenes: Scene[] = [
   // Alarm panel
   {
     file: 'alarm',
-    ids: ['alarm_control_panel.werkstatt'],
+    ids: ['alarm_control_panel.werkstatt', 'alarm_control_panel.garage'],
     ms: 6400,
     steps: [
       // Arming (the shield's edge runs out), armed away, someone comes in (pending), the alarm
@@ -295,7 +295,7 @@ const scenes: Scene[] = [
   // Presence and forecast cards
   {
     file: 'presence',
-    ids: ['person.anna'],
+    ids: ['person.anna', 'person.oma'],
     ms: 4400,
     steps: [
       // Clara comes home, Ben leaves work, Tom heads out
@@ -306,7 +306,7 @@ const scenes: Scene[] = [
   },
   {
     file: 'forecast',
-    ids: ['weather.zuhause'],
+    ids: ['weather.zuhause', 'weather.zugspitze'],
     ms: 6400,
     steps: [
       // The sky changes: sun, rain, a thunderstorm, snow, then hours instead of days

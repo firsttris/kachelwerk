@@ -151,6 +151,11 @@ export const examples: { config: Record<string, unknown> & { type: string; entit
     entities: [entity('cover.garage', 'closed', { friendly_name: 'Garagentor', device_class: 'garage', current_position: 0, supported_features: 15 })],
   },
   {
+    // Open, without a position: no ventilating
+    config: { type: 'custom:kachelwerk-garage', entity: 'cover.garage_werkstatt' },
+    entities: [entity('cover.garage_werkstatt', 'open', { friendly_name: 'Garagentor Werkstatt', device_class: 'garage', supported_features: 11 })],
+  },
+  {
     config: { type: 'custom:kachelwerk-lock', entity: 'lock.haustuer' },
     entities: [entity('lock.haustuer', 'locked', { friendly_name: 'Haustür', supported_features: 1 })],
   },
@@ -411,6 +416,13 @@ export const examples: { config: Record<string, unknown> & { type: string; entit
       since(entity('person.clara', 'not_home', { friendly_name: 'Clara' }), 25),
       since(entity('person.tom', 'home', { friendly_name: 'Tom' }), 1500),
       entity('zone.arbeit', '1', { friendly_name: 'Arbeit' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-presence', entity: 'person.oma', name: 'Gäste', entities: ['person.opa'] },
+    entities: [
+      since(entity('person.oma', 'home', { friendly_name: 'Oma' }), 40),
+      since(entity('person.opa', 'not_home', { friendly_name: 'Opa' }), 180),
     ],
   },
   {

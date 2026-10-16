@@ -132,7 +132,7 @@ defineCard<MeterConfig>({
   component: MeterCard,
   domains: ['sensor'],
   entitiesOf: meterEntities,
-  columns: 12,
+  columns: 6,
   schema: meterSchema,
 });
 

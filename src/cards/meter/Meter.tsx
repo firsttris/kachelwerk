@@ -18,7 +18,7 @@ const Kind = ({ icon, tint, children }: { icon: ReactNode; tint: string; childre
 );
 
 const MainValue = ({ children }: { children: ReactNode }) => (
-  <div className="text-3xl font-semibold tracking-tight tabular-nums">{children}</div>
+  <div className="text-3xl font-semibold tracking-tight whitespace-nowrap tabular-nums @max-[219px]:text-2xl">{children}</div>
 );
 
 const Row = ({ children }: { children: ReactNode }) => (
@@ -58,7 +58,8 @@ const RegisterRow = ({
   const last = Number(fraction.at(-1));
   const rolling = roll > 0 && effects.on;
   return (
-    <div className="flex items-center justify-between gap-2">
+    // Narrow, the label goes above its rolls instead of being cut short
+    <div className="flex items-center justify-between gap-2 @max-[299px]:flex-col @max-[299px]:items-start @max-[299px]:gap-1">
       <span className="truncate text-[13px] text-muted-foreground">{label}</span>
       <span className="sr-only">
         {format(value, decimals)} {unit}
@@ -244,7 +245,7 @@ export const Meter = ({
               {m.ELECTRICITY()}
             </Kind>
             {power !== undefined && (
-              <div className="flex items-baseline justify-between gap-3">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3">
                 <MainValue>{format(power, 0)} W</MainValue>
                 {power < 0 && (
                   <span className="text-[13px] font-medium text-green-700 dark:text-green-300">{m.FEED_IN()}</span>
@@ -279,7 +280,7 @@ export const Meter = ({
               {m.GAS()}
             </Kind>
             {gasFlow !== undefined && (
-              <div className="flex items-baseline justify-between gap-3">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3">
                 <MainValue>{format(gasFlow, 2)} m³/h</MainValue>
                 <span className="text-[13px] text-muted-foreground">{m.GAS_FLOW()}</span>
               </div>

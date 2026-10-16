@@ -189,7 +189,7 @@ export const ClimateSensor = ({
           : undefined
       }
     >
-      <div className="flex flex-col gap-3 p-4">
+      <div className="flex flex-col gap-3 p-3.5">
         <button type="button" onClick={onName} className="line-clamp-2 text-left text-[15px] leading-snug font-medium" title={name}>
           {name}
         </button>
@@ -198,7 +198,7 @@ export const ClimateSensor = ({
             <span
               // A name only goes on an element with a role: read as one value with its unit
               role="img"
-              className="text-[44px] leading-none font-semibold tracking-[-0.04em] tabular-nums"
+              className="text-[40px] leading-none font-semibold tracking-[-0.04em] tabular-nums"
               style={
                 effects.on && temperature !== undefined
                   ? { textShadow: `0 0 ${18 * effects.k}px rgba(${r},${g},${b},0.45)` }

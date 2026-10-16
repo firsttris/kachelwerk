@@ -89,8 +89,10 @@ export const GarageDoor = ({
 
   return (
     <Tile status={status} role="group" aria-label={name}>
-      <div className="flex gap-4 p-4">
-        <div aria-hidden className="relative h-[120px] w-[132px] shrink-0">
+      {/* Wide: the hold button beside the garage, under its name. Narrow:
+          below it, across the tile. */}
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3.5 gap-y-2 p-3.5 [grid-template-areas:'pic_info'_'pic_hold'_'row_row'] @max-[339px]:[grid-template-areas:'pic_info'_'hold_hold'_'row_row']">
+        <div aria-hidden className="relative h-[120px] w-[132px] shrink-0 [grid-area:pic] @max-[339px]:h-[96px] @max-[339px]:w-[106px]">
           {/* Roof and walls */}
           <div className="absolute inset-x-0 top-0 h-7 bg-zinc-300 [clip-path:polygon(50%_0,100%_100%,0_100%)] dark:bg-zinc-700" />
           <div className="absolute inset-x-1.5 top-7 bottom-0 rounded-b-md bg-zinc-200 dark:bg-zinc-800" />
@@ -112,7 +114,7 @@ export const GarageDoor = ({
             </div>
           </div>
         </div>
-        <button type="button" onClick={onName} className="flex min-w-0 flex-1 flex-col gap-1 self-start text-left">
+        <button type="button" onClick={onName} className="flex min-w-0 flex-col gap-1 self-start text-left [grid-area:info]">
           <span className="line-clamp-2 text-[15px] leading-snug font-medium" title={name}>
             {name}
           </span>
@@ -130,17 +132,17 @@ export const GarageDoor = ({
             {label}
           </span>
         </button>
-      </div>
-      <div className="flex flex-col gap-2 px-4 pb-4">
         {state !== 'OPEN' && (
-          <HoldButton
-            label={m.GARAGE_OPEN_ACTION()}
-            hint={m.HOLD_TO_CONFIRM()}
-            icon={<ArrowUpIcon />}
-            onConfirm={() => send(onOpen, 1)}
-          />
+          <div className="flex flex-col self-end [grid-area:hold]">
+            <HoldButton
+              label={m.GARAGE_OPEN_ACTION()}
+              hint={m.HOLD_TO_CONFIRM()}
+              icon={<ArrowUpIcon />}
+              onConfirm={() => send(onOpen, 1)}
+            />
+          </div>
         )}
-        <div className="flex gap-2">
+        <div className="flex gap-2 [grid-area:row]">
           <button type="button" className={button} onClick={() => send(onClose, 0)}>
             <ArrowDownIcon />
             {m.GARAGE_CLOSE_ACTION()}

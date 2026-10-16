@@ -55,7 +55,7 @@ const DoorPicture = ({
   return (
     <div
       aria-hidden
-      className="relative h-[176px] w-[96px] shrink-0 rounded-t-[14px] border-[3px] border-b-0 border-zinc-400 bg-zinc-900 [perspective:420px] dark:border-zinc-600"
+      className="relative h-[160px] w-[96px] shrink-0 rounded-t-[14px] border-[3px] border-b-0 border-zinc-400 bg-zinc-900 [perspective:420px] dark:border-zinc-600"
     >
       {/* Light from inside, seen when the door opens */}
       <div
@@ -160,7 +160,7 @@ export const DoorView = ({ name, status, state, busy, error, onLock, onUnlock, o
 
   return (
     <Tile status={status} role="group" aria-label={name}>
-      <div className="flex gap-4 p-4">
+      <div className="flex gap-3.5 p-3.5">
         <DoorPicture state={state} open={open} busy={busy} error={error} />
         <div className="flex min-w-0 flex-1 flex-col gap-3">
           <div className="min-w-0">

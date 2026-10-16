@@ -36,7 +36,7 @@ export const ThermostatIconButtons = ({
 }: ThermostatIconButtonsProps) => {
   const effects = useEffects();
   return (
-    <div className="absolute inset-x-0 bottom-0 flex justify-center gap-1">
+    <div className="absolute inset-x-0 bottom-0 flex justify-center gap-1 @max-[199px]:-bottom-9">
       <button
         type="button"
         className={iconButton}

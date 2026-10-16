@@ -21,7 +21,7 @@ export interface SwitchTileProps {
 const Socket = ({ on }: { on: boolean }) => {
   const effects = useEffects();
   return (
-    <svg aria-hidden viewBox="0 0 48 48" className="size-12 shrink-0 overflow-visible">
+    <svg aria-hidden viewBox="0 0 48 48" className="size-11 shrink-0 overflow-visible">
       {/* Cover plate and the round recess */}
       <rect
         x="2"
@@ -99,7 +99,7 @@ export const SwitchTile = ({ name, on, lamp, status, onToggle, onHold }: SwitchT
       <Tile
         status={status}
         lit={on}
-        className={cn('h-40', on && 'border-emerald-500/40', effects.on && external && 'fx-flash')}
+        className={cn('min-h-32', on && 'border-emerald-500/40', effects.on && external && 'fx-flash')}
         style={
           on && effects.on
             ? {
@@ -116,7 +116,7 @@ export const SwitchTile = ({ name, on, lamp, status, onToggle, onHold }: SwitchT
           aria-pressed={on}
           aria-label={`${name}: ${state}`}
           data-tile="switch"
-          className="press relative flex flex-1 flex-col items-start justify-between overflow-hidden px-3.5 pt-3.5 pb-3 text-left"
+          className="press relative flex flex-1 flex-col items-start justify-between gap-2 overflow-hidden px-3.5 pt-3.5 pb-3 text-left"
         >
           <span className="flex w-full items-center justify-between">
             <Socket on={on} />
@@ -156,7 +156,7 @@ export const SwitchTile = ({ name, on, lamp, status, onToggle, onHold }: SwitchT
     <Tile
       status={status}
       lit={on}
-      className={cn('h-40', effects.on && external && 'fx-flash')}
+      className={cn('min-h-32', effects.on && external && 'fx-flash')}
       style={litTileStyle(on ? 1 : 0, WARM, effects.on, effects.k)}
     >
       <button

@@ -44,7 +44,7 @@ export const DimmerTile = ({ name, level, color = WARM, status, onToggle, onLeve
         {...hold.handlers}
         aria-pressed={on}
         aria-label={`${name}: ${state}`}
-        className="press relative flex h-[132px] flex-col items-start justify-end overflow-hidden px-3.5 pb-2 text-left"
+        className="press relative flex h-[112px] flex-col items-start justify-end overflow-hidden px-3.5 pb-2 text-left"
       >
         <PendantLamp level={level / 100} color={color} changes={changes} />
         <span className="relative flex w-full min-w-0 flex-col gap-0.5">

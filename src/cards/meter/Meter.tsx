@@ -233,7 +233,7 @@ export const Meter = ({
   const isGas = gasFlow !== undefined || gasVolume !== undefined;
   return (
     <Tile status={status}>
-      <div className="flex flex-col gap-3 p-4">
+      <div className="flex flex-col gap-3 p-3.5">
         <button type="button" onClick={onName} title={name} className="truncate text-left text-[15px] font-medium">
           {name}
         </button>

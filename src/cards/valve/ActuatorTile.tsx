@@ -28,7 +28,7 @@ export const ActuatorTile = ({
   children: ReactNode;
 }) => (
   <Tile status={tileStatus} role="group" aria-label={name} lit={active}>
-    <div className="flex items-center gap-3 p-4 pb-3">
+    <div className="flex items-center gap-3 p-3.5 pb-3">
       <span
         aria-hidden
         className={cn(
@@ -52,6 +52,6 @@ export const ActuatorTile = ({
         </span>
       </button>
     </div>
-    <div className="flex flex-col gap-2 px-4 pb-4">{children}</div>
+    <div className="flex flex-col gap-2 px-3.5 pb-3.5">{children}</div>
   </Tile>
 );

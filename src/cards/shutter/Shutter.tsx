@@ -28,8 +28,9 @@ export interface ShutterProps {
 
 const STEP = 5;
 
-const button =
-  'press flex h-11 items-center justify-center rounded-xl border bg-background/60 hover:bg-accent [&_svg]:size-5';
+// Up, stop and down as one group: side by side next to the window, stacked
+// beside it on a narrow tile; each keeps a finger-sized 44 px
+const button = 'press flex h-11 flex-1 items-center justify-center hover:bg-accent [&_svg]:size-5';
 
 // MUI's BlindsControl without the CCU: the window is a vertical slider, tap
 // or drag anywhere in it to set the height. The shutter follows the
@@ -94,7 +95,9 @@ export const Shutter = ({
 
   return (
     <Tile status={status}>
-      <div className="flex gap-4 p-4 @max-[280px]:gap-3 @max-[280px]:p-3">
+      {/* Wide: the window left, name and buttons right. Narrow: the name on
+          top, the window below with the buttons beside it. */}
+      <div className="grid flex-1 grid-cols-[auto_minmax(0,1fr)] grid-rows-[auto_auto] gap-x-3.5 gap-y-3 p-3.5 [grid-template-areas:'win_info'_'win_ctl'] @max-[299px]:grid-cols-[minmax(0,1fr)_auto] @max-[299px]:grid-rows-[auto_1fr] @max-[299px]:gap-x-2 @max-[299px]:gap-y-2.5 @max-[299px]:p-3 @max-[299px]:[grid-template-areas:'info_info'_'win_ctl']">
         <div
           ref={ref}
           role="slider"
@@ -110,7 +113,7 @@ export const Shutter = ({
             handlers.onPointerDown(event);
           }}
           onKeyDown={onKeyDown}
-          className="relative min-h-[168px] w-32 shrink-0 @max-[280px]:w-28 @min-[420px]:w-40 self-stretch cursor-ns-resize touch-pan-y overflow-hidden rounded-[10px] border-[3px] border-zinc-400 bg-[linear-gradient(180deg,#bfe3fb_0%,#9fd2f5_55%,#86c3ee_100%)] transition-shadow duration-500 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:border-zinc-700 dark:bg-[linear-gradient(180deg,#2a4a6b_0%,#1a3350_55%,#142a40_100%)]"
+          className="relative min-h-[140px] w-32 cursor-ns-resize [grid-area:win] @max-[299px]:w-auto @min-[420px]:w-40 touch-pan-y overflow-hidden rounded-[10px] border-[3px] border-zinc-400 bg-[linear-gradient(180deg,#bfe3fb_0%,#9fd2f5_55%,#86c3ee_100%)] transition-shadow duration-500 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:border-zinc-700 dark:bg-[linear-gradient(180deg,#2a4a6b_0%,#1a3350_55%,#142a40_100%)]"
           style={
             effects.on && height > 0
               ? { boxShadow: `0 0 ${28 * effects.k}px -4px rgba(125,211,252,${a(0.35 * open)})` }
@@ -162,56 +165,55 @@ export const Shutter = ({
             {shown} %
           </div>
         </div>
-        <div className="flex min-w-0 flex-1 flex-col justify-between gap-3 @min-[420px]:max-w-[180px]">
-          <div className="min-w-0">
-            {/* A button centers its content, so the clamp sits in a span */}
-            <button type="button" onClick={onName} className="block w-full text-left" title={name}>
-              <span className="line-clamp-2 min-h-[42px] text-[15px] leading-snug font-medium">{name}</span>
-            </button>
-            <div className="mt-0.5 text-[13px] text-muted-foreground">{label}</div>
-            {slats !== null && (
-              <details className="group mt-2">
-                <summary className="w-fit cursor-pointer list-none rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap text-muted-foreground hover:bg-accent [&::-webkit-details-marker]:hidden">
-                  {m.SLATS()} · {slats} %
-                </summary>
-                <div className="mt-2">
-                  <LevelBar label={m.SLATS_OF({ name })} value={slats} color={[148, 163, 184]} onChange={onSlats} />
-                </div>
-              </details>
-            )}
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <button
-              type="button"
-              className={button}
-              onClick={() => send(100)}
-              aria-label={m.BLIND_UP()}
-              title={m.BLIND_UP()}
-            >
-              <ChevronUpIcon />
-            </button>
-            <button
-              type="button"
-              className={button}
-              onClick={() => {
-                travel.stop();
-                onStop();
-              }}
-              aria-label={m.BLIND_STOP()}
-              title={m.BLIND_STOP()}
-            >
-              <SquareIcon className="!size-4 fill-current" />
-            </button>
-            <button
-              type="button"
-              className={button}
-              onClick={() => send(0)}
-              aria-label={m.BLIND_DOWN()}
-              title={m.BLIND_DOWN()}
-            >
-              <ChevronDownIcon />
-            </button>
-          </div>
+        <div className="min-w-0 [grid-area:info] @min-[420px]:max-w-[240px]">
+          {/* A button centers its content, so the clamp sits in a span */}
+          <button type="button" onClick={onName} className="block w-full text-left" title={name}>
+            <span className="line-clamp-2 text-[15px] leading-snug font-medium [overflow-wrap:anywhere]">{name}</span>
+          </button>
+          <div className="mt-0.5 text-[13px] text-muted-foreground">{label}</div>
+          {slats !== null && (
+            <details className="group mt-2">
+              {/* Small to look at, a finger's height to tap (the ::after) */}
+              <summary className="relative w-fit max-w-full cursor-pointer list-none rounded-full border px-2.5 py-0.5 text-xs text-muted-foreground after:absolute after:inset-x-0 after:-inset-y-2.5 hover:bg-accent [&::-webkit-details-marker]:hidden">
+                {m.SLATS()} · {slats} %
+              </summary>
+              <div className="mt-2">
+                <LevelBar label={m.SLATS_OF({ name })} value={slats} color={[148, 163, 184]} onChange={onSlats} />
+              </div>
+            </details>
+          )}
+        </div>
+        <div className="flex self-end divide-x overflow-hidden rounded-xl border bg-background/60 [grid-area:ctl] @max-[299px]:w-11 @max-[299px]:flex-col @max-[299px]:self-stretch @max-[299px]:divide-x-0 @max-[299px]:divide-y @min-[420px]:max-w-[240px]">
+          <button
+            type="button"
+            className={button}
+            onClick={() => send(100)}
+            aria-label={m.BLIND_UP()}
+            title={m.BLIND_UP()}
+          >
+            <ChevronUpIcon />
+          </button>
+          <button
+            type="button"
+            className={button}
+            onClick={() => {
+              travel.stop();
+              onStop();
+            }}
+            aria-label={m.BLIND_STOP()}
+            title={m.BLIND_STOP()}
+          >
+            <SquareIcon className="!size-4 fill-current" />
+          </button>
+          <button
+            type="button"
+            className={button}
+            onClick={() => send(0)}
+            aria-label={m.BLIND_DOWN()}
+            title={m.BLIND_DOWN()}
+          >
+            <ChevronDownIcon />
+          </button>
         </div>
       </div>
     </Tile>

@@ -97,7 +97,7 @@ export const Thermostat = ({
       aria-label={name}
       style={effects.on && demand ? { boxShadow: `0 24px 60px -28px ${rgba(color, 0.55 * effects.k)}` } : undefined}
     >
-      <div className="flex flex-col items-center gap-1 px-3.5 pt-4 pb-3.5">
+      <div className="flex flex-col items-center gap-1 p-3.5">
         <div className="flex w-full items-start justify-between gap-2">
           <button type="button" onClick={onName} className="flex min-w-0 flex-col text-left">
             <span className="line-clamp-2 text-[15px] leading-snug font-medium break-words" title={name}>

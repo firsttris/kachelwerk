@@ -42,12 +42,12 @@ export const MeasureTile = ({
   extras?: ReactNode[];
 }) => (
   <Tile status={status} role="group" aria-label={name}>
-    <div className="flex flex-col gap-3 p-4">
+    <div className="flex flex-col gap-3 p-3.5">
       <button type="button" onClick={onName} className="line-clamp-2 text-left text-[15px] leading-snug font-medium" title={name}>
         {name}
       </button>
       {caption && <span className="-mb-2 text-xs font-medium text-muted-foreground">{caption}</span>}
-      <div className="flex items-end justify-between gap-3">
+      <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-1">
         <span
           // A name only goes on an element with a role: read as one value with its unit
           role="img"

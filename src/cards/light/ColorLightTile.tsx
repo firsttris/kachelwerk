@@ -36,7 +36,7 @@ export const HueBar = ({ label, hue, onChange }: { label: string; hue: number; o
         event.preventDefault();
         onChange((hue + delta + 360) % 360);
       }}
-      className="relative h-4 cursor-ew-resize touch-none rounded-full outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+      className="relative h-4 cursor-ew-resize touch-none rounded-full outline-none after:absolute after:inset-x-0 after:-inset-y-3 focus-visible:ring-[3px] focus-visible:ring-ring/50"
       style={{ background: 'linear-gradient(90deg,#f00,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,#f00)' }}
     >
       <div
@@ -90,7 +90,9 @@ export const ColorLightTile = ({
   const whites = hasWhite ? WHITES.filter((k) => k >= caps.minKelvin - 200 && k <= caps.maxKelvin + 200) : WHITES;
 
   const state = on ? m.DIMMED_TO({ percent: level }) : m.OFF();
-  const swatch = 'press size-6 rounded-full border border-black/10 ring-offset-2 ring-offset-card dark:border-white/15';
+  // 28 px to look at, 44 px to tap (the ::after)
+  const swatch =
+    'press relative size-7 rounded-full border border-black/10 ring-offset-2 ring-offset-card after:absolute after:-inset-2 dark:border-white/15';
   return (
     <Tile status={status} lit={on} style={litTileStyle(level / 100, rgb, effects.on, effects.k)}>
       <button
@@ -99,7 +101,7 @@ export const ColorLightTile = ({
         {...hold.handlers}
         aria-pressed={on}
         aria-label={`${name}: ${state}`}
-        className="press relative flex h-[132px] flex-col items-start justify-end overflow-hidden px-3.5 pb-2 text-left"
+        className="press relative flex h-[112px] flex-col items-start justify-end overflow-hidden px-3.5 pb-2 text-left"
       >
         <PendantLamp level={level / 100} color={rgb} changes={changes} />
         <span className="relative flex w-full min-w-0 flex-col gap-0.5">
@@ -112,7 +114,7 @@ export const ColorLightTile = ({
       <div className="flex flex-col gap-3 px-3.5 pb-3.5">
         <LevelBar label={m.BRIGHTNESS_OF({ name })} value={level} color={rgb} onChange={onLevel} />
         {hasHue && <HueBar label={m.COLOR_OF({ name })} hue={hue} onChange={onHue} />}
-        <div className="flex flex-wrap justify-between gap-1.5" role="group" aria-label={m.QUICK_COLORS()}>
+        <div className="flex flex-wrap gap-x-3 gap-y-4 p-1" role="group" aria-label={m.QUICK_COLORS()}>
           {(hasWhite || hasHue) &&
             whites.map((k) => (
               <button

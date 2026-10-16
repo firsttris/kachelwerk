@@ -21,8 +21,10 @@ interface ThermostatIconButtonsProps {
   onLowering?: () => void;
 }
 
+// Sized by the dial (cqw) like the readout, so on a narrow card they stay in
+// the arc's gap instead of covering it; the ::after keeps a finger's width
 const iconButton =
-  'press flex size-10 items-center justify-center rounded-full text-muted-foreground hover:bg-accent hover:text-foreground [&_svg]:size-5';
+  'press relative flex size-[clamp(28px,18cqw,40px)] items-center justify-center rounded-full text-muted-foreground after:absolute after:-inset-1.5 hover:bg-accent hover:text-foreground [&_svg]:size-[clamp(16px,9cqw,20px)]';
 
 export const ThermostatIconButtons = ({
   manualMode,
@@ -36,7 +38,7 @@ export const ThermostatIconButtons = ({
 }: ThermostatIconButtonsProps) => {
   const effects = useEffects();
   return (
-    <div className="absolute inset-x-0 bottom-0 flex justify-center gap-1">
+    <div className="absolute inset-x-0 bottom-0 flex justify-center gap-[clamp(2px,2cqw,4px)]">
       <button
         type="button"
         className={iconButton}

@@ -55,7 +55,7 @@ const DoorPicture = ({
   return (
     <div
       aria-hidden
-      className="relative h-[176px] w-[96px] shrink-0 rounded-t-[14px] border-[3px] border-b-0 border-zinc-400 bg-zinc-900 [perspective:420px] dark:border-zinc-600"
+      className="relative h-[160px] w-[96px] shrink-0 rounded-t-[14px] border-[3px] border-b-0 border-zinc-400 bg-zinc-900 [perspective:420px] dark:border-zinc-600"
     >
       {/* Light from inside, seen when the door opens */}
       <div
@@ -160,51 +160,53 @@ export const DoorView = ({ name, status, state, busy, error, onLock, onUnlock, o
 
   return (
     <Tile status={status} role="group" aria-label={name}>
-      <div className="flex gap-4 p-4">
-        <DoorPicture state={state} open={open} busy={busy} error={error} />
-        <div className="flex min-w-0 flex-1 flex-col gap-3">
-          <div className="min-w-0">
-            <button type="button" onClick={onName} className="line-clamp-2 text-left text-[15px] font-medium" title={name}>
-              {name}
-            </button>
-            <span
-              role="status"
-              className={cn(
-                'mt-1 inline-flex items-center gap-1.5 text-[13px] font-medium',
-                error ? 'text-red-600 dark:text-red-400' : open ? 'text-amber-700 dark:text-amber-300' : tone.text,
-              )}
+      {/* Wide: the buttons beside the door, under its name. Narrow: a smaller
+          door beside the name, the buttons below across the tile. */}
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] grid-rows-[auto_1fr] gap-x-3.5 gap-y-3 p-3.5 [grid-template-areas:'pic_info'_'pic_act'] @max-[299px]:grid-rows-[auto_auto] @max-[299px]:[grid-template-areas:'pic_info'_'act_act']">
+        <div className="[grid-area:pic] @max-[299px]:[zoom:0.6]">
+          <DoorPicture state={state} open={open} busy={busy} error={error} />
+        </div>
+        <div className="min-w-0 [grid-area:info]">
+          <button type="button" onClick={onName} className="line-clamp-2 text-left text-[15px] font-medium" title={name}>
+            {name}
+          </button>
+          <span
+            role="status"
+            className={cn(
+              'mt-1 inline-flex items-center gap-1.5 text-[13px] font-medium',
+              error ? 'text-red-600 dark:text-red-400' : open ? 'text-amber-700 dark:text-amber-300' : tone.text,
+            )}
+          >
+            <span className="size-1.5 rounded-full bg-current" />
+            {label}
+          </span>
+        </div>
+        <div className="flex flex-col gap-2.5 self-end [grid-area:act]">
+          {state === 'locked' ? (
+            <HoldButton
+              label={m.UNLOCK()}
+              hint={m.HOLD_TO_CONFIRM()}
+              icon={<LockOpenIcon />}
+              tone="text-amber-500"
+              disabled={busy}
+              onConfirm={onUnlock}
+            />
+          ) : (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={onLock}
+              className="press flex h-12 items-center gap-3 rounded-xl border bg-background/60 px-3 text-left hover:bg-accent disabled:opacity-50"
             >
-              <span className="size-1.5 rounded-full bg-current" />
-              {label}
-            </span>
-          </div>
-          <div className="mt-auto flex flex-col gap-2.5">
-            {state === 'locked' ? (
-              <HoldButton
-                label={m.UNLOCK()}
-                hint={m.HOLD_TO_CONFIRM()}
-                icon={<LockOpenIcon />}
-                tone="text-amber-500"
-                disabled={busy}
-                onConfirm={onUnlock}
-              />
-            ) : (
-              <button
-                type="button"
-                disabled={busy}
-                onClick={onLock}
-                className="press flex h-12 items-center gap-3 rounded-xl border bg-background/60 px-3 text-left hover:bg-accent disabled:opacity-50"
-              >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-green-500/15 text-green-700 dark:text-green-300 [&_svg]:size-[18px]">
-                  <LockIcon />
-                </span>
-                <span className="text-sm font-medium">{m.LOCK()}</span>
-              </button>
-            )}
-            {onOpen && (
-              <SlideToConfirm label={m.SLIDE_TO_OPEN()} icon={<DoorOpenIcon />} disabled={busy} onConfirm={openDoor} />
-            )}
-          </div>
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-green-500/15 text-green-700 dark:text-green-300 [&_svg]:size-[18px]">
+                <LockIcon />
+              </span>
+              <span className="text-sm font-medium">{m.LOCK()}</span>
+            </button>
+          )}
+          {onOpen && (
+            <SlideToConfirm label={m.SLIDE_TO_OPEN()} icon={<DoorOpenIcon />} disabled={busy} onConfirm={openDoor} />
+          )}
         </div>
       </div>
     </Tile>

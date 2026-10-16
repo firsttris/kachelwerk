@@ -76,7 +76,7 @@ defineCard<BaseConfig>({
   description: 'Garagentor mit Sektionaltor; Öffnen gedrückt halten, Lüften, Stopp',
   component: GarageCard,
   domains: ['cover'],
-  columns: 12,
+  columns: 6,
   schema: garageSchema,
 });
 
@@ -86,7 +86,7 @@ defineCard<BaseConfig>({
   description: 'Tür mit Riegel: Sperren tippen, Entsperren halten, Öffnen schieben',
   component: LockCard,
   domains: ['lock'],
-  columns: 12,
+  columns: 6,
   schema: lockSchema,
 });
 

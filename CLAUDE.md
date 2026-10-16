@@ -33,19 +33,22 @@ build is one file, `dist/kachelwerk.js`.
 - `npm run typecheck`, `npm test` (vitest), `npm run build`
 - `npm run test:e2e`: every card on the demo page clicked through
   (`tests/cards.spec.ts`); add a test there for a new card's controls.
+  `tests/heights.spec.ts` plays every scene of `tests/scenes.ts` and fails
+  when a tile changes its height (a button that goes away, a line that
+  disappears): keep controls in place, greyed out, instead.
 - `npm run screenshots`: `docs/screenshots/<card>.png` and `-dark.png` in
   English (`tests/screenshots.spec.ts`); CI commits them after a push to main.
 - `npm run animations` (needs ffmpeg): `docs/animations/<card>.webp`, a
-  scene per card in `tests/animations.spec.ts`, dark; the README's gallery
+  scene per card in `tests/scenes.ts`, dark; the README's gallery
   and the docs show them. By hand (workflow "Update animations").
 - `node scripts/shots.mjs [width] [lang] [cards]`: quick screenshots of the
   demo page (`demo/`, a fake hass with the entities in `demo/examples.ts`;
-  URL parameters `only`, `ids`, `theme`, `lang`, `width`). Look at narrow
+  URL parameters `only`, `ids`, `sections`, `theme`, `lang`, `width`). Look at narrow
   widths too (540 is a card of ~255 px, as in a 4-column sections view).
 
 A new card: its examples in `demo/examples.ts` (English names in
 `demo/english.ts`), a line in `SHOTS` of `tests/screenshots.spec.ts` and a scene in
-`tests/animations.spec.ts`, a page
+`tests/scenes.ts` (a full row: two cards or one wide one), a page
 in `docs/cards/` and the nav of `mkdocs.yml`, a row in both READMEs.
 
 ## Language

@@ -98,18 +98,21 @@ export const Thermostat = ({
       style={effects.on && demand ? { boxShadow: `0 24px 60px -28px ${rgba(color, 0.55 * effects.k)}` } : undefined}
     >
       <div className="flex flex-col items-center gap-1 p-3.5">
-        <div className="flex w-full items-start justify-between gap-2">
-          <button type="button" onClick={onName} className="flex min-w-0 flex-col text-left">
-            <span className="line-clamp-2 text-[15px] leading-snug font-medium break-words" title={name}>
-              {name}
-            </span>
-            {kind && <span className="truncate text-xs text-muted-foreground">{kind}</span>}
+        {/* The name has the whole width and the line below always stays: a
+            longer badge (Manual, Window open) or no state while off doesn't
+            change the tile's height */}
+        <div className="flex w-full min-w-0 flex-col">
+          <button type="button" onClick={onName} className="block w-full text-left" title={name}>
+            <span className="line-clamp-2 text-[15px] leading-snug font-medium break-words">{name}</span>
           </button>
-          <span
-            className={cn('shrink-0 rounded-full px-2 py-0.5 text-xs font-medium transition-colors', badge.className)}
-          >
-            {badge.text}
-          </span>
+          <div className="flex min-h-5 items-center justify-between gap-2">
+            <span className="truncate text-xs text-muted-foreground">{kind}</span>
+            <span
+              className={cn('shrink-0 rounded-full px-2 py-0.5 text-xs font-medium transition-colors', badge.className)}
+            >
+              {badge.text}
+            </span>
+          </div>
         </div>
 
         <div className="@container relative aspect-square w-full max-w-[220px]">

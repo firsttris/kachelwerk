@@ -132,16 +132,16 @@ export const GarageDoor = ({
             {label}
           </span>
         </button>
-        {state !== 'OPEN' && (
-          <div className="flex flex-col self-end [grid-area:hold]">
-            <HoldButton
-              label={m.GARAGE_OPEN_ACTION()}
-              hint={m.HOLD_TO_CONFIRM()}
-              icon={<ArrowUpIcon />}
-              onConfirm={() => send(onOpen, 1)}
-            />
-          </div>
-        )}
+        {/* Stays when the door is open, greyed out: the tile keeps its height */}
+        <div className="flex flex-col self-end [grid-area:hold]">
+          <HoldButton
+            label={m.GARAGE_OPEN_ACTION()}
+            hint={m.HOLD_TO_CONFIRM()}
+            icon={<ArrowUpIcon />}
+            disabled={state === 'OPEN'}
+            onConfirm={() => send(onOpen, 1)}
+          />
+        </div>
         <div className="flex gap-2 [grid-area:row]">
           <button type="button" className={button} onClick={() => send(onClose, 0)}>
             <ArrowDownIcon />

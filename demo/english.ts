@@ -94,4 +94,8 @@ export const english: Record<string, string> = {
   Familie: 'Family',
   Arbeit: 'Work',
   Sonne: 'Sun',
+  'Garagentor Werkstatt': 'Workshop garage door',
+  Gäste: 'Guests',
+  Oma: 'Grandma',
+  Opa: 'Grandpa',
 };

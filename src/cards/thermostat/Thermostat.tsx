@@ -112,9 +112,7 @@ export const Thermostat = ({
           </span>
         </div>
 
-        {/* Narrow, the round buttons move out of the dial's gap below it, so
-            they don't cover the readout */}
-        <div className="@container relative aspect-square w-full max-w-[220px] @max-[227px]:mb-8">
+        <div className="@container relative aspect-square w-full max-w-[220px]">
           <ThermostatDial
             range={range}
             label={name}

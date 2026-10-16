@@ -62,4 +62,36 @@ export const english: Record<string, string> = {
   Hausanschluss: 'Grid connection',
   Szenen: 'Scenes',
   'Wohnzimmer 1': 'Living room 1',
+  // Robot vacuum and lawn mower
+  Saugroboter: 'Robot vacuum',
+  'Wischroboter Küche': 'Kitchen mop robot',
+  Mähroboter: 'Lawn mower',
+  'Mähroboter Vorgarten': 'Front yard mower',
+  // Media player
+  'Lautsprecher Wohnzimmer': 'Living room speaker',
+  Fernseher: 'TV',
+  'AV-Receiver': 'AV receiver',
+  'Radio Küche': 'Kitchen radio',
+  // Water heater
+  Warmwasserspeicher: 'Hot water tank',
+  'Boiler Keller': 'Basement boiler',
+  'Durchlauferhitzer Bad': 'Bathroom tankless heater',
+  'Speicher Ferienhaus': 'Holiday home tank',
+  // Alarm panel
+  Alarmanlage: 'Alarm system',
+  'Alarm Garage': 'Garage alarm',
+  'Alarm Gartenhaus': 'Garden shed alarm',
+  'Alarm Werkstatt': 'Workshop alarm',
+  // Fan and humidifier
+  'Ventilator Schlafzimmer': 'Bedroom fan',
+  Deckenventilator: 'Ceiling fan',
+  Luftreiniger: 'Air purifier',
+  'Abluft Bad': 'Bathroom extractor',
+  'Befeuchter Schlafzimmer': 'Bedroom humidifier',
+  'Entfeuchter Keller': 'Basement dehumidifier',
+  'Befeuchter Kinderzimmer': 'Nursery humidifier',
+  // Presence and forecast cards
+  Familie: 'Family',
+  Arbeit: 'Work',
+  Sonne: 'Sun',
 };

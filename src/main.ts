@@ -26,7 +26,20 @@ import { FloorCard, type FloorConfig, floorEntities, floorSchema } from './cards
 import { SensorCard, type SensorConfig, sensorEntities, sensorSchema } from './cards/sensor/SensorCard';
 import { ValveCard, valveSchema } from './cards/valve/ValveCard';
 import { ButtonsCard, type ButtonsConfig, buttonsEntities, buttonsSchema } from './cards/buttons/ButtonsCard';
+// Media player
+import { MediaCard, mediaSchema } from './cards/media/MediaCard';
+// Alarm panel
+import { AlarmCard, alarmSchema } from './cards/alarm/AlarmCard';
+import { FanCard, fanSchema } from './cards/fan/FanCard';
+import { HumidifierCard, humidifierSchema } from './cards/humidifier/HumidifierCard';
+// Presence and forecast cards
+import { PresenceCard, type PresenceConfig, presenceEntities, presenceSchema } from './cards/presence/PresenceCard';
+import { ForecastCard, type ForecastConfig, forecastEntities, forecastSchema } from './cards/forecast/ForecastCard';
 import type { BaseConfig } from './ha/types';
+// Robot vacuum and lawn mower
+import { RobotCard, type RobotConfig, robotEntities, robotSchema } from './cards/robot/RobotCard';
+// Water heater
+import { WaterHeaterCard, waterHeaterSchema } from './cards/water-heater/WaterHeaterCard';
 
 // Every card of Kachelwerk, registered with HA's card picker
 defineCard<ShutterConfig>({
@@ -175,6 +188,95 @@ defineCard<ButtonsConfig>({
   entitiesOf: buttonsEntities,
   columns: 6,
   schema: buttonsSchema,
+});
+
+// Robot vacuum and lawn mower
+defineCard<RobotConfig>({
+  type: 'kachelwerk-robot',
+  name: 'Kachelwerk Saug- und Mähroboter',
+  description: 'Saug- oder Mähroboter, der seine Bahnen zieht: Start, Pause, zur Basis, Saugkraft, Akku',
+  component: RobotCard,
+  domains: ['vacuum', 'lawn_mower'],
+  entitiesOf: robotEntities,
+  columns: 6,
+  schema: robotSchema,
+});
+
+// Media player
+defineCard<BaseConfig>({
+  type: 'kachelwerk-media',
+  name: 'Kachelwerk Mediaplayer',
+  description: 'Mediaplayer mit Cover: Wiedergabe, Titel vor und zurück, Lautstärke, Quelle und Klangmodus',
+  component: MediaCard,
+  domains: ['media_player'],
+  columns: 6,
+  schema: mediaSchema,
+});
+
+// Water heater
+defineCard<BaseConfig>({
+  type: 'kachelwerk-water-heater',
+  name: 'Kachelwerk Warmwasser',
+  description: 'Warmwasserspeicher, dessen Wasser seine Temperatur zeigt: Zieltemperatur, Betriebsart, Abwesend',
+  component: WaterHeaterCard,
+  domains: ['water_heater'],
+  columns: 6,
+  schema: waterHeaterSchema,
+});
+
+// Alarm panel
+defineCard<BaseConfig>({
+  type: 'kachelwerk-alarm',
+  name: 'Kachelwerk Alarmanlage',
+  description: 'Alarmanlage als Schild: scharf und unscharf schalten, Code-Tastenfeld, Alarm auslösen',
+  component: AlarmCard,
+  domains: ['alarm_control_panel'],
+  columns: 6,
+  schema: alarmSchema,
+});
+
+// Fan and humidifier
+defineCard<BaseConfig>({
+  type: 'kachelwerk-fan',
+  name: 'Kachelwerk Ventilator',
+  description: 'Ventilator, dessen Flügel sich mit der Geschwindigkeit drehen; Stufen, Presets, Schwenken, Richtung',
+  component: FanCard,
+  domains: ['fan'],
+  columns: 6,
+  schema: fanSchema,
+});
+
+defineCard<BaseConfig>({
+  type: 'kachelwerk-humidifier',
+  name: 'Kachelwerk Luftbefeuchter',
+  description: 'Luftbefeuchter mit aufsteigendem Nebel oder Entfeuchter, der Tropfen sammelt; Zielfeuchte und Modus',
+  component: HumidifierCard,
+  domains: ['humidifier'],
+  columns: 6,
+  schema: humidifierSchema,
+});
+
+// Presence and forecast cards
+defineCard<PresenceConfig>({
+  type: 'kachelwerk-presence',
+  name: 'Kachelwerk Anwesenheit',
+  description: 'Wer zu Hause ist: Personen mit Bild, Zone und seit wann',
+  component: PresenceCard,
+  domains: ['person', 'device_tracker'],
+  entitiesOf: presenceEntities,
+  columns: 6,
+  schema: presenceSchema,
+});
+
+defineCard<ForecastConfig>({
+  type: 'kachelwerk-forecast',
+  name: 'Kachelwerk Wettervorhersage',
+  description: 'Das Wetter als bewegtes Bild, dazu die Vorhersage für die nächsten Tage oder Stunden',
+  component: ForecastCard,
+  domains: ['weather'],
+  entitiesOf: forecastEntities,
+  columns: 6,
+  schema: forecastSchema,
 });
 
 console.info(`%c KACHELWERK %c ${__VERSION__} `, 'background:#0f766e;color:#fff;padding:2px 4px', 'padding:2px 4px');

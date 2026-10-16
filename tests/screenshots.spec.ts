@@ -32,6 +32,18 @@ const SHOTS: Record<string, string> = {
   detector: 'only=detector',
   valve: 'only=valve',
   buttons: 'only=buttons',
+  robot: 'only=robot',
+  // Media player
+  media: 'only=media',
+  // Water heater
+  'water-heater': 'only=water-heater',
+  alarm: 'only=alarm',
+  // Fan and humidifier
+  fan: 'only=fan',
+  humidifier: 'only=humidifier',
+  // Presence and forecast cards
+  presence: 'only=presence',
+  forecast: 'only=forecast',
 };
 
 test.skip(!process.env.KACHELWERK_SCREENSHOTS, 'only with npm run screenshots');

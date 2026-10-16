@@ -2,6 +2,8 @@ import '../src/main';
 import type { Hass, HassEntity } from '../src/ha/types';
 import { english } from './english';
 import { examples } from './examples';
+// Forecast card
+import { demoConnection } from './forecast';
 
 // ?only=light,thermostat  only these cards
 // ?theme=light|dark       one theme, without its heading (for screenshots)
@@ -35,6 +37,8 @@ const hassFor = (dark: boolean): Hass => ({
   language: lang,
   locale: { language: lang },
   themes: { darkMode: dark },
+  // Forecast card
+  connection: demoConnection,
   callService: async (domain, service, data = {}) => {
     console.log('callService', domain, service, JSON.stringify(data));
     (window as unknown as { calls: unknown[] }).calls.push({ domain, service, data });
@@ -75,6 +79,64 @@ const hassFor = (dark: boolean): Hass => ({
       if (data.color_temp_kelvin) Object.assign(a, { color_temp_kelvin: data.color_temp_kelvin, color_mode: 'color_temp' });
       set({ state: 'on' }, a);
     }
+    // Robot vacuum and lawn mower: the new activity at once
+    const robot: Record<string, string> = {
+      start: 'cleaning',
+      start_mowing: 'mowing',
+      pause: 'paused',
+      stop: 'idle',
+      return_to_base: 'returning',
+      dock: 'returning',
+    };
+    if ((domain === 'vacuum' || domain === 'lawn_mower') && robot[service]) set({ state: robot[service] });
+    if (domain === 'vacuum' && service === 'set_fan_speed') set({}, { fan_speed: data.fan_speed });
+    // Media player
+    if (domain === 'media_player') mediaService(entity, service, data, set);
+    // Water heater (water_heater/services.py)
+    if (domain === 'water_heater') {
+      if (service === 'set_temperature') set({}, { temperature: data.temperature });
+      if (service === 'set_operation_mode') set({ state: String(data.operation_mode) }, { operation_mode: data.operation_mode });
+      if (service === 'set_away_mode') set({}, { away_mode: data.away_mode ? 'on' : 'off' });
+      if (service === 'turn_off') set({ state: 'off' }, 'operation_mode' in entity.attributes ? { operation_mode: 'off' } : {});
+      if (service === 'turn_on') {
+        const modes = (entity.attributes.operation_list as string[] | undefined) ?? [];
+        const mode = modes.find((m) => m !== 'off') ?? 'on';
+        set({ state: mode }, 'operation_mode' in entity.attributes ? { operation_mode: mode } : {});
+      }
+    }
+    // Alarm panel: arming takes a moment, then the panel is armed
+    if (domain === 'alarm_control_panel') {
+      if (service === 'alarm_disarm') set({ state: 'disarmed' });
+      if (service === 'alarm_trigger') set({ state: 'triggered' });
+      if (service.startsWith('alarm_arm_')) {
+        set({ state: 'arming' });
+        const armed = `armed_${service.slice('alarm_arm_'.length)}`;
+        setTimeout(() => {
+          if (states[id]?.state === 'arming') {
+            states = { ...states, [id]: { ...states[id], state: armed } };
+            push();
+          }
+        }, 2500);
+      }
+    }
+    // Fan and humidifier
+    if (domain === 'fan') {
+      const step = Number(entity.attributes.percentage_step ?? 100 / 3);
+      const last = Number(entity.attributes.percentage) || Math.floor(step);
+      if (service === 'turn_on') set({ state: 'on' }, 'percentage' in entity.attributes && entity.attributes.percentage !== null ? { percentage: last } : {});
+      if (service === 'turn_off') set({ state: 'off' }, { preset_mode: null });
+      if (service === 'set_percentage') set({ state: Number(data.percentage) > 0 ? 'on' : 'off' }, { percentage: data.percentage, preset_mode: null });
+      if (service === 'set_preset_mode') set({ state: 'on' }, { preset_mode: data.preset_mode });
+      if (service === 'oscillate') set({}, { oscillating: data.oscillating });
+      if (service === 'set_direction') set({}, { direction: data.direction });
+    }
+    if (domain === 'humidifier') {
+      const working = entity.attributes.device_class === 'dehumidifier' ? 'drying' : 'humidifying';
+      if (service === 'turn_on') set({ state: 'on' }, { action: working });
+      if (service === 'turn_off') set({ state: 'off' }, { action: 'off' });
+      if (service === 'set_humidity') set({}, { humidity: data.humidity });
+      if (service === 'set_mode') set({}, { mode: data.mode });
+    }
   },
 });
 
@@ -82,6 +144,29 @@ const hassFor = (dark: boolean): Hass => ({
 const climateAction = (entity: HassEntity, mode: string): Record<string, unknown> => {
   const actions: Record<string, string> = { off: 'off', cool: 'cooling', heat: 'heating', heat_cool: 'cooling', auto: 'heating', dry: 'drying', fan_only: 'fan' };
   return 'hvac_action' in entity.attributes ? { hvac_action: actions[mode] ?? 'idle' } : {};
+};
+
+// Media player: what HA's media_player services do to the entity (media_player/services.yaml)
+const mediaService = (
+  entity: HassEntity,
+  service: string,
+  data: Record<string, unknown>,
+  set: (patch: Partial<HassEntity>, attributes?: Record<string, unknown>) => void,
+) => {
+  const at = new Date().toISOString();
+  const volume = Number(entity.attributes.volume_level ?? 0);
+  const states: Record<string, string> = { media_play: 'playing', media_pause: 'paused', media_stop: 'idle', turn_on: 'on', turn_off: 'off' };
+  // The track stands where it is at a pause (and moves on from there at play)
+  const elapsed = (Date.now() - Date.parse(String(entity.attributes.media_position_updated_at))) / 1000;
+  const position = Number(entity.attributes.media_position ?? 0) + (entity.state === 'playing' && elapsed > 0 ? elapsed : 0);
+  if (service in states) set({ state: states[service] }, { media_position: position, media_position_updated_at: at });
+  if (service === 'media_next_track' || service === 'media_previous_track') set({}, { media_position: 0, media_position_updated_at: at });
+  if (service === 'volume_set') set({}, { volume_level: data.volume_level });
+  if (service === 'volume_up' || service === 'volume_down')
+    set({}, { volume_level: Math.round(Math.max(0, Math.min(1, volume + (service === 'volume_up' ? 0.05 : -0.05))) * 100) / 100 });
+  if (service === 'volume_mute') set({}, { is_volume_muted: data.is_volume_muted });
+  if (service === 'select_source') set({}, { source: data.source });
+  if (service === 'select_sound_mode') set({}, { sound_mode: data.sound_mode });
 };
 
 const push = () => cards.forEach((c) => (c.el.hass = hassFor(c.dark)));

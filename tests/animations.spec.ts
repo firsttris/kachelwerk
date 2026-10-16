@@ -221,6 +221,125 @@ const scenes: Scene[] = [
       set(2800, 'event.flur_oben', '2026-10-14T12:00:03Z'),
     ],
   },
+  // Robot vacuum and lawn mower
+  {
+    file: 'robot',
+    ids: ['vacuum.saugroboter', 'lawn_mower.rasen'],
+    width: 800,
+    ms: 6400,
+    steps: [
+      // Both drive their lanes; the vacuum goes home and docks, the mower pauses and goes on
+      set(2400, 'vacuum.saugroboter', 'returning'),
+      set(4000, 'vacuum.saugroboter', 'docked'),
+      set(3000, 'lawn_mower.rasen', 'paused'),
+      set(4600, 'lawn_mower.rasen', 'mowing'),
+    ],
+  },
+  // Media player
+  {
+    file: 'media',
+    ids: ['media_player.wohnzimmer', 'media_player.fernseher'],
+    width: 760,
+    ms: 6000,
+    steps: [
+      // The equalizer dances while it plays; louder, a pause, the TV starts, the next track
+      click(900, 'media_player.wohnzimmer', 'Mute'),
+      click(1800, 'media_player.wohnzimmer', 'Unmute'),
+      click(2600, 'media_player.wohnzimmer', 'Pause'),
+      click(3300, 'media_player.fernseher', 'Play'),
+      click(4300, 'media_player.wohnzimmer', 'Play'),
+      set(5000, 'media_player.wohnzimmer', undefined, { media_title: 'Low Tide', media_position: 0, media_position_updated_at: new Date().toISOString() }),
+    ],
+  },
+  // Water heater
+  {
+    file: 'water-heater',
+    ids: ['water_heater.warmwasserspeicher'],
+    width: 560,
+    ms: 6000,
+    steps: [
+      // Heating up: the water rises and warms, then steams at the target; eco, and cold water drawn
+      set(600, 'water_heater.warmwasserspeicher', undefined, { current_temperature: 50 }),
+      set(1500, 'water_heater.warmwasserspeicher', undefined, { current_temperature: 53.5 }),
+      set(2400, 'water_heater.warmwasserspeicher', undefined, { current_temperature: 55 }),
+      click(3300, 'water_heater.warmwasserspeicher', 'Eco'),
+      set(4300, 'water_heater.warmwasserspeicher', undefined, { current_temperature: 38 }),
+      set(5200, 'water_heater.warmwasserspeicher', 'heat_pump', { operation_mode: 'heat_pump', current_temperature: 46.5 }),
+    ],
+  },
+  // Alarm panel
+  {
+    file: 'alarm',
+    ids: ['alarm_control_panel.werkstatt'],
+    width: 560,
+    ms: 6400,
+    steps: [
+      // Arming (the shield's edge runs out), armed away, someone comes in (pending), the alarm
+      // sounds, disarmed, arming again
+      set(900, 'alarm_control_panel.werkstatt', 'armed_away'),
+      set(2100, 'alarm_control_panel.werkstatt', 'pending'),
+      set(3200, 'alarm_control_panel.werkstatt', 'triggered'),
+      set(4800, 'alarm_control_panel.werkstatt', 'disarmed'),
+      set(5800, 'alarm_control_panel.werkstatt', 'arming'),
+    ],
+  },
+  // Fan and humidifier
+  {
+    file: 'fan',
+    ids: ['fan.ventilator_schlafzimmer', 'fan.deckenventilator'],
+    width: 560,
+    ms: 6400,
+    steps: [
+      // Up to full speed while sweeping, the ceiling fan turns the other way; then slow, off and on again
+      set(600, 'fan.ventilator_schlafzimmer', undefined, { percentage: 100 }),
+      set(1400, 'fan.deckenventilator', undefined, { direction: 'reverse', percentage: 83 }),
+      set(3000, 'fan.ventilator_schlafzimmer', undefined, { percentage: 33, oscillating: false }),
+      set(4000, 'fan.deckenventilator', 'off', { percentage: 0 }),
+      set(5200, 'fan.deckenventilator', 'on', { direction: 'forward', percentage: 50 }),
+      set(5400, 'fan.ventilator_schlafzimmer', undefined, { percentage: 66, oscillating: true }),
+    ],
+  },
+  {
+    file: 'humidifier',
+    ids: ['humidifier.schlafzimmer', 'humidifier.keller'],
+    width: 560,
+    ms: 5600,
+    steps: [
+      // Mist rising, drops collecting; the target reached, then working again
+      set(1800, 'humidifier.schlafzimmer', undefined, { humidity: 45 }),
+      set(2600, 'humidifier.keller', undefined, { action: 'idle', current_humidity: 55 }),
+      set(3600, 'humidifier.schlafzimmer', 'off', { action: 'off' }),
+      set(4400, 'humidifier.keller', undefined, { action: 'drying', current_humidity: 68 }),
+      set(4800, 'humidifier.schlafzimmer', 'on', { action: 'humidifying', humidity: 50 }),
+    ],
+  },
+  // Presence and forecast cards
+  {
+    file: 'presence',
+    ids: ['person.anna'],
+    width: 560,
+    ms: 4400,
+    steps: [
+      // Clara comes home, Ben leaves work, Tom heads out
+      set(700, 'person.clara', 'home'),
+      set(2000, 'person.ben', 'not_home'),
+      set(3200, 'person.tom', 'not_home'),
+    ],
+  },
+  {
+    file: 'forecast',
+    ids: ['weather.zuhause'],
+    width: 560,
+    ms: 6400,
+    steps: [
+      // The sky changes: sun, rain, a thunderstorm, snow, then hours instead of days
+      set(300, 'weather.zuhause', 'sunny', { temperature: 21.3 }),
+      set(1500, 'weather.zuhause', 'rainy', { temperature: 14.8 }),
+      set(2700, 'weather.zuhause', 'lightning-rainy', { temperature: 16.2 }),
+      set(3900, 'weather.zuhause', 'snowy', { temperature: -1.5 }),
+      click(5000, 'weather.zuhause', 'Hours'),
+    ],
+  },
 ];
 
 const run = async (page: Page, step: Step) => {

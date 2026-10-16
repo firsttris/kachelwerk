@@ -59,7 +59,7 @@ for (const theme of ['light', 'dark'] as const) {
       // The sections bring their own width
       const hero = cards.startsWith('sections=');
       await page.setViewportSize({ width: hero ? 1100 : 820, height: 900 });
-      await page.goto(`/?lang=en&theme=${theme}&${cards}${hero ? '' : '&width=780'}`);
+      await page.goto(`/?lang=en&theme=${theme}&${cards}${hero ? '' : '&width=540'}`);
       const section = page.locator(`#${theme}`);
       await expect(section.locator('[data-entity]').first()).toBeVisible();
       await page.waitForLoadState('networkidle');

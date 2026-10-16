@@ -23,7 +23,7 @@ Dreizehn Lovelace-Karten für die tägliche Bedienung im Haus, aus den Kacheln v
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/hero-dark.png">
-  <img src="docs/screenshots/hero.png" alt="Kachelwerk-Karten: drei Lampen, zwei Thermostate, zwei Rollläden und ein Farblicht" width="800">
+  <img src="docs/screenshots/hero.png" alt="Kachelwerk-Karten in zwei Sections: Lampen, ein Thermostat, ein Mediaplayer, ein Rollladen, ein Ventilator, ein Farblicht, die Wettervorhersage, eine Alarmanlage, wer zu Hause ist und ein Saugroboter" width="800">
 </picture>
 
 </div>

@@ -18,6 +18,7 @@ Home Assistant's entities, what it does are Home Assistant's services.
 | [Shutter](cards/shutter.md) | `cover` | A window to drag; travels to its target, slats for venetian blinds |
 | [Light](cards/light.md) | `light`, `switch` | A pendant lamp with its cone of light; dimmer, color light or socket |
 | [Thermostat](cards/thermostat.md) | `climate` | A dial; boost, automatic/manual, comfort and eco, window open |
+| [Air conditioner](cards/aircon.md) | `climate` | Air streams out in the mode's color; target or range, modes, fan and swing |
 | [Floor heating](cards/floor.md) | `number`, `switch` | A heating loop that fills with warm water; the pump |
 | [Window](cards/window.md) | `binary_sensor`, `sensor` | A window that tilts or swings open; window handles |
 | [Garage door](cards/garage.md) | `cover` | A sectional door; opening has to be held |

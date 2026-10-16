@@ -97,6 +97,24 @@ const scenes: Scene[] = [
     ],
   },
   {
+    file: 'aircon',
+    ids: ['climate.klima_wohnzimmer'],
+    width: 560,
+    ms: 5600,
+    steps: [
+      // Cold air, faster with the fan on high and the louvre swinging; then heating, off, cooling again
+      set(800, 'climate.klima_wohnzimmer', undefined, { fan_mode: 'high', swing_mode: 'both' }),
+      set(2200, 'climate.klima_wohnzimmer', 'heat', { hvac_action: 'heating', temperature: 24 }),
+      set(3500, 'climate.klima_wohnzimmer', 'off', { hvac_action: 'off' }),
+      set(4500, 'climate.klima_wohnzimmer', 'cool', {
+        hvac_action: 'cooling',
+        temperature: 22,
+        fan_mode: 'auto',
+        swing_mode: 'vertical',
+      }),
+    ],
+  },
+  {
     file: 'floor',
     ids: ['number.fbh_wohnzimmer'],
     width: 800,

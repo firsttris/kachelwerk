@@ -52,9 +52,19 @@ const hassFor = (dark: boolean): Hass => ({
     }
     if (domain === 'lock') set({ state: service === 'lock' ? 'locking' : service === 'unlock' ? 'unlocking' : 'opening' });
     if (domain === 'climate') {
-      if (service === 'set_temperature') set({}, { temperature: data.temperature });
-      if (service === 'set_hvac_mode') set({ state: String(data.hvac_mode) });
+      if (service === 'set_temperature' && 'temperature' in data) set({}, { temperature: data.temperature });
+      if (service === 'set_temperature' && 'target_temp_low' in data)
+        set({}, { target_temp_low: data.target_temp_low, target_temp_high: data.target_temp_high });
+      if (service === 'set_hvac_mode') set({ state: String(data.hvac_mode) }, climateAction(entity, String(data.hvac_mode)));
+      if (service === 'turn_off') set({ state: 'off' }, climateAction(entity, 'off'));
+      if (service === 'turn_on') {
+        const modes = (entity.attributes.hvac_modes as string[] | undefined) ?? [];
+        const mode = modes.find((m) => m !== 'off') ?? 'heat';
+        set({ state: mode }, climateAction(entity, mode));
+      }
       if (service === 'set_preset_mode') set({}, { preset_mode: data.preset_mode });
+      if (service === 'set_fan_mode') set({}, { fan_mode: data.fan_mode });
+      if (service === 'set_swing_mode') set({}, { swing_mode: data.swing_mode });
     }
     if (service === 'toggle') set({ state: entity.state === 'on' ? 'off' : 'on' });
     if (domain === 'light' && service === 'turn_off') set({ state: 'off' });
@@ -67,6 +77,12 @@ const hassFor = (dark: boolean): Hass => ({
     }
   },
 });
+
+// What a climate entity does in a mode (hvac_action), only where it reports one
+const climateAction = (entity: HassEntity, mode: string): Record<string, unknown> => {
+  const actions: Record<string, string> = { off: 'off', cool: 'cooling', heat: 'heating', heat_cool: 'cooling', auto: 'heating', dry: 'drying', fan_only: 'fan' };
+  return 'hvac_action' in entity.attributes ? { hvac_action: actions[mode] ?? 'idle' } : {};
+};
 
 const push = () => cards.forEach((c) => (c.el.hass = hassFor(c.dark)));
 

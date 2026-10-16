@@ -65,6 +65,7 @@ Danach **Karte hinzufügen** → nach **Kachelwerk** suchen.
 | `kachelwerk-shutter` | `cover` | Fenster zum Ziehen, fährt sichtbar zum Ziel, Lamellen für Raffstores |
 | `kachelwerk-light` | `light`, `switch` | Pendelleuchte mit Lichtkegel; Dimmer, Farblicht oder Steckdose |
 | `kachelwerk-thermostat` | `climate` | Drehrad; Boost, Auto/Manuell, Komfort und Eco, Fenster offen |
+| `kachelwerk-aircon` | `climate` | Klimagerät, aus dem Luft in der Farbe der Betriebsart strömt; Zieltemperatur oder Bereich, Lüfter, Lamellen |
 | `kachelwerk-floor` | `number`, `switch` | Heizkreis, der sich mit warmem Wasser füllt; Pumpe |
 | `kachelwerk-window` | `binary_sensor`, `sensor` | Fenster gekippt oder offen als Bild; Fenstergriffe |
 | `kachelwerk-garage` | `cover` | Sektionaltor; Öffnen gedrückt halten |

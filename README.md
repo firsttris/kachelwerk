@@ -133,8 +133,7 @@ How the cards are built: [CLAUDE.md](CLAUDE.md) and the [development page](https
 
 ## 🤝 Contributing
 
-Issues and pull requests are welcome. A change to a card that comes from ccu-addon-mui is best made in
-[ccu-addon-mui](https://github.com/firsttris/ccu-addon-mui) too, so both stay alike.
+Issues and pull requests are welcome.
 
 ## 📄 License
 

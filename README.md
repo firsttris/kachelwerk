@@ -29,8 +29,7 @@ entity: light.dining_table
 [Install](#-install) •
 [Cards](#-cards) •
 [FAQ](#-faq) •
-[Documentation](https://firsttris.github.io/kachelwerk/) •
-[Deutsch](README.de.md)
+[Documentation](https://firsttris.github.io/kachelwerk/)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/hero-dark.png">

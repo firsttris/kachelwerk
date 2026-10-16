@@ -57,6 +57,7 @@ nav:
       - Shutter: cards/shutter.md
       - Light: cards/light.md
       - Thermostat: cards/thermostat.md
+      - Air conditioner: cards/aircon.md
       - Floor heating: cards/floor.md
       - Window: cards/window.md
       - Garage door: cards/garage.md

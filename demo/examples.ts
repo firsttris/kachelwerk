@@ -11,6 +11,10 @@ const entity = (entity_id: string, state: string, attributes: Record<string, unk
 // open, close, stop, set position (15); with tilt 255
 const COVER = 15;
 const COVER_TILT = 255;
+// ClimateEntityFeature: target temperature 1, range 2, fan 8, preset 16,
+// swing 32, turn off 128, turn on 256
+const AIRCON = 1 | 2 | 8 | 16 | 32 | 128 | 256;
+const SPLIT_MODES = ['off', 'heat_cool', 'cool', 'heat', 'dry', 'fan_only'];
 
 // One card per example, in both themes
 export const examples: { config: Record<string, unknown> & { type: string; entity: string }; entities: HassEntity[] }[] = [
@@ -86,6 +90,30 @@ export const examples: { config: Record<string, unknown> & { type: string; entit
     config: { type: 'custom:kachelwerk-thermostat', entity: 'climate.dg' },
     entities: [
       entity('climate.dg', 'off', { friendly_name: 'Dachgeschoss', hvac_modes: ['auto', 'heat', 'off'], min_temp: 4.5, max_temp: 30.5, current_temperature: 17.2, temperature: null, hvac_action: 'off' }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-aircon', entity: 'climate.klima_wohnzimmer' },
+    entities: [
+      entity('climate.klima_wohnzimmer', 'cool', { friendly_name: 'Klima Wohnzimmer', hvac_modes: SPLIT_MODES, hvac_action: 'cooling', min_temp: 16, max_temp: 31, target_temp_step: 0.5, current_temperature: 26.4, temperature: 22, target_temp_low: null, target_temp_high: null, current_humidity: 52, fan_modes: ['auto', 'low', 'medium', 'high'], fan_mode: 'auto', swing_modes: ['off', 'vertical', 'horizontal', 'both'], swing_mode: 'vertical', preset_modes: ['none', 'eco', 'boost', 'sleep'], preset_mode: 'none', supported_features: AIRCON }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-aircon', entity: 'climate.klima_schlafzimmer' },
+    entities: [
+      entity('climate.klima_schlafzimmer', 'heat_cool', { friendly_name: 'Klima Schlafzimmer', hvac_modes: SPLIT_MODES, hvac_action: 'heating', min_temp: 16, max_temp: 31, target_temp_step: 0.5, current_temperature: 19.4, temperature: null, target_temp_low: 20, target_temp_high: 24, fan_modes: ['auto', 'low', 'medium', 'high'], fan_mode: 'low', swing_modes: ['off', 'vertical'], swing_mode: 'off', supported_features: AIRCON & ~16 }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-aircon', entity: 'climate.klima_hobbyraum' },
+    entities: [
+      entity('climate.klima_hobbyraum', 'dry', { friendly_name: 'Klima Hobbyraum', hvac_modes: ['off', 'cool', 'dry', 'fan_only'], hvac_action: 'drying', min_temp: 17, max_temp: 30, target_temp_step: 1, current_temperature: 23.5, temperature: 24, current_humidity: 68, fan_modes: ['low', 'medium', 'high'], fan_mode: 'medium', supported_features: 1 | 8 | 128 | 256 }),
+    ],
+  },
+  {
+    config: { type: 'custom:kachelwerk-aircon', entity: 'climate.klima_gaestezimmer' },
+    entities: [
+      entity('climate.klima_gaestezimmer', 'off', { friendly_name: 'Klima Gästezimmer', hvac_modes: ['off', 'cool', 'dry', 'fan_only'], hvac_action: 'off', min_temp: 17, max_temp: 30, target_temp_step: 1, current_temperature: 24.8, temperature: null, fan_modes: ['low', 'medium', 'high'], fan_mode: 'low', supported_features: 1 | 8 | 128 | 256 }),
     ],
   },
   {

@@ -10,6 +10,7 @@ import {
   thermostatEntities,
   thermostatSchema,
 } from './cards/thermostat/ThermostatCard';
+import { AirconCard, airconSchema } from './cards/aircon/AirconCard';
 import { WindowCard, type WindowConfig, windowEntities, windowSchema } from './cards/window/WindowCard';
 import { GarageCard, garageSchema } from './cards/garage/GarageCard';
 import { LockCard, lockSchema } from './cards/lock/LockCard';
@@ -57,6 +58,16 @@ defineCard<ThermostatConfig>({
   entitiesOf: thermostatEntities,
   columns: 6,
   schema: thermostatSchema,
+});
+
+defineCard<BaseConfig>({
+  type: 'kachelwerk-aircon',
+  name: 'Kachelwerk Klimaanlage',
+  description: 'Klimagerät mit ausströmender Luft: Zieltemperatur oder Bereich, Betriebsart, Lüfter, Lamellen',
+  component: AirconCard,
+  domains: ['climate'],
+  columns: 6,
+  schema: airconSchema,
 });
 
 defineCard<WindowConfig>({

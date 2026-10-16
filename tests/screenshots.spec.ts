@@ -21,6 +21,7 @@ const SHOTS: Record<string, string> = {
   shutter: 'only=shutter',
   light: 'only=light',
   thermostat: 'only=thermostat',
+  aircon: 'only=aircon',
   floor: 'only=floor',
   window: 'only=window',
   garage: 'only=garage',

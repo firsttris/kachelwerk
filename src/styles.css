@@ -223,6 +223,30 @@
 @utility fx-flow {
   animation: fx-flow 1.2s linear infinite;
 }
+/* Air streaming out of an air conditioner (dash period of the streams: 24);
+   the pace follows the fan (--pace) */
+@keyframes fx-air {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@utility fx-air {
+  animation: fx-air calc(1.5s / var(--pace, 1)) linear infinite;
+}
+/* The louvre swinging: the streams sway from the top */
+@keyframes fx-sway {
+  0%,
+  100% {
+    transform: skewX(-14deg);
+  }
+  50% {
+    transform: skewX(14deg);
+  }
+}
+@utility fx-sway {
+  transform-origin: top;
+  animation: fx-sway 4s ease-in-out infinite;
+}
 /* The last roll of a meter register turning: 0-9 and 0 again (10 of 11) */
 @keyframes fx-roll {
   to {

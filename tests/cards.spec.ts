@@ -66,6 +66,41 @@ test('thermostat: quick steps are sent once', async ({ page }) => {
   expect(sent).toEqual([{ domain: 'climate', service: 'set_temperature', data: { entity_id: 'climate.bad', temperature: 23 } }]);
 });
 
+test('aircon: steps, mode, fan, the range and power', async ({ page }) => {
+  await openDemo(page);
+  const climate = (service: string) =>
+    calls(page).then((all) => all.filter((c) => c.service === service).map((c) => c.data));
+  const living = card(page, 'climate.klima_wohnzimmer');
+  const plus = living.getByRole('button', { name: 'Increase Temperature' });
+  await plus.click();
+  await plus.click();
+  await page.waitForTimeout(900);
+  expect(await climate('set_temperature')).toEqual([{ entity_id: 'climate.klima_wohnzimmer', temperature: 23 }]);
+
+  const heat = living.getByRole('button', { name: 'Heat', exact: true });
+  await heat.click();
+  await expect(heat).toHaveAttribute('aria-pressed', 'true');
+  await expect(living.getByRole('status').first()).toHaveText('Heating');
+  await living.getByRole('combobox', { name: 'Fan' }).selectOption('high');
+  expect(await climate('set_fan_mode')).toEqual([{ entity_id: 'climate.klima_wohnzimmer', fan_mode: 'high' }]);
+
+  // heat_cool: pick the low end, step it down; both ends are sent
+  const bedroom = card(page, 'climate.klima_schlafzimmer');
+  await bedroom.getByRole('button', { name: /^Heat to/ }).click();
+  await bedroom.getByRole('button', { name: 'Decrease Temperature' }).click();
+  await page.waitForTimeout(900);
+  expect(await climate('set_temperature')).toContainEqual({
+    entity_id: 'climate.klima_schlafzimmer',
+    target_temp_low: 19.5,
+    target_temp_high: 24,
+  });
+
+  const guest = card(page, 'climate.klima_gaestezimmer');
+  await guest.getByRole('button', { name: 'Turn on' }).click();
+  expect(await climate('turn_on')).toEqual([{ entity_id: 'climate.klima_gaestezimmer' }]);
+  await expect(guest.getByRole('button', { name: 'Power Off' })).toHaveAttribute('aria-pressed', 'true');
+});
+
 test('garage: a tap does not open the door, holding does', async ({ page }) => {
   await openDemo(page);
   const open = card(page, 'cover.garage').getByRole('button', { name: 'Open' });

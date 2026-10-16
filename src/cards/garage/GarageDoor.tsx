@@ -92,7 +92,7 @@ export const GarageDoor = ({
       {/* Wide: the hold button beside the garage, under its name. Narrow:
           below it, across the tile. */}
       <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3.5 gap-y-2 p-3.5 [grid-template-areas:'pic_info'_'pic_hold'_'row_row'] @max-[339px]:[grid-template-areas:'pic_info'_'hold_hold'_'row_row']">
-        <div aria-hidden className="relative h-[120px] w-[132px] shrink-0 [grid-area:pic] @max-[339px]:h-[96px] @max-[339px]:w-[106px]">
+        <div aria-hidden className="relative h-[120px] w-[132px] shrink-0 [grid-area:pic] @max-[339px]:h-[96px] @max-[339px]:w-[106px] @max-[239px]:[zoom:0.7]">
           {/* Roof and walls */}
           <div className="absolute inset-x-0 top-0 h-7 bg-zinc-300 [clip-path:polygon(50%_0,100%_100%,0_100%)] dark:bg-zinc-700" />
           <div className="absolute inset-x-1.5 top-7 bottom-0 rounded-b-md bg-zinc-200 dark:bg-zinc-800" />
@@ -145,12 +145,13 @@ export const GarageDoor = ({
         <div className="flex gap-2 [grid-area:row]">
           <button type="button" className={button} onClick={() => send(onClose, 0)}>
             <ArrowDownIcon />
-            {m.GARAGE_CLOSE_ACTION()}
+            {/* Very narrow, only the icon shows (the text stays its name) */}
+            <span className="@max-[239px]:sr-only">{m.GARAGE_CLOSE_ACTION()}</span>
           </button>
           {canVentilate && (
             <button type="button" className={button} onClick={() => send(onVentilate, VENTILATION / 100)}>
               <WindIcon />
-              {m.GARAGE_VENTILATE()}
+              <span className="@max-[239px]:sr-only">{m.GARAGE_VENTILATE()}</span>
             </button>
           )}
           <button

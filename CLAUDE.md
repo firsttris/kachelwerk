@@ -49,12 +49,12 @@ build is one file, `dist/kachelwerk.js`.
 A new card: its examples in `demo/examples.ts` (English names in
 `demo/english.ts`), a line in `SHOTS` of `tests/screenshots.spec.ts` and a scene in
 `tests/scenes.ts` (a full row: two cards or one wide one), a page
-in `docs/cards/` and the nav of `mkdocs.yml`, a row in both READMEs.
+in `docs/cards/` and the nav of `mkdocs.yml`, a row in the README.
 
 ## Language
 
 Commit messages in German. README.md, the docs (`docs/`, mkdocs-material on
-GitHub Pages) and code comments in English; README.de.md in German. Texts of
+GitHub Pages) and code comments in English. Texts of
 the tiles in `src/i18n/messages.ts`, German and English, with MUI's keys and
 wording; the editor's labels in `src/i18n/fields.ts`.
 

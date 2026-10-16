@@ -29,8 +29,7 @@ entity: light.dining_table
 [Install](#-install) •
 [Cards](#-cards) •
 [FAQ](#-faq) •
-[Documentation](https://firsttris.github.io/kachelwerk/) •
-[Deutsch](README.de.md)
+[Documentation](https://firsttris.github.io/kachelwerk/)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/hero-dark.png">
@@ -133,8 +132,7 @@ How the cards are built: [CLAUDE.md](CLAUDE.md) and the [development page](https
 
 ## 🤝 Contributing
 
-Issues and pull requests are welcome. A change to a card that comes from ccu-addon-mui is best made in
-[ccu-addon-mui](https://github.com/firsttris/ccu-addon-mui) too, so both stay alike.
+Issues and pull requests are welcome.
 
 ## 📄 License
 

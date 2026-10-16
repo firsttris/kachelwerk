@@ -10,16 +10,27 @@ interface LevelBarProps {
   value: number;
   onChange: (value: number) => void;
   color?: RGB;
+  // The steps of the value (a fan's speeds): where a drag or a key lands,
+  // and how far one key press goes; 5 % steps by default
+  snapTo?: (value: number) => number;
+  step?: number;
 }
 
 // Brightness as a bar to drag or tap; the new value is sent once on
 // release, arrow keys change it in 5 % steps. A vertical swipe scrolls the
 // page (touch-pan-y) and sends nothing (pointercancel).
-export const LevelBar = ({ label, value, onChange, color = WARM }: LevelBarProps) => {
+export const LevelBar = ({
+  label,
+  value,
+  onChange,
+  color = WARM,
+  snapTo = (v) => snap(v, STEP),
+  step = STEP,
+}: LevelBarProps) => {
   const { ref, shown, dragging, handlers, nudge } = useSliderDrag<HTMLDivElement>({
     value,
     axis: 'x',
-    valueAt: (fraction) => snap(fraction * 100, STEP),
+    valueAt: (fraction) => snapTo(fraction * 100),
     onCommit: onChange,
   });
   const [r, g, b] = color;
@@ -43,13 +54,13 @@ export const LevelBar = ({ label, value, onChange, color = WARM }: LevelBarProps
       onKeyDown={(event) => {
         const delta =
           event.key === 'ArrowRight' || event.key === 'ArrowUp'
-            ? STEP
+            ? step
             : event.key === 'ArrowLeft' || event.key === 'ArrowDown'
-              ? -STEP
+              ? -step
               : 0;
         if (!delta) return;
         event.preventDefault();
-        nudge(Math.max(0, Math.min(100, shown + delta)));
+        nudge(snapTo(Math.max(0, Math.min(100, shown + delta))));
       }}
       className="relative h-7 cursor-ew-resize touch-pan-y overflow-hidden rounded-full bg-muted outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
     >

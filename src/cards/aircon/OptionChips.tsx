@@ -18,17 +18,20 @@ const KINDS: { kind: ChoiceKind; label: () => string; icon: ComponentType<{ clas
 ];
 
 // A chip with the setting's name and value; the native select over it
-// opens the phone's own picker
-const Chip = ({
+// opens the phone's own picker (the fan and humidifier tiles' too, with
+// their own texts)
+export const Chip = ({
   label,
   icon: Icon,
   choice,
   onChange,
+  text = optionText,
 }: {
   label: string;
   icon: ComponentType<{ className?: string }>;
   choice: Choice;
   onChange: (value: string) => void;
+  text?: (value: string) => string;
 }) => (
   // On a narrow card the value keeps the room: no icon below 280 px
   <label className="press relative flex h-11 min-w-0 grow basis-[72px] items-center gap-1.5 rounded-xl border bg-background/60 px-2.5 hover:bg-accent focus-within:ring-2 focus-within:ring-ring/50 @max-[200px]:px-2">
@@ -38,7 +41,7 @@ const Chip = ({
         <span className="truncate">{label}</span>
         <ChevronDownIcon className="size-3 shrink-0" />
       </span>
-      <span className="truncate text-[13px] font-medium">{optionText(choice.value)}</span>
+      <span className="truncate text-[13px] font-medium">{text(choice.value)}</span>
     </span>
     <select
       aria-label={label}
@@ -47,10 +50,10 @@ const Chip = ({
       className="absolute inset-0 size-full cursor-pointer appearance-none opacity-0"
     >
       {/* A value HA reports but doesn't list stays selectable as it is */}
-      {!choice.options.includes(choice.value) && <option value={choice.value}>{optionText(choice.value)}</option>}
+      {!choice.options.includes(choice.value) && <option value={choice.value}>{text(choice.value)}</option>}
       {choice.options.map((option) => (
         <option key={option} value={option}>
-          {optionText(option)}
+          {text(option)}
         </option>
       ))}
     </select>

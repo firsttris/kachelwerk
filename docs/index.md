@@ -29,6 +29,14 @@ Home Assistant's entities, what it does are Home Assistant's services.
 | [Detector](cards/detector.md) | `binary_sensor`, `siren` | Smoke, motion, presence, water, rain, mains failure, sirens |
 | [Valve](cards/valve.md) | `valve`, `switch`, `cover` | Valves, irrigation, window drives |
 | [Buttons](cards/buttons.md) | `button`, `script`, `event` | A keypad: short and long press, presses at the device light up |
+| [Robot vacuum and lawn mower](cards/robot.md) | `vacuum`, `lawn_mower` | The robot drives its lanes and back to its station; start, pause, dock, suction, battery |
+| [Media player](cards/media.md) | `media_player` | The cover blurred behind it; play and pause, tracks, volume, source and sound mode |
+| [Water heater](cards/water-heater.md) | `water_heater` | A tank whose water rises and warms with its temperature; target, modes, away |
+| [Alarm panel](cards/alarm.md) | `alarm_control_panel` | A shield in the state's color; arm modes, a keypad for the code, the alarm by hand |
+| [Fan](cards/fan.md) | `fan` | Blades that turn with the speed; speeds, presets, oscillation, direction |
+| [Humidifier](cards/humidifier.md) | `humidifier` | Mist rising or drops collecting; target humidity and mode |
+| [Presence](cards/presence.md) | `person`, `device_tracker` | Who is home: pictures, the zone and since when |
+| [Forecast](cards/forecast.md) | `weather` | The weather as a moving picture; the coming days or hours |
 
 ## What they have in common
 

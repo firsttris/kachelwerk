@@ -76,6 +76,14 @@ Danach **Karte hinzufügen** → nach **Kachelwerk** suchen.
 | `kachelwerk-detector` | `binary_sensor`, `siren` | Rauch, Bewegung, Präsenz, Wasser, Regen, Netzausfall, Sirene |
 | `kachelwerk-valve` | `valve`, `switch`, `cover` | Ventile, Bewässerung, Fensterantriebe |
 | `kachelwerk-buttons` | `button`, `script`, `event` | Tastenfeld: kurz und lang drücken, Druck am Gerät leuchtet auf |
+| `kachelwerk-robot` | `vacuum`, `lawn_mower` | Saug- oder Mähroboter, der seine Bahnen zieht; Start, Pause, zur Basis, Saugkraft, Akku |
+| `kachelwerk-media` | `media_player` | Cover verschwommen dahinter; Wiedergabe, Titel vor und zurück, Lautstärke, Quelle, Klangmodus |
+| `kachelwerk-water-heater` | `water_heater` | Speicher, dessen Wasser mit der Temperatur steigt und sich färbt; Zieltemperatur, Betriebsart, Abwesend |
+| `kachelwerk-alarm` | `alarm_control_panel` | Schild in der Farbe des Zustands; scharf schalten je Modus, Tastenfeld für den Code, Alarm auslösen |
+| `kachelwerk-fan` | `fan` | Ventilator, dessen Flügel sich mit der Geschwindigkeit drehen; Stufen, Presets, Schwenken, Richtung |
+| `kachelwerk-humidifier` | `humidifier` | Befeuchter mit aufsteigendem Nebel oder Entfeuchter, der Tropfen sammelt; Zielfeuchte, Modus |
+| `kachelwerk-presence` | `person`, `device_tracker` | Wer zu Hause ist: Bild, Zone und seit wann |
+| `kachelwerk-forecast` | `weather` | Das Wetter als bewegtes Bild; die nächsten Tage oder Stunden |
 
 Optionen, Beispiele und Bilder jeder Karte stehen in der [Dokumentation](https://firsttris.github.io/kachelwerk/).
 

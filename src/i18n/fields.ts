@@ -32,10 +32,17 @@ const labels: Record<string, [de: string, en: string]> = {
   gas: ['Gaszähler', 'Gas meter'],
   gas_flow: ['Gasdurchfluss', 'Gas flow'],
   pm10_entity: ['PM10', 'PM10'],
+  // Robot vacuum and lawn mower
+  battery_entity: ['Akku', 'Battery'],
+  // Presence and forecast cards
+  person: ['Person', 'Person'],
+  people: ['Weitere Personen', 'More people'],
+  forecast_type: ['Vorhersage', 'Forecast'],
 };
 
-export const fieldLabel = (field: { name: string }) => {
-  const label = labels[field.name];
+// label_key: a field whose label differs by card (the presence card's people)
+export const fieldLabel = (field: { name: string; label_key?: string }) => {
+  const label = labels[field.label_key ?? field.name];
   if (!label) return field.name;
   return getLocale().toLowerCase().startsWith('de') ? label[0] : label[1];
 };

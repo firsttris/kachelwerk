@@ -20,6 +20,8 @@ export interface Hass {
   language?: string;
   locale?: { language?: string };
   themes?: { darkMode?: boolean };
+  // Forecast card: HA's websocket, for weather/subscribe_forecast
+  connection?: HassConnection;
 }
 
 // What every card's YAML has
@@ -52,3 +54,13 @@ export const numberState = (entity: HassEntity | undefined): number | undefined 
   const value = Number(entity.state);
   return entity.state !== '' && Number.isFinite(value) ? value : undefined;
 };
+
+// Forecast card: the part of home-assistant-js-websocket's Connection that
+// hass.connection is. subscribeMessage sends a subscription and resolves to
+// the function that ends it.
+export interface HassConnection {
+  subscribeMessage: <T>(
+    callback: (message: T) => void,
+    message: Record<string, unknown>,
+  ) => Promise<() => Promise<unknown> | void>;
+}

@@ -27,6 +27,7 @@ interface Scene {
   file: string;
   // The cards shown, in this order (the demo's entities, demo/examples.ts)
   ids: string[];
+  // The grid's width; 540 is a card pair of ~255 px, as in a sections view
   width?: number;
   ms?: number;
   steps: Step[];
@@ -44,7 +45,6 @@ const scenes: Scene[] = [
   {
     file: 'shutter',
     ids: ['cover.wohnzimmer'],
-    width: 800,
     ms: 5200,
     steps: [
       click(400, 'cover.wohnzimmer', 'Down'),
@@ -56,7 +56,6 @@ const scenes: Scene[] = [
   {
     file: 'light',
     ids: ['switch.licht_flur', 'switch.licht_bad', 'switch.server'],
-    width: 760,
     steps: [
       set(500, 'switch.licht_bad', 'on'),
       set(1500, 'switch.server', 'off'),
@@ -67,7 +66,6 @@ const scenes: Scene[] = [
   {
     file: 'dimmer',
     ids: ['light.esstisch'],
-    width: 800,
     steps: [
       set(400, 'light.esstisch', 'on', { brightness: 38 }),
       set(1500, 'light.esstisch', 'on', { brightness: 255 }),
@@ -77,7 +75,6 @@ const scenes: Scene[] = [
   {
     file: 'color-light',
     ids: ['light.streifen'],
-    width: 560,
     steps: [
       set(400, 'light.streifen', 'on', { hs_color: [20, 90] }),
       set(1500, 'light.streifen', 'on', { hs_color: [160, 90] }),
@@ -87,7 +84,6 @@ const scenes: Scene[] = [
   {
     file: 'thermostat',
     ids: ['climate.bad'],
-    width: 800,
     steps: [
       set(500, 'climate.bad', undefined, { temperature: 23.5 }),
       set(1800, 'binary_sensor.fenster_bad', 'on'),
@@ -99,7 +95,6 @@ const scenes: Scene[] = [
   {
     file: 'aircon',
     ids: ['climate.klima_wohnzimmer'],
-    width: 560,
     ms: 5600,
     steps: [
       // Cold air, faster with the fan on high and the louvre swinging; then heating, off, cooling again
@@ -117,7 +112,6 @@ const scenes: Scene[] = [
   {
     file: 'floor',
     ids: ['number.fbh_wohnzimmer'],
-    width: 800,
     steps: [
       set(400, 'number.fbh_wohnzimmer', '15'),
       set(1800, 'number.fbh_wohnzimmer', '100'),
@@ -127,7 +121,6 @@ const scenes: Scene[] = [
   {
     file: 'window',
     ids: ['sensor.griff_kueche', 'binary_sensor.fenster_keller'],
-    width: 800,
     steps: [
       set(400, 'sensor.griff_kueche', 'closed'),
       set(1400, 'sensor.griff_kueche', 'open'),
@@ -139,7 +132,6 @@ const scenes: Scene[] = [
   {
     file: 'garage',
     ids: ['cover.garage'],
-    width: 560,
     ms: 5000,
     steps: [
       set(400, 'cover.garage', 'opening'),
@@ -151,7 +143,6 @@ const scenes: Scene[] = [
   {
     file: 'lock',
     ids: ['lock.haustuer'],
-    width: 560,
     ms: 4600,
     steps: [
       set(400, 'lock.haustuer', 'unlocking'),
@@ -163,7 +154,6 @@ const scenes: Scene[] = [
   {
     file: 'climate-sensor',
     ids: ['sensor.wz_temperatur'],
-    width: 800,
     steps: [
       set(400, 'sensor.wz_feuchte', '31'),
       set(1600, 'sensor.wz_temperatur', '24.8'),
@@ -175,7 +165,6 @@ const scenes: Scene[] = [
   {
     file: 'meter',
     ids: ['sensor.netz_leistung'],
-    width: 560,
     ms: 4400,
     steps: [
       set(0, 'sensor.netz_leistung', '320'),
@@ -186,7 +175,6 @@ const scenes: Scene[] = [
   {
     file: 'sensor',
     ids: ['sensor.co2_buero'],
-    width: 800,
     steps: [
       set(400, 'sensor.co2_buero', '640'),
       set(1600, 'sensor.co2_buero', '1240'),
@@ -196,7 +184,6 @@ const scenes: Scene[] = [
   {
     file: 'detector',
     ids: ['binary_sensor.rauch_flur', 'binary_sensor.praesenz_buero'],
-    width: 800,
     ms: 4000,
     steps: [
       set(0, 'binary_sensor.praesenz_buero', 'off'),
@@ -208,13 +195,11 @@ const scenes: Scene[] = [
   {
     file: 'valve',
     ids: ['switch.beet'],
-    width: 800,
     steps: [set(600, 'switch.beet', 'off'), set(2000, 'switch.beet', 'on')],
   },
   {
     file: 'buttons',
     ids: ['event.flur_oben'],
-    width: 800,
     steps: [
       set(600, 'event.flur_oben', '2026-10-14T12:00:01Z'),
       set(1800, 'event.flur_unten', '2026-10-14T12:00:02Z'),
@@ -225,7 +210,6 @@ const scenes: Scene[] = [
   {
     file: 'robot',
     ids: ['vacuum.saugroboter', 'lawn_mower.rasen'],
-    width: 800,
     ms: 6400,
     steps: [
       // Both drive their lanes; the vacuum goes home and docks, the mower pauses and goes on
@@ -239,7 +223,6 @@ const scenes: Scene[] = [
   {
     file: 'media',
     ids: ['media_player.wohnzimmer', 'media_player.fernseher'],
-    width: 760,
     ms: 6000,
     steps: [
       // The equalizer dances while it plays; louder, a pause, the TV starts, the next track
@@ -255,7 +238,6 @@ const scenes: Scene[] = [
   {
     file: 'water-heater',
     ids: ['water_heater.warmwasserspeicher'],
-    width: 560,
     ms: 6000,
     steps: [
       // Heating up: the water rises and warms, then steams at the target; eco, and cold water drawn
@@ -271,7 +253,6 @@ const scenes: Scene[] = [
   {
     file: 'alarm',
     ids: ['alarm_control_panel.werkstatt'],
-    width: 560,
     ms: 6400,
     steps: [
       // Arming (the shield's edge runs out), armed away, someone comes in (pending), the alarm
@@ -287,7 +268,6 @@ const scenes: Scene[] = [
   {
     file: 'fan',
     ids: ['fan.ventilator_schlafzimmer', 'fan.deckenventilator'],
-    width: 560,
     ms: 6400,
     steps: [
       // Up to full speed while sweeping, the ceiling fan turns the other way; then slow, off and on again
@@ -302,7 +282,6 @@ const scenes: Scene[] = [
   {
     file: 'humidifier',
     ids: ['humidifier.schlafzimmer', 'humidifier.keller'],
-    width: 560,
     ms: 5600,
     steps: [
       // Mist rising, drops collecting; the target reached, then working again
@@ -317,7 +296,6 @@ const scenes: Scene[] = [
   {
     file: 'presence',
     ids: ['person.anna'],
-    width: 560,
     ms: 4400,
     steps: [
       // Clara comes home, Ben leaves work, Tom heads out
@@ -329,7 +307,6 @@ const scenes: Scene[] = [
   {
     file: 'forecast',
     ids: ['weather.zuhause'],
-    width: 560,
     ms: 6400,
     steps: [
       // The sky changes: sun, rain, a thunderstorm, snow, then hours instead of days
@@ -362,7 +339,7 @@ const run = async (page: Page, step: Step) => {
 };
 
 const record = async (page: Page, scene: Scene) => {
-  const width = scene.width ?? 800;
+  const width = scene.width ?? 540;
   await page.goto(`/?lang=en&theme=dark&ids=${scene.ids.join(',')}&width=${width}`);
   const section = page.locator('#dark');
   await expect(section.locator('[data-entity]').first()).toBeVisible();

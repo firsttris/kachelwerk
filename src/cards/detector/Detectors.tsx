@@ -35,12 +35,14 @@ export const SmokeDetector = ({ name, status, onName, alarm, onTest }: Common & 
     picture={<SmokeDetectorPicture alarm={alarm} />}
     status={alarm ? m.SMOKE_ALARM() : m.SMOKE_CALM()}
   >
-    {onTest && !alarm && (
+    {/* Greyed out during an alarm instead of gone: the tile keeps its height */}
+    {onTest && (
       <HoldButton
         label={m.SMOKE_TEST()}
         hint={m.SMOKE_TEST_HINT()}
         icon={<FlaskIcon />}
         tone="text-red-500"
+        disabled={alarm}
         onConfirm={onTest}
       />
     )}

@@ -83,17 +83,17 @@ export const ForecastStrip = ({
               {itemLabel(item, type)}
             </span>
             <WeatherArt scene={sceneOf(item.condition, item.night)} className="my-0.5 size-8" />
-            {item.high !== null && (
-              <span className="text-[13px] leading-tight font-medium tabular-nums">{degrees(item.high)}</span>
-            )}
-            {item.low !== null && (
-              <span className="text-xs leading-tight text-muted-foreground tabular-nums">{degrees(item.low)}</span>
-            )}
-            {rain && (
-              <span className="mt-0.5 text-[11px] leading-tight font-medium whitespace-nowrap text-sky-700 tabular-nums dark:text-sky-300">
-                {rain}
-              </span>
-            )}
+            {/* Every row keeps its place, also where a value is missing (the
+                hours have no low): switching days and hours keeps the height */}
+            <span className="text-[13px] leading-tight font-medium tabular-nums">
+              {item.high !== null ? degrees(item.high) : '\u00a0'}
+            </span>
+            <span className="text-xs leading-tight text-muted-foreground tabular-nums">
+              {item.low !== null ? degrees(item.low) : '\u00a0'}
+            </span>
+            <span className="mt-0.5 text-[11px] leading-tight font-medium whitespace-nowrap text-sky-700 tabular-nums dark:text-sky-300">
+              {rain || '\u00a0'}
+            </span>
           </li>
         );
       })}

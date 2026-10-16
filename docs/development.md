@@ -30,16 +30,18 @@ one file built by Vite.
 
 `demo/` renders every card with a fake `hass` whose services change the entities as Home Assistant
 would. URL parameters: `only=light,thermostat`, `ids=cover.kueche,…`, `theme=light|dark`, `lang=en`,
-`width=540` (a narrow section).
+`width=540` (a narrow section), `sections=a,b;c,d` (sections side by side, as for the README's picture).
 
 ## Screenshots and animations
 
 `tests/screenshots.spec.ts` takes a still of every card, light and dark; the **Update screenshots**
-workflow takes them anew after every change on main. `tests/animations.spec.ts` plays a short scene
+workflow takes them anew after every change on main. `tests/animations.spec.ts` plays a short scene (`tests/scenes.ts`)
 per card (state changes as Home Assistant reports them, taps on buttons), records it with Chrome's
 screencast and joins the frames with ffmpeg into an animated WebP, as ccu-addon-mui's tile pictures.
 They change on every run, so **Update animations** runs by hand only;
 `ANIMATIONS=shutter,light npm run animations` takes some of them.
+`tests/heights.spec.ts` (part of `npm run test:e2e`) plays the same scenes and fails when a tile
+changes its height on the way, so a dashboard doesn't jump.
 
 ## Releases
 

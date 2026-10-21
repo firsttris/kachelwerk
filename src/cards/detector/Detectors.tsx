@@ -24,16 +24,23 @@ interface Common {
 }
 
 // MUI's SmokeDetectorControl: calm green, red and pulsing on alarm. The
-// smoke test sounds the siren, so it has to be held.
-export const SmokeDetector = ({ name, status, onName, alarm, onTest }: Common & { alarm: boolean; onTest?: () => void }) => (
+// smoke test sounds the siren, so it has to be held. alarm is null while the
+// detector has not sent its smoke state yet.
+export const SmokeDetector = ({
+  name,
+  status,
+  onName,
+  alarm,
+  onTest,
+}: Common & { alarm: boolean | null; onTest?: () => void }) => (
   <DetectorTile
     name={name}
     tileStatus={status}
     onName={onName}
     tone={alarm ? 'alarm' : 'calm'}
-    waves={alarm}
-    picture={<SmokeDetectorPicture alarm={alarm} />}
-    status={alarm ? m.SMOKE_ALARM() : m.SMOKE_CALM()}
+    waves={!!alarm}
+    picture={<SmokeDetectorPicture alarm={!!alarm} />}
+    status={alarm === null ? m.SMOKE_NO_REPORT() : alarm ? m.SMOKE_ALARM() : m.SMOKE_CALM()}
   >
     {/* Greyed out during an alarm instead of gone: the tile keeps its height */}
     {onTest && (
@@ -42,7 +49,7 @@ export const SmokeDetector = ({ name, status, onName, alarm, onTest }: Common & 
         hint={m.SMOKE_TEST_HINT()}
         icon={<FlaskIcon />}
         tone="text-red-500"
-        disabled={alarm}
+        disabled={!!alarm}
         onConfirm={onTest}
       />
     )}

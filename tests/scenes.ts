@@ -174,6 +174,8 @@ export const scenes: Scene[] = [
     ms: 4000,
     steps: [
       set(0, 'binary_sensor.praesenz_buero', 'off'),
+      // a battery detector that has not sent its smoke state yet
+      set(300, 'binary_sensor.rauch_flur', 'unknown'),
       set(600, 'binary_sensor.rauch_flur', 'on'),
       set(1200, 'binary_sensor.praesenz_buero', 'on'),
       set(3000, 'binary_sensor.rauch_flur', 'off'),

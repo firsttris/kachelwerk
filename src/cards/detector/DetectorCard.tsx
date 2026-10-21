@@ -1,7 +1,7 @@
 import { useCallService, useMoreInfo } from '../../ha/context';
 import type { CardProps } from '../../ha/defineCard';
 import { type BaseConfig, isUnavailable, nameOf, numberState } from '../../ha/types';
-import { detectorKindOf, isOn, lastMotionOf, onOff } from './detectorModel';
+import { detectorKindOf, isOn, isUnreachable, lastMotionOf, onOff } from './detectorModel';
 import { MotionDetector, PowerMains, RainSensor, Siren, SmokeDetector, WaterDetector } from './Detectors';
 
 export interface DetectorConfig extends BaseConfig {
@@ -30,7 +30,8 @@ export const DetectorCard = ({ hass, config }: CardProps<DetectorConfig>) => {
     return (
       <SmokeDetector
         {...common}
-        alarm={isOn(entity)}
+        status={{ UNREACH: isUnreachable(entity) }}
+        alarm={onOff(entity)}
         onTest={test ? () => call(test.split('.')[0], 'press', { entity_id: test }) : undefined}
       />
     );

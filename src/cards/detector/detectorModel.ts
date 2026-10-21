@@ -35,6 +35,11 @@ export const lastMotionOf = (entity: HassEntity | undefined): number | null => {
   return Number.isFinite(at) ? at : null;
 };
 
+// Battery smoke detectors (e.g. Tuya TS0601 via Zigbee2MQTT) only send their
+// smoke state on a change, so it stays unknown while the device itself
+// reports fine. Only an unavailable entity is unreachable.
+export const isUnreachable = (entity: HassEntity | undefined) => !entity || entity.state === 'unavailable';
+
 // on, off, or null while the entity has no state
 export const onOff = (entity: HassEntity | undefined): boolean | null =>
   entity?.state === 'on' ? true : entity?.state === 'off' ? false : null;

@@ -1,6 +1,6 @@
 {
   "name": "kachelwerk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Kacheln für Home Assistant: Rollladen, Licht, Thermostat und mehr, aus MUI",
   "license": "AGPL-3.0-only",
   "private": true,

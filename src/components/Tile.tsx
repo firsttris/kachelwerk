@@ -1,4 +1,4 @@
-import type { ComponentChildren, JSX } from 'preact';
+import type { ComponentChildren, HTMLAttributes } from 'preact';
 import RadioIcon from '~icons/lucide/radio-tower';
 import BatteryLowIcon from '~icons/lucide/battery-low';
 import { cn } from '../lib/utils';
@@ -34,7 +34,7 @@ const StatusStrip = ({
   </div>
 );
 
-type TileProps = JSX.HTMLAttributes<HTMLDivElement> & {
+type TileProps = HTMLAttributes<HTMLDivElement> & {
   status?: TileStatus;
   // Lit tiles bring their own background (no light edge)
   lit?: boolean;

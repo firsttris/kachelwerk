@@ -1,4 +1,4 @@
-import type { JSX } from 'preact';
+import type { TargetedPointerEvent } from 'preact';
 import { useState, useCallback, useRef } from 'preact/hooks';
 import { CENTER_X, CENTER_Y, ROTATE_ANGLE, MAX_ANGLE, type TemperatureRange } from '../constants';
 import { useTemperatureConversion } from './useTemperatureConversion';
@@ -87,7 +87,7 @@ export const useDragInteraction = ({ onTemperatureChange, onInteractionEnd, rang
 
   // Pointer events (works for mouse, touch, and pen)
   const handlePointerDown = useCallback(
-    (e: JSX.TargetedPointerEvent<SVGSVGElement>) => {
+    (e: TargetedPointerEvent<SVGSVGElement>) => {
       e.preventDefault();
       if (svgRef.current) {
         svgRef.current.setPointerCapture(e.pointerId);
@@ -98,7 +98,7 @@ export const useDragInteraction = ({ onTemperatureChange, onInteractionEnd, rang
   );
 
   const handlePointerMove = useCallback(
-    (e: JSX.TargetedPointerEvent<SVGSVGElement>) => {
+    (e: TargetedPointerEvent<SVGSVGElement>) => {
       if (isDragging) {
         e.preventDefault();
         handleInteractionMove(e.clientX, e.clientY);
@@ -108,7 +108,7 @@ export const useDragInteraction = ({ onTemperatureChange, onInteractionEnd, rang
   );
 
   const handlePointerUp = useCallback(
-    (e: JSX.TargetedPointerEvent<SVGSVGElement>) => {
+    (e: TargetedPointerEvent<SVGSVGElement>) => {
       if (isDragging) {
         e.preventDefault();
         if (svgRef.current) {

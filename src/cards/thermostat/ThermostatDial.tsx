@@ -1,4 +1,4 @@
-import type { JSX } from 'preact';
+import type { TargetedKeyboardEvent } from 'preact';
 import { useId } from 'preact/hooks';
 import { RADIUS, CENTER_X, CENTER_Y, ROTATE_ANGLE, DEFAULT_RANGE, stepOf, type TemperatureRange } from './constants';
 import { createArcPath, polarToCartesian } from './utils';
@@ -58,7 +58,7 @@ export const ThermostatDial = ({
 
   // A slider is operated with the keys too (WAI-ARIA slider pattern): the
   // arrows step like the buttons, Home and End go to the ends of the range
-  const onKeyDown = (event: JSX.TargetedKeyboardEvent<SVGSVGElement>) => {
+  const onKeyDown = (event: TargetedKeyboardEvent<SVGSVGElement>) => {
     const step = stepOf(range);
     const keys: Record<string, number> = {
       ArrowUp: localTarget + step,

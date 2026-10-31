@@ -1,5 +1,5 @@
-import type { JSX } from 'preact';
-type PointerEvent<E extends HTMLElement> = JSX.TargetedPointerEvent<E>;
+import type { TargetedPointerEvent } from 'preact';
+type PointerEvent<E extends HTMLElement> = TargetedPointerEvent<E>;
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 // Where a pointer is along a slider: 0 at the left or top, 1 at the right

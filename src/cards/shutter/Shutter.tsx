@@ -1,4 +1,4 @@
-import type { JSX } from 'preact';
+import type { TargetedKeyboardEvent } from 'preact';
 import ChevronUpIcon from '~icons/lucide/chevron-up';
 import ChevronDownIcon from '~icons/lucide/chevron-down';
 import SquareIcon from '~icons/lucide/square';
@@ -64,7 +64,7 @@ export const Shutter = ({
     tapOnTouch: true,
   });
 
-  const onKeyDown = (event: JSX.TargetedKeyboardEvent<HTMLDivElement>) => {
+  const onKeyDown = (event: TargetedKeyboardEvent<HTMLDivElement>) => {
     const next =
       event.key === 'ArrowUp' || event.key === 'ArrowRight'
         ? Math.min(100, shown + STEP)

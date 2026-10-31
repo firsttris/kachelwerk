@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 26
           cache: npm
       - run: npm ci
       - name: Typecheck
@@ -36,7 +36,7 @@ jobs:
         run: npm test
       - name: Build
         run: npm run build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: kachelwerk
           path: dist/kachelwerk.js
@@ -62,7 +62,7 @@ jobs:
     outputs:
       image: ${{ steps.playwright.outputs.image }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: playwright
         uses: firsttris/workflows/actions/playwright-image@v1
 
@@ -75,13 +75,13 @@ jobs:
       image: ${{ needs.playwright-image.outputs.image }}
       options: --ipc=host
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: npm ci
       - name: Playwright
         env:
           HOME: /root
         run: npm run test:e2e
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-report

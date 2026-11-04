@@ -1,13 +1,13 @@
 # Development
 
 ```sh
-npm install
-npm run dev            # the demo page with example entities (demo/), http://localhost:4210
-npm test               # unit tests (vitest)
-npm run test:e2e       # the cards clicked through in a browser (Playwright)
-npm run build          # dist/kachelwerk.js
-npm run screenshots    # docs/screenshots, light and dark
-npm run animations     # docs/animations, the moving pictures (needs ffmpeg)
+bun install
+bun run dev            # the demo page with example entities (demo/), http://localhost:4210
+bun run test           # unit tests (vitest)
+bun run test:e2e       # the cards clicked through in a browser (Playwright)
+bun run build          # dist/kachelwerk.js
+bun run screenshots    # docs/screenshots, light and dark
+bun run animations     # docs/animations, the moving pictures (needs ffmpeg)
 ```
 
 ## How a card is built
@@ -39,8 +39,8 @@ workflow takes them anew after every change on main. `tests/animations.spec.ts` 
 per card (state changes as Home Assistant reports them, taps on buttons), records it with Chrome's
 screencast and joins the frames with ffmpeg into an animated WebP, as ccu-addon-mui's tile pictures.
 They change on every run, so **Update animations** runs by hand only;
-`ANIMATIONS=shutter,light npm run animations` takes some of them.
-`tests/heights.spec.ts` (part of `npm run test:e2e`) plays the same scenes and fails when a tile
+`ANIMATIONS=shutter,light bun run animations` takes some of them.
+`tests/heights.spec.ts` (part of `bun run test:e2e`) plays the same scenes and fails when a tile
 changes its height on the way, so a dashboard doesn't jump.
 
 ## Releases

@@ -1,9 +1,25 @@
 // Renovate (GitHub App, https://github.com/apps/renovate): the shared settings of
 // firsttris/workflows (renovate/default.json5), as in every project. The packages and the actions:
 // minor and patch updates once a month in one pull request that merges itself when CI is green,
-// majors on request in the "Dependency Dashboard" issue, security fixes at once.
-// Check with `npx --package renovate renovate-config-validator .github/renovate.json5`.
+// majors on request in the "Dependency Dashboard" issue, security fixes at once. Bun gets its own
+// pull request.
+// Check with `bunx --package renovate renovate-config-validator .github/renovate.json5`.
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: ["github>firsttris/workflows//renovate/default.json5"],
+  packageRules: [
+    {
+      // Bun: packageManager in package.json, which Renovate's npm manager reads as the dependency
+      // `bun`
+      matchPackageNames: ["bun", "oven/bun", "docker.io/oven/bun"],
+      groupName: "Bun",
+      sourceUrl: "https://github.com/oven-sh/bun",
+      prBodyNotes: [
+        "`packageManager` in package.json is the Bun of every CI job (`bun-version-file` of setup-bun, and `npm install --global bun@…` in the Playwright image of the e2e job and of the screenshot and animation workflows). Bun installs the packages (`bun.lock`), runs the scripts, Vite and Vitest (`bun --bun`) and Playwright's test runner (`bun --bun playwright test`), so it builds `kachelwerk.js` of the release: read the release notes for `bun install` and `bun run`, and run `bun install` locally if `bun.lock` changes.",
+      ],
+      schedule: ["at any time"],
+      automerge: false,
+      dependencyDashboardApproval: false,
+    },
+  ],
 }

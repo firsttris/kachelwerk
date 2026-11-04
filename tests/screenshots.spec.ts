@@ -1,4 +1,4 @@
-// npm run screenshots: the pictures for the README and the docs, light and dark, in English
+// bun run screenshots: the pictures for the README and the docs, light and dark, in English
 import { expect, test } from '@playwright/test';
 
 const DIR = 'docs/screenshots';
@@ -51,7 +51,7 @@ const SHOTS: Record<string, string> = {
   forecast: 'only=forecast',
 };
 
-test.skip(!process.env.KACHELWERK_SCREENSHOTS, 'only with npm run screenshots');
+test.skip(!process.env.KACHELWERK_SCREENSHOTS, 'only with bun run screenshots');
 
 for (const theme of ['light', 'dark'] as const) {
   for (const [file, cards] of Object.entries(SHOTS)) {

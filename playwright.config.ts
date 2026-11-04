@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 // The demo page (demo/) with a fake hass: the cards' clicks in tests/cards.spec.ts, and the
-// pictures for the README and the docs in tests/screenshots.spec.ts (npm run screenshots)
+// pictures for the README and the docs in tests/screenshots.spec.ts (bun run screenshots)
 export default defineConfig({
   testDir: 'tests',
   fullyParallel: true,
@@ -17,7 +17,7 @@ export default defineConfig({
     { name: 'animations', testMatch: /animations\.spec\.ts/ },
   ],
   webServer: {
-    command: 'npx vite demo --config vite.config.ts --port 4300 --strictPort',
+    command: 'bun --bun vite demo --config vite.config.ts --port 4300 --strictPort',
     url: 'http://localhost:4300',
     reuseExistingServer: !process.env.CI,
   },

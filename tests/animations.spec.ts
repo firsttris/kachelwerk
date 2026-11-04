@@ -1,7 +1,7 @@
-// npm run animations: the moving pictures of the cards for the README and the docs
+// bun run animations: the moving pictures of the cards for the README and the docs
 // (docs/animations/*.webp), as MUI's docs-tiles: each card in a short scene, taken frame by frame
 // with Chrome's screencast and joined by ffmpeg (libwebp) into an animated WebP. Not a test, and
-// apart from npm run screenshots: an animation never comes out twice the same.
+// apart from bun run screenshots: an animation never comes out twice the same.
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -9,7 +9,7 @@ import { join } from 'node:path';
 import { expect, type Page, test } from '@playwright/test';
 import { run, type Scene, type Step, scenes } from './scenes';
 
-test.skip(!process.env.KACHELWERK_ANIMATIONS, 'only with npm run animations');
+test.skip(!process.env.KACHELWERK_ANIMATIONS, 'only with bun run animations');
 test.setTimeout(10 * 60 * 1000);
 
 const OUT = 'docs/animations';

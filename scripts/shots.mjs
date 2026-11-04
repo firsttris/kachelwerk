@@ -1,5 +1,5 @@
 // Screenshots of the demo page (demo/), both themes, for a look at the
-// tiles without Home Assistant: node scripts/shots.mjs [width] [lang] [card]
+// tiles without Home Assistant: bun scripts/shots.mjs [width] [lang] [card]
 // (card: only these card types, e.g. thermostat or light,thermostat)
 import { createServer } from 'vite';
 import { chromium } from 'playwright';

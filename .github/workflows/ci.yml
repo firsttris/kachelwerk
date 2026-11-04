@@ -25,17 +25,17 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      # The Bun of packageManager in package.json
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 26
-          cache: npm
-      - run: npm ci
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
       - name: Typecheck
-        run: npm run typecheck
+        run: bun run typecheck
       - name: Unit tests
-        run: npm test
+        run: bun run test
       - name: Build
-        run: npm run build
+        run: bun run build
       - uses: actions/upload-artifact@v7
         with:
           name: kachelwerk
@@ -65,6 +65,8 @@ jobs:
       - uses: actions/checkout@v7
       - id: playwright
         uses: firsttris/workflows/actions/playwright-image@v1
+        with:
+          lockfile: bun.lock
 
   # Every card on the demo page, clicked through as a user would
   e2e:
@@ -76,11 +78,18 @@ jobs:
       options: --ipc=host
     steps:
       - uses: actions/checkout@v7
-      - run: npm ci
+      # The npm package brings the binary without curl or unzip, which the image lacks. The image
+      # has no jq; node reads the version from packageManager, in an assignment of its own so that
+      # a failure stops the step instead of installing npm's latest Bun.
+      - name: Set up Bun
+        run: |
+          version=$(node -p "require('./package.json').packageManager.split('@')[1]")
+          npm install --global "bun@$version"
+      - run: bun install --frozen-lockfile
       - name: Playwright
         env:
           HOME: /root
-        run: npm run test:e2e
+        run: bun run test:e2e
       - uses: actions/upload-artifact@v7
         if: failure()
         with:

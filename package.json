@@ -5,15 +5,16 @@
   "license": "AGPL-3.0-only",
   "private": true,
   "type": "module",
+  "packageManager": "bun@1.4.4",
   "scripts": {
-    "dev": "vite demo --config vite.config.ts",
-    "build": "tsc --noEmit && vite build",
-    "test": "vitest run",
+    "dev": "bun --bun vite demo --config vite.config.ts",
+    "build": "tsc --noEmit && bun --bun vite build",
+    "test": "bun --bun vitest run",
     "typecheck": "tsc --noEmit",
-    "shots": "node scripts/shots.mjs",
-    "test:e2e": "playwright test --project=cards",
-    "screenshots": "KACHELWERK_SCREENSHOTS=1 playwright test --project=screenshots",
-    "animations": "KACHELWERK_ANIMATIONS=1 playwright test --project=animations"
+    "shots": "bun scripts/shots.mjs",
+    "test:e2e": "bun --bun playwright test --project=cards",
+    "screenshots": "KACHELWERK_SCREENSHOTS=1 bun --bun playwright test --project=screenshots",
+    "animations": "KACHELWERK_ANIMATIONS=1 bun --bun playwright test --project=animations"
   },
   "dependencies": {
     "preact": "^11.0.0"

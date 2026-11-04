@@ -1,5 +1,5 @@
 // Clicks through a tile on the demo page and screenshots the steps:
-// node scripts/interact.mjs <entity> <button label> [ms ...]
+// bun scripts/interact.mjs <entity> <button label> [ms ...]
 import { createServer } from 'vite';
 import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';

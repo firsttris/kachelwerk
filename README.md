@@ -120,12 +120,12 @@ an example, [installation](https://firsttris.github.io/kachelwerk/installation.h
 ## 🛠️ Development
 
 ```sh
-npm install
-npm run dev            # the demo page with example entities
-npm test               # unit tests
-npm run test:e2e       # the cards clicked through in a browser
-npm run build          # dist/kachelwerk.js
-npm run screenshots    # docs/screenshots
+bun install
+bun run dev            # the demo page with example entities
+bun run test           # unit tests
+bun run test:e2e       # the cards clicked through in a browser
+bun run build          # dist/kachelwerk.js
+bun run screenshots    # docs/screenshots
 ```
 
 How the cards are built: [CLAUDE.md](CLAUDE.md) and the [development page](https://firsttris.github.io/kachelwerk/development.html).
